@@ -6,9 +6,10 @@
 #include "ui_systeminfo.h"
 
 
-SystemInfo::SystemInfo(QWidget *parent): QWidget(parent), ui(new Ui::SystemInfo)
+SystemInfo::SystemInfo(QWidget *parent): QMainWindow(parent), ui(new Ui::SystemInfo)
 {
     ui->setupUi(this);
+    // todo signals and slots for labels
 }
 
 SystemInfo::~SystemInfo()
@@ -17,10 +18,7 @@ SystemInfo::~SystemInfo()
 }
 
 extern "C" SYSTEMINFO_EXPORT QWidget* render() {
-    auto *w = new SystemInfo();
-
-
-    return w;
+    return new SystemInfo();
 }
 
 extern "C" SYSTEMINFO_EXPORT QString getName() {

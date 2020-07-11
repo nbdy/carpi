@@ -9,7 +9,8 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-add_subdirectory(modules/SystemInfo/)
+add_subdirectory(modules/SystemInfo)
+add_subdirectory(modules/MusicPlayer)
 
 add_executable(
         carpi_qt

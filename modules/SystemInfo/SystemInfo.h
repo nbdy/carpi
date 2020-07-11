@@ -13,7 +13,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class SystemInfo; }
 QT_END_NAMESPACE
 
-class SystemInfo : public QWidget
+class SystemInfo : public QMainWindow
 {
 Q_OBJECT
 private:

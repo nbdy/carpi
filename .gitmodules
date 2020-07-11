@@ -1,0 +1,18 @@
+[submodule "sqlite3pp"]
+	path = sqlite3pp
+	url = https://github.com/iwongu/sqlite3pp
+[submodule "raygui"]
+	path = raygui
+	url = https://github.com/raysan5/raygui
+[submodule "raygauge"]
+	path = raygauge
+	url = https://github.com/smthnspcl/raygauge
+[submodule "mbtiles-cpp"]
+	path = mbtiles-cpp
+	url = https://github.com/smthnspcl/mbtiles-cpp
+[submodule "raycons"]
+	path = raycons
+	url = https://github.com/smthnspcl/raycons
+[submodule "raylib"]
+	path = raylib
+	url = https://github.com/raysan5/raylib

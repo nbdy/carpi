@@ -22,7 +22,7 @@ extern "C" SYSTEMINFO_EXPORT QWidget* render() {
 }
 
 extern "C" SYSTEMINFO_EXPORT QString getName() {
-    return "Navigation";
+    return "SystemInfo";
 }
 
 

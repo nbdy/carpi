@@ -1,4 +1,5 @@
 ## carpi
+## currently under development
 just another raspberry pi infotainment system<br>
 the previous version of this is located in the [master branch](https://github.com/smthnspcl/carpi/tree/master)
 <br>

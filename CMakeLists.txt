@@ -12,6 +12,8 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 add_subdirectory(modules/SystemInfo)
 add_subdirectory(modules/MusicPlayer)
 add_subdirectory(modules/Navigation)
+add_subdirectory(modules/WiFi)
+add_subdirectory(modules/Bluetooth)
 
 add_executable(
         carpi_qt

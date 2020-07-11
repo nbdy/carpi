@@ -2,7 +2,7 @@
 // Created by insane on 11.07.20.
 //
 
-#ifndef CARPI_QT_NAVIGATION_H
+#ifndef CARPI_QT_SYSTEMINFO_H
 #define CARPI_QT_SYSTEMINFO_H
 
 #include "SystemInfo_global.h"
@@ -30,4 +30,4 @@ extern "C" {
 };
 
 
-#endif //CARPI_QT_NAVIGATION_H
+#endif //CARPI_QT_SYSTEMINFO_H

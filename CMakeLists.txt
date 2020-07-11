@@ -14,6 +14,7 @@ add_subdirectory(modules/MusicPlayer)
 add_subdirectory(modules/Navigation)
 add_subdirectory(modules/WiFi)
 add_subdirectory(modules/Bluetooth)
+add_subdirectory(modules/HackRF)
 
 add_executable(
         carpi_qt

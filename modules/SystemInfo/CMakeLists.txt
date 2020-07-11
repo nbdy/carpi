@@ -11,7 +11,7 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_library(systeminfo SHARED
         SystemInfo_global.h
-        SystemInfo.cpp
+        Navigation.cpp
         SystemInfo.h
         )
 

@@ -3,18 +3,23 @@
 //
 
 #include "SystemInfo.h"
+#include "ui_systeminfo.h"
 
-#include <QVBoxLayout>
-#include <QtUiTools/QtUiTools>
-#include <QFile>
+
+SystemInfo::SystemInfo(QWidget *parent): QWidget(parent), ui(new Ui::SystemInfo)
+{
+    ui->setupUi(this);
+}
+
+SystemInfo::~SystemInfo()
+{
+    delete ui;
+}
 
 extern "C" SYSTEMINFO_EXPORT QWidget* render() {
-    auto *w = new QWidget();
-    auto *l = new QVBoxLayout();
+    auto *w = new SystemInfo();
 
-    // todo load ui file via qfile and quiloader
 
-    w->setLayout(l);
     return w;
 }
 

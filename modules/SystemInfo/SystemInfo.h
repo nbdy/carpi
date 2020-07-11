@@ -6,7 +6,23 @@
 #define CARPI_QT_SYSTEMINFO_H
 
 #include "SystemInfo_global.h"
-#include <QWidget>
+
+#include <QMainWindow>
+
+QT_BEGIN_NAMESPACE
+namespace Ui { class SystemInfo; }
+QT_END_NAMESPACE
+
+class SystemInfo : public QWidget
+{
+Q_OBJECT
+private:
+    Ui::SystemInfo *ui;
+
+public:
+    explicit SystemInfo(QWidget *parent = nullptr);
+    ~SystemInfo() override;
+};
 
 extern "C" {
     SYSTEMINFO_EXPORT QString getName();

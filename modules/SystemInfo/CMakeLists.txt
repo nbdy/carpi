@@ -12,7 +12,8 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 add_library(systeminfo SHARED
         SystemInfo_global.h
         SystemInfo.cpp
-        SystemInfo.h)
+        SystemInfo.h
+        )
 
 target_link_libraries(systeminfo PUBLIC Qt5::Widgets)
 target_compile_definitions(systeminfo PUBLIC SYSTEMINFO_LIBRARY)

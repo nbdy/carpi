@@ -1,0 +1,12 @@
+#ifndef CARPI_QT_WIRELESS_GLOBAL_H
+#define CARPI_QT_WIRELESS_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(WIRELESS_LIBRARY)
+#  define WIRELESS_EXPORT Q_DECL_EXPORT
+#else
+#  define WIRELESS_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif //CARPI_QT_WIRELESS_GLOBAL_H

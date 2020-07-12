@@ -34,7 +34,7 @@ TPL_CPP = """#include "{0}.h"
 #include "ui_{1}.h"
 
 
-{0}::{0}(QWidget *parent): QMainWindow(parent), ui(new Ui::{0})
+{0}::{0}(QWidget *parent): QWidget(parent), ui(new Ui::{0})
 {
     ui->setupUi(this);
     // todo signals and slots for labels
@@ -59,13 +59,13 @@ TPL_H = """#ifndef CARPI_QT_{2}_H
 
 #include "{0}_global.h"
 
-#include <QMainWindow>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class {0}; }
 QT_END_NAMESPACE
 
-class {0} : public QMainWindow
+class {0} : public QWidget
 {
 Q_OBJECT
 private:

@@ -21,7 +21,7 @@ public:
 };
 
 extern "C" {
-    HACKRF_EXPORT QString getName();
+    HACKRF_EXPORT char* getName();
     HACKRF_EXPORT QWidget* render();
 };
 

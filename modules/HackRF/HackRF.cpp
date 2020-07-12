@@ -17,6 +17,6 @@ extern "C" HACKRF_EXPORT QWidget* render() {
     return new HackRF();
 }
 
-extern "C" HACKRF_EXPORT QString getName() {
-    return "HackRF";
+extern "C" HACKRF_EXPORT char* getName() {
+    return (char*) "HackRF";
 }

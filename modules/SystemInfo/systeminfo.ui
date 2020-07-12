@@ -52,10 +52,10 @@
     <string>WiFi</string>
    </property>
   </widget>
-  <widget class="QLabel" name="wifi_ip">
+  <widget class="QLabel" name="wifi_mac">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>130</x>
      <y>50</y>
      <width>80</width>
      <height>19</height>
@@ -78,10 +78,10 @@
     <string>Eth0</string>
    </property>
   </widget>
-  <widget class="QLabel" name="eth_ip">
+  <widget class="QLabel" name="eth_mac">
    <property name="geometry">
     <rect>
-     <x>190</x>
+     <x>130</x>
      <y>70</y>
      <width>80</width>
      <height>19</height>
@@ -271,6 +271,32 @@
    </property>
    <property name="text">
     <string>Runtime</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="eth_ip">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>70</y>
+     <width>80</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Placeholder</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="wifi_ip">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>50</y>
+     <width>80</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Placeholder</string>
    </property>
   </widget>
  </widget>

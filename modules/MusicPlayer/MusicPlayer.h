@@ -26,7 +26,7 @@ public:
 };
 
 extern "C" {
-MUSICPLAYER_EXPORT QString getName();
+MUSICPLAYER_EXPORT char* getName();
 MUSICPLAYER_EXPORT QWidget* render();
 };
 

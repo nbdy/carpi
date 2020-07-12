@@ -8,18 +8,21 @@
 
 ModuleLoader::ModuleLoader()
 {
-    libraries = new QList<QLibrary*>();
+    libraries = QList<QLibrary*>();
+    widgets = QList<QPair<QWidget*, QString>*>();
 }
 
 ModuleLoader::ModuleLoader(const QString &directory)
 {
     this->directory = directory;
-    libraries = new QList<QLibrary*>();
+    libraries = QList<QLibrary*>();
+    widgets = QList<QPair<QWidget*, QString>*>();
 }
 
 ModuleLoader::~ModuleLoader()
 {
-    libraries->clear();
+    for(auto *lib : libraries) delete lib;
+    for(auto *p : widgets) delete p;
 }
 
 void ModuleLoader::load(const QString &name)
@@ -28,7 +31,7 @@ void ModuleLoader::load(const QString &name)
     auto *lib = new QLibrary(name.toStdString().c_str());
     if(lib->load()) {
         qDebug() << "loaded" << name;
-        this->libraries->append(lib);
+        this->libraries.append(lib);
     } else {
         qDebug() << "unable to load" << name;
         qDebug() << lib->errorString();
@@ -39,24 +42,18 @@ void ModuleLoader::loadAll(){
     QDir dir(this->directory.toStdString().c_str());
     for(const auto& f : dir.entryList(QStringList() << "*.so", QDir::Files))
         this->load(dir.absoluteFilePath(f));
+
+    for(QLibrary *lib : libraries)
+        widgets.append(new QPair<QWidget*, QString>(this->getWidget(lib), this->getName(lib)));
+
 }
 
-QStringList ModuleLoader::getNames(){
-    QStringList r;
-    for(QLibrary *lib : *libraries) r.append(this->getName(lib));
-    return r;
-}
-
-QList<QPair<QWidget*, QString>*>* ModuleLoader::getWidgets() {
-    auto *r = new QList<QPair<QWidget*, QString>*>();
-    for(QLibrary *lib : *libraries){
-        r->append(new QPair<QWidget*, QString>(this->getWidget(lib), this->getName(lib)));
-    }
-    return r;
+QList<QPair<QWidget*, QString>*> ModuleLoader::getWidgets() {
+    return widgets;
 }
 
 QString ModuleLoader::getName(QLibrary *lib) {
-    return executeReturn<QString&>(lib, "getName");
+    return executeReturn<char*>(lib, "getName");
 }
 
 QWidget *ModuleLoader::getWidget(QLibrary *lib) {

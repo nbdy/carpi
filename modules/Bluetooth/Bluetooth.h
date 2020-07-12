@@ -4,13 +4,13 @@
 
 #include "Bluetooth_global.h"
 
-#include <QMainWindow>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Bluetooth; }
 QT_END_NAMESPACE
 
-class Bluetooth : public QMainWindow
+class Bluetooth : public QWidget
 {
 Q_OBJECT
 private:
@@ -22,7 +22,7 @@ public:
 };
 
 extern "C" {
-    BLUETOOTH_EXPORT QString getName();
+    BLUETOOTH_EXPORT char* getName();
     BLUETOOTH_EXPORT QWidget* render();
 };
 

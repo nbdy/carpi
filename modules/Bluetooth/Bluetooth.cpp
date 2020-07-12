@@ -3,7 +3,7 @@
 #include "ui_bluetooth.h"
 
 
-Bluetooth::Bluetooth(QWidget *parent): QMainWindow(parent), ui(new Ui::Bluetooth)
+Bluetooth::Bluetooth(QWidget *parent): QWidget(parent), ui(new Ui::Bluetooth)
 {
     ui->setupUi(this);
     // todo signals and slots for labels
@@ -18,6 +18,6 @@ extern "C" BLUETOOTH_EXPORT QWidget* render() {
     return new Bluetooth();
 }
 
-extern "C" BLUETOOTH_EXPORT QString getName() {
-    return "Bluetooth";
+extern "C" BLUETOOTH_EXPORT char* getName() {
+    return (char*) "Bluetooth";
 }

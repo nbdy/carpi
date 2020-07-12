@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
 
 add_subdirectory(modules/SystemInfo)
 add_subdirectory(modules/MusicPlayer)
@@ -34,9 +34,15 @@ add_executable(
         libs/UI/VTabBar/VTabBar.h
 
         libs/UI/MainWindow/MainWindow.cpp
-        libs/UI/MainWindow/MainWindow.h)
+        libs/UI/MainWindow/MainWindow.h
 
-target_link_libraries(carpi_qt Qt5::Widgets)
+        libs/Network/Network.cpp
+        libs/Network/Network.h
+
+        libs/Manager/Manager.cpp
+        libs/Manager/Manager.h)
+
+target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network)
 
 install(TARGETS carpi_qt
         RUNTIME DESTINATION bin)

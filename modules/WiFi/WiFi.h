@@ -7,13 +7,13 @@
 
 #include "WiFi_global.h"
 
-#include <QMainWindow>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class WiFi; }
 QT_END_NAMESPACE
 
-class WiFi : public QMainWindow
+class WiFi : public QWidget
 {
 Q_OBJECT
 private:
@@ -25,7 +25,7 @@ public:
 };
 
 extern "C" {
-    WIFI_EXPORT QString getName();
+    WIFI_EXPORT char* getName();
     WIFI_EXPORT QWidget* render();
 };
 

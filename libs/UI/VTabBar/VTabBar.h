@@ -13,7 +13,6 @@ public:
     VTabBar();
 
     QSize tabSizeHint(int index) const override;
-
     void paintEvent(QPaintEvent *) override;
 };
 

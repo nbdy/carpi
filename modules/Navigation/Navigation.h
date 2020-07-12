@@ -7,13 +7,13 @@
 
 #include "Navigation_global.h"
 
-#include <QMainWindow>
+#include <QWidget>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Navigation; }
 QT_END_NAMESPACE
 
-class Navigation : public QMainWindow
+class Navigation : public QWidget
 {
 Q_OBJECT
 private:
@@ -25,7 +25,7 @@ public:
 };
 
 extern "C" {
-    NAVIGATION_EXPORT QString getName();
+    NAVIGATION_EXPORT char* getName();
     NAVIGATION_EXPORT QWidget* render();
 };
 

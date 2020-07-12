@@ -16,7 +16,8 @@
 class ModuleLoader {
 private:
     QString directory = "./";
-    QList<QLibrary*> *libraries;
+    QList<QLibrary*> libraries;
+    QList<QPair<QWidget*, QString>*> widgets;
 
 public:
     ModuleLoader();
@@ -32,8 +33,7 @@ public:
     QString getName(QLibrary* lib);
     QWidget* getWidget(QLibrary* lib);
 
-    QStringList getNames();
-    QList<QPair<QWidget*, QString>*>* getWidgets();
+    QList<QPair<QWidget*, QString>*> getWidgets();
 };
 
 

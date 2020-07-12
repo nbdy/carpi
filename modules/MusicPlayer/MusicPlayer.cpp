@@ -21,8 +21,8 @@ extern "C" MUSICPLAYER_EXPORT QWidget* render() {
     return new MusicPlayer();
 }
 
-extern "C" MUSICPLAYER_EXPORT QString getName() {
-    return "MusicPlayer";
+extern "C" MUSICPLAYER_EXPORT char* getName() {
+    return (char*) "MusicPlayer";
 }
 
 

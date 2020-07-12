@@ -22,4 +22,4 @@ target_link_libraries(musicplayer PUBLIC Qt5::Widgets)
 target_compile_definitions(musicplayer PUBLIC MUSICPLAYER_LIBRARY)
 
 install(TARGETS musicplayer
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib/carpi)

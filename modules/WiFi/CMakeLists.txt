@@ -23,4 +23,4 @@ target_link_libraries(wifi PUBLIC Qt5::Widgets)
 target_compile_definitions(wifi PUBLIC WIFI_LIBRARY)
 
 install(TARGETS wifi
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib/carpi/)

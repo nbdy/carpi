@@ -26,4 +26,4 @@ target_link_libraries(systeminfo PUBLIC Qt5::Widgets Qt5::Network Qt5::Positioni
 target_compile_definitions(systeminfo PUBLIC SYSTEMINFO_LIBRARY)
 
 install(TARGETS systeminfo
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib/carpi)

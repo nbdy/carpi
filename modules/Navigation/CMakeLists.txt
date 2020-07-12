@@ -22,4 +22,4 @@ target_link_libraries(navigation PUBLIC Qt5::Widgets)
 target_compile_definitions(navigation PUBLIC NAVIGATION_LIBRARY)
 
 install(TARGETS navigation
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib/carpi)

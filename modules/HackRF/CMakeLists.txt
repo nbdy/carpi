@@ -23,4 +23,4 @@ target_link_libraries(hackrf PUBLIC Qt5::Widgets)
 target_compile_definitions(hackrf PUBLIC HACKRF_LIBRARY)
 
 install(TARGETS hackrf
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib/carpi)

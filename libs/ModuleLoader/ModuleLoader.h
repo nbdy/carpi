@@ -18,7 +18,7 @@ private:
 #ifdef DEBUG
     QString directory = "./";
 #else
-    QString directory = "";
+    QString directory = "/usr/local/lib/carpi/";
 #endif
 
     QList<QLibrary*> libraries;

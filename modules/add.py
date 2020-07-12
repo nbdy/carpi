@@ -30,7 +30,7 @@ target_link_libraries({1} PUBLIC Qt5::Widgets)
 target_compile_definitions({1} PUBLIC {2}_LIBRARY)
 
 install(TARGETS {1}
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib/carpi)
 """
 
 

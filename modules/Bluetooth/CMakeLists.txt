@@ -23,4 +23,4 @@ target_link_libraries(bluetooth PUBLIC Qt5::Widgets)
 target_compile_definitions(bluetooth PUBLIC BLUETOOTH_LIBRARY)
 
 install(TARGETS bluetooth
-        LIBRARY DESTINATION lib)
+        LIBRARY DESTINATION lib/carpi)

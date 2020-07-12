@@ -10,17 +10,19 @@
 #include "../ModuleLoader/ModuleLoader.h"
 #include "../UI/MainWindow/MainWindow.h"
 #include <QApplication>
+#include <QSettings>
 #include <QDebug>
 
 class Manager {
 private:
+    QSettings *settings;
     ModuleLoader *loader;
     MainWindow *mainWindow;
     VTabWidget *vTabWidget;
 
 public:
     explicit Manager();
-    explicit Manager(const QString& moduleDirectory);
+    explicit Manager(const QString& settingsFile);
 
     ~Manager();
 

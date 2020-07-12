@@ -5,14 +5,20 @@
 #include "Manager.h"
 
 Manager::Manager() {
+    settings = new QSettings("settings.conf", QSettings::IniFormat);
     loader = new ModuleLoader();
     mainWindow = new MainWindow();
     vTabWidget = new VTabWidget();
     setupUI();
 }
 
-Manager::Manager(const QString &moduleDirectory) {
-    loader = new ModuleLoader(moduleDirectory);
+Manager::Manager(const QString &settingsFile) {
+    settings = new QSettings(settingsFile, QSettings::IniFormat);
+#ifdef DEBUG
+    loader = new ModuleLoader(settings->value("moduleDirectory", "./").toString());
+#else
+    loader = new ModuleLoader(settings->value("moduleDirectory", "").toString());
+#endif
     mainWindow = new MainWindow();
     vTabWidget = new VTabWidget();
     setupUI();
@@ -22,6 +28,7 @@ Manager::~Manager() {
     delete vTabWidget;
     delete loader;
     delete mainWindow;
+    delete settings;
 }
 
 void Manager::setupUI() {
@@ -33,8 +40,10 @@ void Manager::setupUI() {
     loader->loadAll();
 
     for(const auto& p : loader->getWidgets()) {
-        qDebug() << "attaching tab" << p->second;
-        vTabWidget->addTab(p->first, p->second);
+        if(settings->value(p->second, true).toBool()){
+            qDebug() << "attaching tab" << p->second;
+            vTabWidget->addTab(p->first, p->second);
+        }
     }
 
     mainWindow->setCentralWidget(vTabWidget);

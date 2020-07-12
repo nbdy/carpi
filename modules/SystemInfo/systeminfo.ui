@@ -15,15 +15,16 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(115, 210, 22);</string>
+color: rgb(115, 210, 22);
+font-size: 24px;</string>
   </property>
   <widget class="QLabel" name="lbl_overview">
    <property name="geometry">
     <rect>
      <x>20</x>
      <y>10</y>
-     <width>67</width>
-     <height>19</height>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -33,10 +34,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_network">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>67</width>
-     <height>19</height>
+     <x>50</x>
+     <y>40</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -46,10 +47,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_wifi">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>50</y>
-     <width>35</width>
-     <height>19</height>
+     <x>80</x>
+     <y>70</y>
+     <width>100</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -59,23 +60,23 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="wifi_mac">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>50</y>
-     <width>150</width>
-     <height>19</height>
+     <x>200</x>
+     <y>70</y>
+     <width>250</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Placeholder</string>
+    <string>66:66:66:66:66:66</string>
    </property>
   </widget>
   <widget class="QLabel" name="lbl_eth">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>70</y>
-     <width>35</width>
-     <height>19</height>
+     <x>80</x>
+     <y>100</y>
+     <width>100</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -85,10 +86,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="eth_mac">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>70</y>
-     <width>150</width>
-     <height>19</height>
+     <x>200</x>
+     <y>100</y>
+     <width>250</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -98,10 +99,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_gps">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>90</y>
-     <width>67</width>
-     <height>19</height>
+     <x>50</x>
+     <y>140</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -111,10 +112,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_satellites">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>110</y>
-     <width>70</width>
-     <height>19</height>
+     <x>80</x>
+     <y>170</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -124,23 +125,23 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="satellites">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>110</y>
+     <x>220</x>
+     <y>170</y>
      <width>80</width>
-     <height>19</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Placeholder</string>
+    <string>42</string>
    </property>
   </widget>
   <widget class="QLabel" name="lbl_latitude">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>130</y>
-     <width>70</width>
-     <height>19</height>
+     <x>80</x>
+     <y>200</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -150,36 +151,36 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="latitude">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>130</y>
-     <width>80</width>
-     <height>19</height>
+     <x>220</x>
+     <y>200</y>
+     <width>150</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Placeholder</string>
+    <string>48.137154</string>
    </property>
   </widget>
   <widget class="QLabel" name="longitude">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>150</y>
-     <width>80</width>
-     <height>19</height>
+     <x>220</x>
+     <y>230</y>
+     <width>150</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Placeholder</string>
+    <string>11.576124</string>
    </property>
   </widget>
   <widget class="QLabel" name="lbl_longitude">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>150</y>
-     <width>70</width>
-     <height>19</height>
+     <x>80</x>
+     <y>230</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -189,10 +190,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="altitude">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>170</y>
-     <width>80</width>
-     <height>19</height>
+     <x>220</x>
+     <y>260</y>
+     <width>150</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -202,10 +203,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_altitude">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>170</y>
-     <width>70</width>
-     <height>19</height>
+     <x>80</x>
+     <y>260</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -215,10 +216,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_system">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>200</y>
-     <width>67</width>
-     <height>19</height>
+     <x>50</x>
+     <y>300</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -228,10 +229,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_cpu_temp">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>220</y>
-     <width>75</width>
-     <height>19</height>
+     <x>80</x>
+     <y>330</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -241,23 +242,23 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="cpu_temp">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>220</y>
+     <x>220</x>
+     <y>330</y>
      <width>80</width>
-     <height>19</height>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Placeholder</string>
+    <string>42°C</string>
    </property>
   </widget>
   <widget class="QLabel" name="runtime">
    <property name="geometry">
     <rect>
-     <x>190</x>
-     <y>240</y>
-     <width>80</width>
-     <height>19</height>
+     <x>220</x>
+     <y>360</y>
+     <width>150</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -267,10 +268,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="lbl_runtime">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>240</y>
-     <width>75</width>
-     <height>19</height>
+     <x>80</x>
+     <y>360</y>
+     <width>120</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -280,10 +281,10 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="eth_ip">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>70</y>
-     <width>120</width>
-     <height>19</height>
+     <x>470</x>
+     <y>100</y>
+     <width>200</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
@@ -293,14 +294,14 @@ color: rgb(115, 210, 22);</string>
   <widget class="QLabel" name="wifi_ip">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>50</y>
-     <width>120</width>
-     <height>19</height>
+     <x>470</x>
+     <y>70</y>
+     <width>200</width>
+     <height>24</height>
     </rect>
    </property>
    <property name="text">
-    <string>Placeholder</string>
+    <string>255.255.255.255</string>
    </property>
   </widget>
  </widget>

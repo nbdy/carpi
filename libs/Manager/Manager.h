@@ -22,7 +22,6 @@ private:
 
 public:
     explicit Manager();
-    explicit Manager(const QString& settingsFile);
 
     ~Manager();
 

@@ -21,6 +21,7 @@
 color: rgb(115, 210, 22);
 font-size: 24px;
 
+
 QTabWidget::pane {
 	border: 2ṕx solid #424242;
 }

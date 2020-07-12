@@ -6,18 +6,11 @@
 
 Manager::Manager() {
     settings = new QSettings("settings.conf", QSettings::IniFormat);
-    loader = new ModuleLoader();
-    mainWindow = new MainWindow();
-    vTabWidget = new VTabWidget();
-    setupUI();
-}
-
-Manager::Manager(const QString &settingsFile) {
-    settings = new QSettings(settingsFile, QSettings::IniFormat);
+    qDebug() << settings->fileName();
 #ifdef DEBUG
     loader = new ModuleLoader(settings->value("moduleDirectory", "./").toString());
 #else
-    loader = new ModuleLoader(settings->value("moduleDirectory", "").toString());
+    loader = new ModuleLoader(settings->value("moduleDirectory", "/usr/local/lib/carpi/").toString());
 #endif
     mainWindow = new MainWindow();
     vTabWidget = new VTabWidget();
@@ -25,6 +18,7 @@ Manager::Manager(const QString &settingsFile) {
 }
 
 Manager::~Manager() {
+    settings->sync();
     delete vTabWidget;
     delete loader;
     delete mainWindow;

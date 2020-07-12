@@ -6,12 +6,6 @@
 #include <QDir>
 #include <QDebug>
 
-ModuleLoader::ModuleLoader()
-{
-    libraries = QList<QLibrary*>();
-    widgets = QList<QPair<QWidget*, QString>*>();
-}
-
 ModuleLoader::ModuleLoader(const QString &directory)
 {
     this->directory = directory;
@@ -40,12 +34,12 @@ QLibrary* ModuleLoader::load(const QString &name)
 
 void ModuleLoader::loadAll(){
     QDir dir(this->directory.toStdString().c_str());
+    qDebug() << "loading modules from" << dir.absolutePath();
     for(const auto& f : dir.entryList(QStringList() << "*.so", QDir::Files))
         this->libraries.append(this->load(dir.absoluteFilePath(f)));
 
     for(QLibrary *lib : libraries)
         widgets.append(new QPair<QWidget*, QString>(ModuleLoader::getWidget(lib), ModuleLoader::getName(lib)));
-
 }
 
 QList<QPair<QWidget*, QString>*> ModuleLoader::getWidgets() {

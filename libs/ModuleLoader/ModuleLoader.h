@@ -15,17 +15,12 @@
 
 class ModuleLoader {
 private:
-#ifdef DEBUG
-    QString directory = "./";
-#else
-    QString directory = "/usr/local/lib/carpi/";
-#endif
+    QString directory;
 
     QList<QLibrary*> libraries;
     QList<QPair<QWidget*, QString>*> widgets;
 
 public:
-    ModuleLoader();
     explicit ModuleLoader(const QString& directory);
 
     ~ModuleLoader();

@@ -118,6 +118,9 @@ TPL_UI = """<?xml version="1.0" encoding="UTF-8"?>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);</string>
+  </property>
  </widget>
  <resources/>
  <connections/>

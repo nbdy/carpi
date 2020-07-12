@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(0, 0, 0);
+color: rgb(115, 210, 22);</string>
+  </property>
   <widget class="QSlider" name="trackbar">
    <property name="geometry">
     <rect>
@@ -21,6 +25,23 @@
      <width>531</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSlider::add-page:horizontal {
+background: #22b52a;
+border: 2px solid #424242;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+background:#22b52a;
+border: 2px solid #424242;
+width: 12px;
+margin-top: -2px;
+margin-bottom: -2px;
+border-radius: 4px;
+}</string>
    </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
@@ -35,6 +56,9 @@
      <height>251</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QGraphicsView {border:2px solid #424242;}</string>
+   </property>
   </widget>
   <widget class="QPushButton" name="previous">
    <property name="geometry">
@@ -44,6 +68,9 @@
      <width>151</width>
      <height>81</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {border:2px solid #424242;}</string>
    </property>
    <property name="text">
     <string>&lt;&lt;</string>
@@ -58,6 +85,9 @@
      <height>81</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {border:2px solid #424242;}</string>
+   </property>
    <property name="text">
     <string>&gt;</string>
    </property>
@@ -71,8 +101,28 @@
      <height>81</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {border:2px solid #424242;}</string>
+   </property>
    <property name="text">
     <string>&gt;&gt;</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="shuffle">
+   <property name="geometry">
+    <rect>
+     <x>320</x>
+     <y>250</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(115, 210, 22);
+background: none;</string>
+   </property>
+   <property name="text">
+    <string>Shuffle</string>
    </property>
   </widget>
  </widget>

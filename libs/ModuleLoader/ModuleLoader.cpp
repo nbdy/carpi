@@ -27,7 +27,6 @@ ModuleLoader::~ModuleLoader()
 
 void ModuleLoader::load(const QString &name)
 {
-    qDebug() << "loading" << name;
     auto *lib = new QLibrary(name.toStdString().c_str());
     if(lib->load()) {
         qDebug() << "loaded" << name;
@@ -62,7 +61,6 @@ QWidget *ModuleLoader::getWidget(QLibrary *lib) {
 
 template<typename R>
 R ModuleLoader::executeReturn(QLibrary *lib, const QString& functionName) {
-    qDebug() << "resolving function" << functionName;
     typedef R (*Function)();
     Function f = (Function) lib->resolve(functionName.toStdString().c_str());
     if(!f) qDebug() << lib->errorString();

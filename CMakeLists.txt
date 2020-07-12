@@ -7,6 +7,14 @@ endif()
 
 set(CMAKE_CXX_STANDARD 11)
 
+option(DEBUG "Compile for debugging environment" OFF)
+
+if(DEBUG)
+    add_compile_definitions(DEBUG)
+endif()
+
+unset(DEBUG CACHE)
+
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -53,3 +61,6 @@ target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning)
 
 install(TARGETS carpi_qt
         RUNTIME DESTINATION bin)
+
+install(FILES carpi.desktop
+        DESTINATION /root/.config/autostart/)

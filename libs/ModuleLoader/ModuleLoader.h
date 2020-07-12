@@ -15,7 +15,12 @@
 
 class ModuleLoader {
 private:
+#ifdef DEBUG
     QString directory = "./";
+#else
+    QString directory = "";
+#endif
+
     QList<QLibrary*> libraries;
     QList<QPair<QWidget*, QString>*> widgets;
 

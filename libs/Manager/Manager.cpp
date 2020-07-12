@@ -25,8 +25,10 @@ Manager::~Manager() {
 }
 
 void Manager::setupUI() {
-    mainWindow->setWindowFlags(Qt::MSWindowsFixedSizeDialogHint);
-    if(Utils::isPi()) mainWindow->setWindowState(Qt::WindowFullScreen);
+    if(Utils::isPi()) {
+        mainWindow->setWindowState(Qt::WindowFullScreen);
+        mainWindow->setCursor(Qt::BlankCursor);
+    }
 
     loader->loadAll();
 

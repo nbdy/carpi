@@ -7,10 +7,7 @@
 #include <QStylePainter>
 #include <QStyleOptionTab>
 
-VTabBar::VTabBar()
-{
-
-}
+VTabBar::VTabBar(){}
 
 QSize VTabBar::tabSizeHint(int index) const
 {

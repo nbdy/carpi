@@ -10,8 +10,8 @@
 class VTabWidget : public QTabWidget
 {
 private:
-    int tabHeight = 150;
-    int tabWidth = 50;
+    int tabHeight = 200;
+    int tabWidth = 100;
 
     void _setStyleSheet();
 

@@ -20,7 +20,8 @@ add_library(systeminfo SHARED
 
         ../../libs/Network/Network.cpp
         ../../libs/Network/Network.h
-        ../../libs/GPS/GPS.cpp ../../libs/GPS/GPS.h)
+        ../../libs/GPS/GPS.cpp
+        ../../libs/GPS/GPS.h)
 
 target_link_libraries(systeminfo PUBLIC Qt5::Widgets Qt5::Network Qt5::Positioning)
 target_compile_definitions(systeminfo PUBLIC SYSTEMINFO_LIBRARY)

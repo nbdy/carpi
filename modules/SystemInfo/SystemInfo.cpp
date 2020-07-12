@@ -6,6 +6,7 @@
 #include "ui_systeminfo.h"
 
 #include "../../libs/Network/Network.h"
+#include "../../libs/Utils/Utils.h"
 
 
 SystemInfo::SystemInfo(QWidget *parent): QWidget(parent), ui(new Ui::SystemInfo)
@@ -30,6 +31,7 @@ SystemInfo::~SystemInfo()
 void SystemInfo::timerSlot() {
     ui->wifi_ip->setText(Network::getIP("wl"));
     ui->eth_ip->setText(Network::getIP("eth"));
+    ui->cpu_temp->setText(QString::number(Utils::getCPUTemp()) + " °C");
 }
 
 extern "C" SYSTEMINFO_EXPORT QWidget* render() {

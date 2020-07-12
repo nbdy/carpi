@@ -8,6 +8,7 @@
 
 class Utils {
 public:
+    static float getCPUTemp();
     static bool isPi();
 };
 

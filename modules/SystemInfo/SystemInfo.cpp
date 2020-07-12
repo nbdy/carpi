@@ -12,8 +12,8 @@ SystemInfo::SystemInfo(QWidget *parent): QWidget(parent), ui(new Ui::SystemInfo)
 {
     ui->setupUi(this);
 
-    //ui->wifi_mac->setText(Network::getMAC("wl"));
-    //ui->eth_mac->setText(Network::getMAC("eth"));
+    ui->wifi_mac->setText(Network::getMAC("wl"));
+    ui->eth_mac->setText(Network::getMAC("eth"));
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(timerSlot()));
@@ -28,7 +28,8 @@ SystemInfo::~SystemInfo()
 }
 
 void SystemInfo::timerSlot() {
-
+    ui->wifi_ip->setText(Network::getIP("wl"));
+    ui->eth_ip->setText(Network::getIP("eth"));
 }
 
 extern "C" SYSTEMINFO_EXPORT QWidget* render() {

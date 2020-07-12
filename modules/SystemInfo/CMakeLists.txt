@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets Network REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Network Positioning REQUIRED)
 
 add_library(systeminfo SHARED
         SystemInfo_global.h
@@ -16,9 +16,9 @@ add_library(systeminfo SHARED
 
         ../../libs/Network/Network.cpp
         ../../libs/Network/Network.h
-        )
+        ../../libs/GPS/GPS.cpp ../../libs/GPS/GPS.h)
 
-target_link_libraries(systeminfo PUBLIC Qt5::Widgets Qt5::Network)
+target_link_libraries(systeminfo PUBLIC Qt5::Widgets Qt5::Network Qt5::Positioning)
 target_compile_definitions(systeminfo PUBLIC SYSTEMINFO_LIBRARY)
 
 install(TARGETS systeminfo

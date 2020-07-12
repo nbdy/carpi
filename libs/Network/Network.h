@@ -11,7 +11,7 @@
 
 class Network {
 public:
-    static const QNetworkInterface* findInterface(const QString& prefix);
+    static QNetworkInterface findInterface(const QString& prefix);
     static QString getIP(const QString& prefix);
     static QString getMAC(const QString& prefix);
 };

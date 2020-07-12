@@ -57,7 +57,7 @@
     <rect>
      <x>130</x>
      <y>50</y>
-     <width>80</width>
+     <width>150</width>
      <height>19</height>
     </rect>
    </property>
@@ -83,7 +83,7 @@
     <rect>
      <x>130</x>
      <y>70</y>
-     <width>80</width>
+     <width>150</width>
      <height>19</height>
     </rect>
    </property>
@@ -276,9 +276,9 @@
   <widget class="QLabel" name="eth_ip">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>300</x>
      <y>70</y>
-     <width>80</width>
+     <width>120</width>
      <height>19</height>
     </rect>
    </property>
@@ -289,9 +289,9 @@
   <widget class="QLabel" name="wifi_ip">
    <property name="geometry">
     <rect>
-     <x>240</x>
+     <x>300</x>
      <y>50</y>
-     <width>80</width>
+     <width>120</width>
      <height>19</height>
     </rect>
    </property>

@@ -20,3 +20,7 @@ extern "C" WIRELESS_EXPORT QWidget* render() {
 extern "C" WIRELESS_EXPORT char* getName() {
     return (char*) "Wireless";
 }
+
+extern "C" WIRELESS_EXPORT int getDefaultIndex(){
+    return 4;
+}

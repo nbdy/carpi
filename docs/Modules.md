@@ -22,6 +22,9 @@ creating 'Bluetooth/Bluetooth.h'
 creating 'Bluetooth/Bluetooth_global.h'
 creating 'Bluetooth/bluetooth.ui'
 ```
-After you created a module, just add it to the root CMakeLists.txt via 'add_submodule(modules/{YOUR_MODULE})'<br>
+After you created a module
+- change the index in the '{name}.h' accordingly
+- add it to the root CMakeLists.txt via 'add_submodule(modules/{YOUR_MODULE})'
+<br>
 Then just add your code to your new module.
 After you have finished coding your module, [here is some more information about carpi's modularity](https://github.com/smthnspcl/carpi/blob/qt/docs/Modularity.md)

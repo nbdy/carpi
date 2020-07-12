@@ -56,6 +56,10 @@ extern "C" {2}_EXPORT QWidget* render() {
 extern "C" {2}_EXPORT char* getName() {
     return (char*) "{0}";
 }
+
+extern "C" WIRELESS_EXPORT int getDefaultIndex(){
+    return -1;
+}
 """
 
 TPL_H = """#ifndef CARPI_QT_{2}_H
@@ -81,6 +85,7 @@ public:
 };
 
 extern "C" {
+    {2}_EXPORT int getDefaultIndex();
     {2}_EXPORT char* getName();
     {2}_EXPORT QWidget* render();
 };

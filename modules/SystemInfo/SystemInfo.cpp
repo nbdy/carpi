@@ -42,5 +42,6 @@ extern "C" SYSTEMINFO_EXPORT char* getName() {
     return (char*) "SystemInfo";
 }
 
-
-
+extern "C" SYSTEMINFO_EXPORT int getDefaultIndex() {
+    return 1;
+}

@@ -20,12 +20,11 @@ private:
     MainWindow *mainWindow;
     VTabWidget *vTabWidget;
 
+    void setupUI();
+    void attachTabs();
 public:
     explicit Manager();
-
     ~Manager();
-
-    void setupUI();
 };
 
 

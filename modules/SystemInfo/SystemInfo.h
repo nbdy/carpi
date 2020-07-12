@@ -30,6 +30,7 @@ public:
 };
 
 extern "C" {
+    SYSTEMINFO_EXPORT int getDefaultIndex();
     SYSTEMINFO_EXPORT char* getName();
     SYSTEMINFO_EXPORT QWidget* render();
 };

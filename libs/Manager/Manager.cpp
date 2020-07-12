@@ -18,7 +18,6 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
-    settings->sync();
     delete vTabWidget;
     delete loader;
     delete mainWindow;
@@ -32,6 +31,15 @@ void Manager::setupUI() {
     }
 
     loader->loadAll();
+    attachTabs();
+
+    mainWindow->setCentralWidget(vTabWidget);
+    vTabWidget->show();
+    mainWindow->show();
+}
+
+void Manager::attachTabs() {
+    // todo sort by default index or settings index
 
     for(const auto& p : loader->getWidgets()) {
         if(settings->value(p->second, true).toBool()){
@@ -39,8 +47,4 @@ void Manager::setupUI() {
             vTabWidget->addTab(p->first, p->second);
         }
     }
-
-    mainWindow->setCentralWidget(vTabWidget);
-    vTabWidget->show();
-    mainWindow->show();
 }

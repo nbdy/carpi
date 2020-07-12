@@ -9,8 +9,8 @@
 #include <QWidget>
 #include <QString>
 #include <QLibrary>
+#include <QSettings>
 #include <QList>
-#include <map>
 
 
 class ModuleLoader {
@@ -30,6 +30,7 @@ public:
 
     template<typename R> static R executeReturn(QLibrary* lib, const QString& functionName);
 
+    static int getDefaultIndex(QLibrary* lib);
     static QString getName(QLibrary* lib);
     static QWidget* getWidget(QLibrary* lib);
 

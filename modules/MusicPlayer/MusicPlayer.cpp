@@ -25,4 +25,6 @@ extern "C" MUSICPLAYER_EXPORT char* getName() {
     return (char*) "MusicPlayer";
 }
 
-
+extern "C" MUSICPLAYER_EXPORT int getDefaultIndex(){
+    return 2;
+}

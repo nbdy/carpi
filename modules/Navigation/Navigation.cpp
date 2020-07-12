@@ -25,5 +25,6 @@ extern "C" NAVIGATION_EXPORT char* getName() {
     return (char*) "Navigation";
 }
 
-
-
+extern "C" NAVIGATION_EXPORT int getDefaultIndex(){
+    return 3;
+}

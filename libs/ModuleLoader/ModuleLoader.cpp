@@ -61,3 +61,7 @@ R ModuleLoader::executeReturn(QLibrary *lib, const QString& functionName) {
     if(!f) qDebug() << lib->errorString();
     return f();
 }
+
+int ModuleLoader::getDefaultIndex(QLibrary *lib) {
+    return executeReturn<int>(lib, "getDefaultIndex");
+}

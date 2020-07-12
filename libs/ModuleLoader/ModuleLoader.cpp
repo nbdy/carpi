@@ -25,25 +25,26 @@ ModuleLoader::~ModuleLoader()
     for(auto *p : widgets) delete p;
 }
 
-void ModuleLoader::load(const QString &name)
+QLibrary* ModuleLoader::load(const QString &name)
 {
     auto *lib = new QLibrary(name.toStdString().c_str());
     if(lib->load()) {
         qDebug() << "loaded" << name;
-        this->libraries.append(lib);
+        return lib;
     } else {
         qDebug() << "unable to load" << name;
         qDebug() << lib->errorString();
     }
+    return nullptr;
 }
 
 void ModuleLoader::loadAll(){
     QDir dir(this->directory.toStdString().c_str());
     for(const auto& f : dir.entryList(QStringList() << "*.so", QDir::Files))
-        this->load(dir.absoluteFilePath(f));
+        this->libraries.append(this->load(dir.absoluteFilePath(f)));
 
     for(QLibrary *lib : libraries)
-        widgets.append(new QPair<QWidget*, QString>(this->getWidget(lib), this->getName(lib)));
+        widgets.append(new QPair<QWidget*, QString>(ModuleLoader::getWidget(lib), ModuleLoader::getName(lib)));
 
 }
 

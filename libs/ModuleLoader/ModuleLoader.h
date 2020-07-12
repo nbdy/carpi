@@ -30,13 +30,13 @@ public:
 
     ~ModuleLoader();
 
-    void load(const QString& name);
+    static QLibrary* load(const QString& name);
     void loadAll();
 
-    template<typename R> R executeReturn(QLibrary* lib, const QString& functionName);
+    template<typename R> static R executeReturn(QLibrary* lib, const QString& functionName);
 
-    QString getName(QLibrary* lib);
-    QWidget* getWidget(QLibrary* lib);
+    static QString getName(QLibrary* lib);
+    static QWidget* getWidget(QLibrary* lib);
 
     QList<QPair<QWidget*, QString>*> getWidgets();
 };

@@ -5,8 +5,12 @@ from os.path import isdir, join
 from os import mkdir
 
 
-TPL_CMAKELISTS = """cmake_minimum_required(VERSION 3.16)
+TPL_CMAKELISTS = """cmake_minimum_required(VERSION 3.1.0)
 project({1})
+
+if(CMAKE_VERSION VERSION_LESS "3.7.0")
+    set(CMAKE_INCLUDE_CURRENT_DIR ON)
+endif()
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -49,8 +53,8 @@ extern "C" {2}_EXPORT QWidget* render() {
     return new {0}();
 }
 
-extern "C" {2}_EXPORT QString getName() {
-    return "{0}";
+extern "C" {2}_EXPORT char* getName() {
+    return (char*) "{0}";
 }
 """
 
@@ -77,7 +81,7 @@ public:
 };
 
 extern "C" {
-    {2}_EXPORT QString getName();
+    {2}_EXPORT char* getName();
     {2}_EXPORT QWidget* render();
 };
 

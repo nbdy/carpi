@@ -13,6 +13,7 @@ Manager::Manager() {
     loader = new ModuleLoader(settings->value("moduleDirectory", "/usr/local/lib/carpi/").toString());
 #endif
     mainWindow = new MainWindow();
+
     vTabWidget = new VTabWidget();
     setupUI();
 }

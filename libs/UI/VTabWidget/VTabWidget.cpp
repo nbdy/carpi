@@ -13,6 +13,8 @@ void VTabWidget::_setStyleSheet()
     ss += std::to_string(tabWidth);
     ss += "px; }";
     setStyleSheet(ss.c_str());
+
+    setUsesScrollButtons(true);
 }
 
 VTabWidget::VTabWidget()

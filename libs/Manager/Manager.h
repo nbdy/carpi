@@ -12,9 +12,12 @@
 #include <QApplication>
 #include <QSettings>
 #include <QDebug>
+#include <QDateTime>
 
 class Manager {
 private:
+    QDateTime bootTime;
+
     QSettings *settings;
     ModuleLoader *loader;
     MainWindow *mainWindow;

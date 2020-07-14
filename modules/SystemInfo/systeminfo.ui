@@ -252,32 +252,6 @@ font-size: 24px;</string>
     <string>42°C</string>
    </property>
   </widget>
-  <widget class="QLabel" name="runtime">
-   <property name="geometry">
-    <rect>
-     <x>220</x>
-     <y>360</y>
-     <width>150</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Placeholder</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="lbl_runtime">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>360</y>
-     <width>130</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Runtime</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="eth_ip">
    <property name="geometry">
     <rect>
@@ -302,6 +276,123 @@ font-size: 24px;</string>
    </property>
    <property name="text">
     <string>255.255.255.255</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_time">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>390</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Time</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_time_boot">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>420</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Boot</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_time_run">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>450</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Run</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_time_current">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>480</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Current</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="time_run">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>450</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>00:00:00</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="time_boot">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>420</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>00:00:00</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="time_current">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>480</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>00:00:00</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="date">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>360</y>
+     <width>150</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>31.12.2020</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_date">
+   <property name="geometry">
+    <rect>
+     <x>80</x>
+     <y>360</y>
+     <width>130</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Date</string>
    </property>
   </widget>
  </widget>

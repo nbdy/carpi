@@ -9,6 +9,7 @@
 
 #include <QWidget>
 #include <QTimer>
+#include <QDateTime>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SystemInfo; }
@@ -19,10 +20,15 @@ class SystemInfo : public QWidget
 Q_OBJECT
 private:
     Ui::SystemInfo *ui;
-    QTimer *timer;
+
+    QDateTime boot_time;
+
+    QTimer *timer_critval;
+    QTimer *timer_time;
 
 private slots:
-    void timerSlot();
+    void criticalValueSlot();
+    void timeSlot();
 
 public:
     explicit SystemInfo(QWidget *parent = nullptr);

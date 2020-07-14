@@ -57,7 +57,7 @@ extern "C" {2}_EXPORT char* getName() {
     return (char*) "{0}";
 }
 
-extern "C" WIRELESS_EXPORT int getDefaultIndex(){
+extern "C" {2}_EXPORT int getDefaultIndex(){
     return -1;
 }
 """

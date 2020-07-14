@@ -5,6 +5,7 @@
 #include "Manager.h"
 
 Manager::Manager() {
+    bootTime = QDateTime::currentDateTime();
     settings = new QSettings("settings.conf", QSettings::IniFormat);
     qDebug() << settings->fileName();
 #ifdef DEBUG

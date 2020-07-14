@@ -39,7 +39,7 @@ void ModuleLoader::loadAll(){
         this->libraries.append(this->load(dir.absoluteFilePath(f)));
 
     for(QLibrary *lib : libraries)
-        widgets.append(new QPair<QWidget*, QString>(ModuleLoader::getWidget(lib), ModuleLoader::getName(lib)));
+        widgets.insert(ModuleLoader::getDefaultIndex(lib), new QPair<QWidget*, QString>(ModuleLoader::getWidget(lib), ModuleLoader::getName(lib)));
 }
 
 QList<QPair<QWidget*, QString>*> ModuleLoader::getWidgets() {

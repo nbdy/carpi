@@ -12,7 +12,7 @@
 SystemInfo::SystemInfo(QWidget *parent): QWidget(parent), ui(new Ui::SystemInfo)
 {
     ui->setupUi(this);
-    bootTime = QDateTime::currentDateTime().toLocalTime();
+    bootTime = QDateTime::currentDateTime();
 
     ui->wifi_mac->setText(Network::getMAC("wl"));
     ui->eth_mac->setText(Network::getMAC("eth"));
@@ -45,9 +45,10 @@ void SystemInfo::criticalValueSlot() {
 }
 
 void SystemInfo::timeSlot() {
-    QDateTime t = QDateTime::currentDateTime().toLocalTime();
+    QDateTime t = QDateTime::currentDateTime();
     ui->time_current->setText(t.toString("hh:mm:ss"));
-    ui->time_run->setText(QDateTime::fromTime_t(t.toTime_t() - bootTime.toTime_t()).toLocalTime().toString("hh:mm:ss"));
+    QDateTime d = QDateTime::fromTime_t(t.toTime_t() - bootTime.toTime_t());
+    ui->time_run->setText(QDateTime::fromTime_t(d.toTime_t()).toString("hh:mm:ss")); // todo fix this showing 1 hour too much
 }
 
 extern "C" SYSTEMINFO_EXPORT QWidget* render() {

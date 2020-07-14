@@ -8,10 +8,9 @@ the previous version of this is located in the [master branch](https://github.co
 [look here](https://github.com/smthnspcl/carpi/blob/qt/docs/Build.md)
 <br> tl;dr 
 ```shell script
-./build.sh
+./setup.sh
 ```
 there will be a prebuild release at some point in time<br>
 maybe even an image for the raspberry pi<br>
-the base image i currently use is [dietpi](https://github.com/MichaIng/DietPi)
-<br> with 
+the base image i currently use is [dietpi](https://github.com/MichaIng/DietPi) with lxde
 ### .. [create a module](https://github.com/smthnspcl/carpi/blob/qt/docs/Modules.md)

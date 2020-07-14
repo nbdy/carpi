@@ -6,7 +6,7 @@
 
 Manager::Manager() {
     settings = new QSettings("eberlein", "carpi");
-    qDebug() << settings->fileName();
+    qDebug() << "the setting file lays here:" << settings->fileName();
 #ifdef DEBUG
     loader = new ModuleLoader(settings->value("moduleDirectory", "./").toString());
 #else

@@ -12,30 +12,30 @@
 SystemInfo::SystemInfo(QWidget *parent): QWidget(parent), ui(new Ui::SystemInfo)
 {
     ui->setupUi(this);
-    boot_time = QDateTime::currentDateTime();
+    bootTime = QDateTime::currentDateTime().toLocalTime();
 
     ui->wifi_mac->setText(Network::getMAC("wl"));
     ui->eth_mac->setText(Network::getMAC("eth"));
-    ui->time_boot->setText(boot_time.toString("hh:mm:ss"));
-    ui->date->setText(boot_time.toString("dd.MM.yyyy"));
+    ui->time_boot->setText(bootTime.toString("hh:mm:ss"));
+    ui->date->setText(bootTime.toString("dd.MM.yyyy"));
 
-    timer_critval = new QTimer(this);
-    timer_time = new QTimer(this);
+    timerCritical = new QTimer(this);
+    timerTime = new QTimer(this);
 
-    connect(timer_critval, &QTimer::timeout, this, &SystemInfo::criticalValueSlot);
-    connect(timer_time, &QTimer::timeout, this, &SystemInfo::timeSlot);
+    connect(timerCritical, &QTimer::timeout, this, &SystemInfo::criticalValueSlot);
+    connect(timerTime, &QTimer::timeout, this, &SystemInfo::timeSlot);
 
-    timer_critval->start(420);
-    timer_time->start(1000);
+    timerCritical->start(420);
+    timerTime->start(1000);
 }
 
 SystemInfo::~SystemInfo()
 {
-    timer_time->stop();
-    timer_critval->stop();
+    timerTime->stop();
+    timerCritical->stop();
     delete ui;
-    delete timer_time;
-    delete timer_critval;
+    delete timerTime;
+    delete timerCritical;
 }
 
 void SystemInfo::criticalValueSlot() {
@@ -45,9 +45,9 @@ void SystemInfo::criticalValueSlot() {
 }
 
 void SystemInfo::timeSlot() {
-    QDateTime t = QDateTime::currentDateTime();
+    QDateTime t = QDateTime::currentDateTime().toLocalTime();
     ui->time_current->setText(t.toString("hh:mm:ss"));
-    ui->time_run->setText(QDateTime::fromMSecsSinceEpoch(boot_time.msecsTo(t) - 3600000).toString("hh:mm:ss"));
+    ui->time_run->setText(QDateTime::fromTime_t(t.toTime_t() - bootTime.toTime_t()).toLocalTime().toString("hh:mm:ss"));
 }
 
 extern "C" SYSTEMINFO_EXPORT QWidget* render() {

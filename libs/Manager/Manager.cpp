@@ -5,8 +5,7 @@
 #include "Manager.h"
 
 Manager::Manager() {
-    bootTime = QDateTime::currentDateTime();
-    settings = new QSettings("settings.conf", QSettings::IniFormat);
+    settings = new QSettings("eberlein", "carpi");
     qDebug() << settings->fileName();
 #ifdef DEBUG
     loader = new ModuleLoader(settings->value("moduleDirectory", "./").toString());
@@ -14,7 +13,6 @@ Manager::Manager() {
     loader = new ModuleLoader(settings->value("moduleDirectory", "/usr/local/lib/carpi/").toString());
 #endif
     mainWindow = new MainWindow();
-
     vTabWidget = new VTabWidget();
     setupUI();
 }
@@ -41,8 +39,6 @@ void Manager::setupUI() {
 }
 
 void Manager::attachTabs() {
-    // todo sort by default index or settings index
-
     for(const auto& p : loader->getWidgets()) {
         if(settings->value(p->second, true).toBool()){
             qDebug() << "attaching tab" << p->second;

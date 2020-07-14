@@ -16,8 +16,6 @@
 
 class Manager {
 private:
-    QDateTime bootTime;
-
     QSettings *settings;
     ModuleLoader *loader;
     MainWindow *mainWindow;

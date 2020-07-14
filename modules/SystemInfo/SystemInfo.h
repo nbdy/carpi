@@ -21,10 +21,10 @@ Q_OBJECT
 private:
     Ui::SystemInfo *ui;
 
-    QDateTime boot_time;
+    QDateTime bootTime;
 
-    QTimer *timer_critval;
-    QTimer *timer_time;
+    QTimer *timerCritical;
+    QTimer *timerTime;
 
 private slots:
     void criticalValueSlot();

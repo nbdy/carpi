@@ -11,10 +11,15 @@ bool Utils::isPi() {
 }
 
 float Utils::getCPUTemp() {
-    if(Utils::isPi()){
-        QFile temp("/sys/class/thermal/thermal_zone0/temp");
-        temp.open(QFile::ReadOnly);
-        return temp.readLine().toFloat() / 1000;
+    if(Utils::isPi() || Utils::isCPUIntel()){
+        QFile t("/sys/class/thermal/thermal_zone0/temp");
+        if(t.open(QIODevice::ReadOnly | QIODevice::Text)) return t.readAll().toFloat() / 1000;
     }
     return -1;
+}
+
+bool Utils::isCPUIntel() {
+    QFile t("/proc/cpuinfo");
+    if(t.open(QIODevice::ReadOnly | QIODevice::Text)) return t.readAll().contains("Intel");
+    return false;
 }

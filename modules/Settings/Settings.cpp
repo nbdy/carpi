@@ -5,7 +5,7 @@
 Settings::Settings(QWidget *parent): QWidget(parent), ui(new Ui::Settings)
 {
     ui->setupUi(this);
-    // todo signals and slots for labels
+    //
 }
 
 Settings::~Settings()

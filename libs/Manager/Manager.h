@@ -23,6 +23,7 @@ private:
 
     void setupUI();
     void attachTabs();
+
 public:
     explicit Manager();
     ~Manager();

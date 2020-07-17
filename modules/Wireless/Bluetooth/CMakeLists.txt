@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1.0)
-project(wireless)
+project(bluetooth)
 
 if(CMAKE_VERSION VERSION_LESS "3.7.0")
     set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -13,17 +13,14 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-add_subdirectory(Bluetooth)
-add_subdirectory(WiFi)
-
-add_library(wireless SHARED
-        Wireless_global.h
-        Wireless.cpp
-        Wireless.h
+add_library(bluetooth SHARED
+        Bluetooth_global.h
+        Bluetooth.cpp
+        Bluetooth.h
         )
 
-target_link_libraries(wireless PUBLIC Qt5::Widgets)
-target_compile_definitions(wireless PUBLIC WIRELESS_LIBRARY)
+target_link_libraries(bluetooth PUBLIC Qt5::Widgets)
+target_compile_definitions(bluetooth PUBLIC BLUETOOTH_LIBRARY)
 
-install(TARGETS wireless
+install(TARGETS bluetooth
         LIBRARY DESTINATION lib/carpi)

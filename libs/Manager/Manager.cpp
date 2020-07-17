@@ -31,18 +31,14 @@ void Manager::setupUI() {
     }
 
     loader->loadAll();
+
     attachTabs();
+    vTabWidget->show();
 
     mainWindow->setCentralWidget(vTabWidget);
-    vTabWidget->show();
     mainWindow->show();
 }
 
 void Manager::attachTabs() {
-    for(const auto& p : loader->getWidgets()) {
-        if(settings->value(p->second, true).toBool()){
-            qDebug() << "attaching tab" << p->second;
-            vTabWidget->addTab(p->first, p->second);
-        }
-    }
+
 }

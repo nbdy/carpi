@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Settings</class>
- <widget class="QWidget" name="Settings">
+ <class>WiFi</class>
+ <widget class="QWidget" name="WiFi">
   <property name="geometry">
    <rect>
     <x>0</x>

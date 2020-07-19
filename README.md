@@ -1,4 +1,5 @@
 ## carpi
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/smthnspcl/carpi)
 ## currently under development
 just another raspberry pi infotainment system<br>
 the previous version of this is located in the [master branch](https://github.com/smthnspcl/carpi/tree/master)

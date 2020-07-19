@@ -23,7 +23,7 @@ public:
 extern "C" {
     SETTINGS_EXPORT int getDefaultIndex();
     SETTINGS_EXPORT char* getName();
-    SETTINGS_EXPORT QWidget* render();
+    SETTINGS_EXPORT QWidget* create();
 };
 
 

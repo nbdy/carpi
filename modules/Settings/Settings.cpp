@@ -13,7 +13,7 @@ Settings::~Settings()
     delete ui;
 }
 
-extern "C" SETTINGS_EXPORT QWidget* render() {
+extern "C" SETTINGS_EXPORT QWidget* create() {
     return new Settings();
 }
 

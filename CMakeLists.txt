@@ -54,7 +54,7 @@ add_executable(
         libs/Manager/Manager.h
 
         libs/GPS/GPS.cpp
-        libs/GPS/GPS.h libs/UI/Settings/Settings.cpp libs/UI/Settings/Settings.h)
+        libs/GPS/GPS.h libs/UI/Settings/Settings.cpp libs/UI/Settings/Settings.h libs/Settings/Settings.cpp libs/Settings/Settings.h)
 
 target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning)
 

@@ -17,7 +17,7 @@ MusicPlayer::~MusicPlayer()
     delete ui;
 }
 
-extern "C" MUSICPLAYER_EXPORT QWidget* render() {
+extern "C" MUSICPLAYER_EXPORT QWidget* create() {
     return new MusicPlayer();
 }
 

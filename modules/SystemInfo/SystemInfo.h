@@ -6,7 +6,9 @@
 #define CARPI_QT_SYSTEMINFO_H
 
 #include "SystemInfo_global.h"
+#include "../../libs/GPS/GPS.h"
 
+#include <QGeoPositionInfo>
 #include <QWidget>
 #include <QTimer>
 #include <QDateTime>
@@ -19,7 +21,12 @@ class SystemInfo : public QWidget
 {
 Q_OBJECT
 private:
+    const QString hourFormatStr = "hh:mm:ss";
+    const QString dayFormatStr = "dd.MM.yyyy";
+
     Ui::SystemInfo *ui;
+
+    GPS *gps;
 
     QDateTime bootTime;
 
@@ -27,6 +34,8 @@ private:
     QTimer *timerTime;
 
 private slots:
+    void gpsPositionOld(const QDateTime &ts);
+    void gpsPositionChanged(const QGeoPositionInfo &info);
     void criticalValueSlot();
     void timeSlot();
 
@@ -38,7 +47,7 @@ public:
 extern "C" {
     SYSTEMINFO_EXPORT int getDefaultIndex();
     SYSTEMINFO_EXPORT char* getName();
-    SYSTEMINFO_EXPORT QWidget* render();
+    SYSTEMINFO_EXPORT QWidget* create();
 };
 
 

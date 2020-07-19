@@ -51,7 +51,7 @@ QString ModuleLoader::getName(QLibrary *lib) {
 }
 
 QWidget *ModuleLoader::getWidget(QLibrary *lib) {
-    return executeReturn<QWidget*>(lib, "render");
+    return executeReturn<QWidget*>(lib, "create");
 }
 
 template<typename R>

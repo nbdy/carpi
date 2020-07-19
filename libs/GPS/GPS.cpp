@@ -5,15 +5,24 @@
 #include "GPS.h"
 
 GPS::GPS(QObject *parent) : QObject(parent) {
+    settings = Settings::getSettings(this);
     source = QGeoPositionInfoSource::createDefaultSource(this);
     if(source) {
-        connect(source, SIGNAL(positionUpdated(QGeoPositionInfo)), this, SLOT(positionUpdated(QGeoPositionInfo)));
+        source->setUpdateInterval(settings->value(KEY_GPS_UPDATE_INTERVAL, DEFAULT_GPS_UPDATE_INTERVAL).toInt());
+        connect(source, &QGeoPositionInfoSource::positionUpdated, this, &GPS::positionUpdated);
+        connect(source, &QGeoPositionInfoSource::updateTimeout, this, &GPS::updateTimeout);
         source->startUpdates();
-    } else {
-        // todo inform that no source available since there is probably no adapter connected
-    }
+    } else qDebug() << "could not create gps source";
 }
 
 void GPS::positionUpdated(const QGeoPositionInfo &info) {
-    // todo
+    if(lastInfo.coordinate() != info.coordinate()){
+        lastInfo = info;
+        emit positionChanged(info);
+    }
+}
+
+void GPS::updateTimeout() {
+    qDebug() << "gps update timeout";
+    emit positionOld(lastInfo.timestamp());
 }

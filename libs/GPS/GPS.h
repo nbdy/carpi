@@ -5,6 +5,11 @@
 #ifndef CARPI_QT_GPS_H
 #define CARPI_QT_GPS_H
 
+#include "../../libs/Settings/Settings.h"
+
+#include <QDebug>
+#include <QSettings>
+#include <QTimer>
 #include <QObject>
 #include <QtPositioning/QGeoPositionInfoSource>
 #include <QtPositioning/QGeoPositionInfo>
@@ -15,10 +20,17 @@ public:
     explicit GPS(QObject *parent = nullptr);
 
 private:
+    QSettings *settings;
     QGeoPositionInfoSource *source;
+    QGeoPositionInfo lastInfo;
 
 private slots:
+    void updateTimeout();
     void positionUpdated(const QGeoPositionInfo &info);
+
+signals:
+    void positionChanged(const QGeoPositionInfo &info);
+    void positionOld(const QDateTime &ts);
 };
 
 

@@ -49,7 +49,7 @@ TPL_CPP = """#include "{0}.h"
     delete ui;
 }
 
-extern "C" {2}_EXPORT QWidget* render() {
+extern "C" {2}_EXPORT QWidget* create() {
     return new {0}();
 }
 
@@ -87,7 +87,7 @@ public:
 extern "C" {
     {2}_EXPORT int getDefaultIndex();
     {2}_EXPORT char* getName();
-    {2}_EXPORT QWidget* render();
+    {2}_EXPORT QWidget* create();
 };
 
 

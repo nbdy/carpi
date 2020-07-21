@@ -5,7 +5,7 @@
 #ifndef CARPI_QT_GPS_H
 #define CARPI_QT_GPS_H
 
-#include "../../libs/Settings/Settings.h"
+#include "../ISettings/ISettings.h"
 
 #include <QDebug>
 #include <QSettings>

@@ -5,8 +5,12 @@
 #ifndef CARPI_QT_MUSICPLAYER_H
 #define CARPI_QT_MUSICPLAYER_H
 
+#define KEY_SETTINGS_DIRECTORY "directory"
+#define KEY_SETTINGS_VOLUME "volume"
+#define KEY_SETTINGS_SHUFFLE "shuffle"
 
 #include "MusicPlayer_global.h"
+#include "../../libs/ISettings/ISettings.h"
 
 #include <QMainWindow>
 
@@ -19,6 +23,8 @@ class MusicPlayer : public QMainWindow
 Q_OBJECT
 private:
     Ui::MusicPlayer *ui;
+
+    void createDefaultSettings();
 
 public:
     explicit MusicPlayer(QWidget *parent = nullptr);

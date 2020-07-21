@@ -2,8 +2,8 @@
 // Created by insane on 19.07.20.
 //
 
-#ifndef CARPI_QT_SETTINGS_H
-#define CARPI_QT_SETTINGS_H
+#ifndef CARPI_QT_ISETTINGS_H
+#define CARPI_QT_ISETTINGS_H
 
 #include <QSettings>
 #include <QString>
@@ -17,11 +17,11 @@
 #define KEY_GPS_OLD_WHEN "oldWhen"
 #define DEFAULT_GPS_OLD_WHEN 10
 
-class Settings {
+class ISettings {
 public:
     static QSettings* getSettings();
     static QSettings* getSettings(QObject* parent);
 };
 
 
-#endif //CARPI_QT_SETTINGS_H
+#endif //CARPI_QT_ISETTINGS_H

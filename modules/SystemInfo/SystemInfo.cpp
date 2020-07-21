@@ -79,7 +79,3 @@ extern "C" SYSTEMINFO_EXPORT char* getName() {
 extern "C" SYSTEMINFO_EXPORT int getDefaultIndex() {
     return 1;
 }
-
-extern "C" SYSTEMINFO_EXPORT int getDependencies(){
-
-}

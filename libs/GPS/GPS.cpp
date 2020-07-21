@@ -5,7 +5,7 @@
 #include "GPS.h"
 
 GPS::GPS(QObject *parent) : QObject(parent) {
-    settings = Settings::getSettings(this);
+    settings = ISettings::getSettings(this);
     source = QGeoPositionInfoSource::createDefaultSource(this);
     if(source) {
         source->setUpdateInterval(settings->value(KEY_GPS_UPDATE_INTERVAL, DEFAULT_GPS_UPDATE_INTERVAL).toInt());

@@ -1,5 +1,24 @@
 ## Styling
 These are the Styles used throughout the project.
+#### QTabWidget
+```
+background-color: rgb(0, 0, 0);
+color: rgb(115, 210, 22);
+font-size: 24px;
+
+QTabWidget::pane {
+	border: 2ṕx solid #424242;
+}
+
+QTabBar::tab {
+	border: 2px solid #424242;
+}
+
+QTabBar::tab:selected {
+	background: #141414;
+}
+```
+
 #### QCheckBox
 ```
 QCheckBox {

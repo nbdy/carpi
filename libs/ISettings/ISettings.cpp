@@ -2,12 +2,12 @@
 // Created by insane on 19.07.20.
 //
 
-#include "Settings.h"
+#include "ISettings.h"
 
-QSettings* Settings::getSettings() {
+QSettings* ISettings::getSettings() {
     return new QSettings(ORG, APP);
 }
 
-QSettings *Settings::getSettings(QObject *parent) {
+QSettings *ISettings::getSettings(QObject *parent) {
     return new QSettings(ORG, APP, parent);
 }

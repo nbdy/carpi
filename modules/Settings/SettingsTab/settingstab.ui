@@ -14,7 +14,17 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: rgb(0, 0, 0);</string>
+   <string notr="true">background-color: rgb(0, 0, 0);
+QCheckBox {
+    color: rgb(115, 210, 22);
+    background: none;
+    font: 24px;
+}
+
+QCheckBox::indicator {
+    width: 24px;
+    height: 24px;
+}</string>
   </property>
  </widget>
  <resources/>

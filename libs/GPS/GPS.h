@@ -14,12 +14,18 @@
 #include <QtPositioning/QGeoPositionInfoSource>
 #include <QtPositioning/QGeoPositionInfo>
 
+#define KEY_GROUP_GPS "GPS"
+#define KEY_UPDATE_INTERVAL "updateInterval"
+
 class GPS : public QObject {
     Q_OBJECT
 public:
     explicit GPS(QObject *parent = nullptr);
+    ~GPS() override;
 
 private:
+    void setDefaultSettings();
+
     QSettings *settings;
     QGeoPositionInfoSource *source;
     QGeoPositionInfo lastInfo;

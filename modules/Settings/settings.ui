@@ -29,6 +29,17 @@ QTabBar::tab {
 
 QTabBar::tab:selected {
 	background: #141414;
+}
+
+QCheckBox {
+    color: rgb(115, 210, 22);
+    background: none;
+    font: 24px;
+}
+
+QCheckBox::indicator {
+    width: 24px;
+    height: 24px;
 }</string>
   </property>
  </widget>

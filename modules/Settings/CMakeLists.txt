@@ -17,7 +17,9 @@ add_library(settings SHARED
         Settings_global.h
         Settings.cpp
         Settings.h
-        SettingsTab/SettingsTab.cpp SettingsTab/SettingsTab.h)
+
+        SettingsTab/SettingsTab.cpp
+        SettingsTab/SettingsTab.h)
 
 target_link_libraries(settings PUBLIC Qt5::Widgets)
 target_compile_definitions(settings PUBLIC SETTINGS_LIBRARY)

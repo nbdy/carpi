@@ -7,20 +7,19 @@
 
 #include <QSettings>
 #include <QString>
+#include <QMetaObject>
 
 #define ORG "eberlein"
 #define APP "carpi"
 
-// GPS DEFINES
-#define KEY_GPS_UPDATE_INTERVAL "updateInterval"
-#define DEFAULT_GPS_UPDATE_INTERVAL 420
-#define KEY_GPS_OLD_WHEN "oldWhen"
-#define DEFAULT_GPS_OLD_WHEN 10
+#define REGEX_INTEGER "^[0-9]*$"
 
 class ISettings {
 public:
     static QSettings* getSettings();
     static QSettings* getSettings(QObject* parent);
+
+     static QMetaType::Type getProbableType(const QVariant& v);
 };
 
 

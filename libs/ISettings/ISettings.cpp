@@ -11,3 +11,10 @@ QSettings* ISettings::getSettings() {
 QSettings *ISettings::getSettings(QObject *parent) {
     return new QSettings(ORG, APP, parent);
 }
+
+QMetaType::Type ISettings::getProbableType(const QVariant &v) {
+    auto s = v.toString();
+    if(s == "true" || s == "false") return QMetaType::Bool;
+    else if(s.contains(QRegExp(REGEX_INTEGER))) return QMetaType::Int;
+    else return QMetaType::QString;
+}

@@ -6,7 +6,12 @@
 #define CARPI_QT_SETTINGSTAB_H
 
 #include <QWidget>
+#include <QDebug>
 #include <QString>
+#include <QGridLayout>
+#include <QTextEdit>
+#include <QCheckBox>
+#include "../../../libs/ISettings/ISettings.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SettingsTab; }
@@ -16,12 +21,15 @@ class SettingsTab : public QWidget {
 Q_OBJECT
 private:
     Ui::SettingsTab *ui;
+    QGridLayout *layout;
+    QSettings *settings;
+
+    void populateKeyValues();
+    QWidget *createAccordingWidget(const QString& key, const QVariant& value);
 
 public:
-    explicit SettingsTab(QWidget *parent = nullptr);
     explicit SettingsTab(const QString& key, QWidget *parent = nullptr);
     ~SettingsTab() override;
-
 };
 
 

@@ -14,8 +14,7 @@ tl;dr
 there will be a prebuild release at some point in time<br>
 maybe even an image for the raspberry pi<br>
 the base image i currently use is [dietpi](https://github.com/MichaIng/DietPi) with lxde<br>
-just run 
 ```shell script
+# run this for now
 git clone https://github.com/smthnspcl/carpi ; cd carpi ; ./setup.sh ; ./install.sh 
 ```
-for now

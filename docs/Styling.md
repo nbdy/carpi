@@ -1,5 +1,9 @@
 ## Styling
 These are the Styles used throughout the project.
+#### QWidget
+```
+background-color: rgb(0, 0, 0);
+```
 #### QTabWidget
 ```
 background-color: rgb(0, 0, 0);

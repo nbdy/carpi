@@ -4,7 +4,7 @@
 
 #include "SettingsTab.h"
 
-SettingsTab::SettingsTab(QWidget *parent) {
+SettingsTab::SettingsTab(QWidget *parent): QWidget(parent), ui(new Ui::SettingsTab) {
 
 }
 

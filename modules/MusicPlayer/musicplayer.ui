@@ -17,7 +17,7 @@
    <string notr="true">background-color: rgb(0, 0, 0);
 color: rgb(115, 210, 22);</string>
   </property>
-  <widget class="QSlider" name="trackbar">
+  <widget class="QSlider" name="sldr_song">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -27,14 +27,14 @@ color: rgb(115, 210, 22);</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QSlider::add-page:horizontal {
+    <string notr="true">QSlider::add-page {
 background: #22b52a;
 border: 2px solid #424242;
 height: 10px;
 border-radius: 4px;
 }
 
-QSlider::handle:horizontal {
+QSlider::handle {
 background:#22b52a;
 border: 2px solid #424242;
 width: 12px;
@@ -64,7 +64,7 @@ border-radius: 4px;
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>330</y>
+     <y>340</y>
      <width>151</width>
      <height>81</height>
     </rect>
@@ -80,7 +80,7 @@ border-radius: 4px;
    <property name="geometry">
     <rect>
      <x>210</x>
-     <y>330</y>
+     <y>340</y>
      <width>151</width>
      <height>81</height>
     </rect>
@@ -96,7 +96,7 @@ border-radius: 4px;
    <property name="geometry">
     <rect>
      <x>400</x>
-     <y>330</y>
+     <y>340</y>
      <width>151</width>
      <height>81</height>
     </rect>
@@ -108,21 +108,293 @@ border-radius: 4px;
     <string>&gt;&gt;</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="shuffle">
+  <widget class="QCheckBox" name="cb_shuffle">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>250</y>
-     <width>101</width>
-     <height>31</height>
+     <x>310</x>
+     <y>120</y>
+     <width>141</width>
+     <height>51</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">color: rgb(115, 210, 22);
-background: none;</string>
+    <string notr="true">QCheckBox {
+	color: rgb(115, 210, 22);
+	background: none;
+	font: 24px;
+}
+
+QCheckBox::indicator {
+	width: 24px;
+	height: 24px;
+}</string>
    </property>
    <property name="text">
     <string>Shuffle</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_artist">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>20</y>
+     <width>300</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font: 16pt;
+}</string>
+   </property>
+   <property name="text">
+    <string>Motionless in White</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_album">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>50</y>
+     <width>300</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font: 16pt;
+}</string>
+   </property>
+   <property name="text">
+    <string>Disguise</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_song">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>80</y>
+     <width>300</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+	font: 16pt;
+}</string>
+   </property>
+   <property name="text">
+    <string>Disguise</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_current_position">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>250</y>
+     <width>50</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>10:00</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_max_position">
+   <property name="geometry">
+    <rect>
+     <x>375</x>
+     <y>250</y>
+     <width>50</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>10:00</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_slash">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>250</y>
+     <width>5</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>/</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="sldr_volume">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>20</y>
+     <width>21</width>
+     <height>301</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QSlider::add-page {
+background: #22b52a;
+border: 2px solid #424242;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::handle {
+background:#22b52a;
+border: 2px solid #424242;
+width: 12px;
+margin-top: -2px;
+margin-bottom: -2px;
+border-radius: 4px;
+}</string>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_sldr_volume_max">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>20</y>
+     <width>30</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>100</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_sldr_volume_current">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>160</y>
+     <width>30</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>50</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="lbl_sldr_volume_min">
+   <property name="geometry">
+    <rect>
+     <x>670</x>
+     <y>300</y>
+     <width>30</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_mute">
+   <property name="geometry">
+    <rect>
+     <x>510</x>
+     <y>120</y>
+     <width>100</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox {
+	color: rgb(115, 210, 22);
+	background: none;
+	font: 24px;
+}
+
+QCheckBox::indicator {
+	width: 24px;
+	height: 24px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Mute</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="lst_album">
+   <property name="geometry">
+    <rect>
+     <x>725</x>
+     <y>10</y>
+     <width>291</width>
+     <height>571</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="cb_play_on_start">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>530</y>
+     <width>200</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QCheckBox {
+	color: rgb(115, 210, 22);
+	background: none;
+	font: 24px;
+}
+
+QCheckBox::indicator {
+	width: 24px;
+	height: 24px;
+}</string>
+   </property>
+   <property name="text">
+    <string>Play on start</string>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
    </property>
   </widget>
  </widget>

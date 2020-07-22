@@ -27,7 +27,7 @@ public:
 extern "C" {
     NAVIGATION_EXPORT int getDefaultIndex();
     NAVIGATION_EXPORT char* getName();
-    NAVIGATION_EXPORT QWidget* render();
+    NAVIGATION_EXPORT QWidget* create();
 };
 
 

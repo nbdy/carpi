@@ -17,7 +17,7 @@ Navigation::~Navigation()
     delete ui;
 }
 
-extern "C" NAVIGATION_EXPORT QWidget* render() {
+extern "C" NAVIGATION_EXPORT QWidget* create() {
     return new Navigation();
 }
 

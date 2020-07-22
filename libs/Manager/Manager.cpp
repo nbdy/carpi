@@ -5,13 +5,10 @@
 #include "Manager.h"
 
 Manager::Manager() {
-    settings = new QSettings("eberlein", "carpi");
+    settings = ISettings::getSettings();
+    setDefaultSettings();
     qDebug() << "the setting file lays here:" << settings->fileName();
-#ifdef DEBUG
-    loader = new ModuleLoader(settings->value("moduleDirectory", "./").toString());
-#else
-    loader = new ModuleLoader(settings->value("moduleDirectory", "/usr/local/lib/carpi/").toString());
-#endif
+    loader = new ModuleLoader(settings->value(KEY_MODULE_DIRECTORY).toString());
     mainWindow = new MainWindow();
     vTabWidget = new VTabWidget();
     setupUI();
@@ -41,4 +38,15 @@ void Manager::setupUI() {
 
 void Manager::attachTabs() {
 
+}
+
+void Manager::setDefaultSettings() {
+    if(settings->contains(KEY_GROUP_GENERAL)) return;
+    qDebug() << "setting default general settings";
+    settings->beginGroup(KEY_GROUP_GENERAL);
+#ifdef DEBUG
+    settings->setValue(KEY_MODULE_DIRECTORY, "./");
+#else
+    settings->setValue(KEY_MODULE_DIRECTORY, "/usr/local/lib/carpi/");
+#endif
 }

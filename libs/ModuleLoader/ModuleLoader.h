@@ -35,6 +35,7 @@ public:
     static QWidget* getWidget(QLibrary* lib);
 
     QList<QPair<QWidget*, QString>*> getWidgets();
+    QList<QString>* getNames();
 };
 
 

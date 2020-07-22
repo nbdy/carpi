@@ -19,7 +19,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets Network Positioning REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Network Positioning Multimedia REQUIRED)
 
 add_subdirectory(modules/Settings)
 add_subdirectory(modules/SystemInfo)
@@ -57,9 +57,10 @@ add_executable(
         libs/GPS/GPS.h
 
         libs/ISettings/ISettings.cpp
-        libs/ISettings/ISettings.h)
+        libs/ISettings/ISettings.h
+        libs/Logger/Logger.cpp libs/Logger/Logger.h)
 
-target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning)
+target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning Qt5::Multimedia)
 
 install(TARGETS carpi_qt
         RUNTIME DESTINATION bin)

@@ -30,6 +30,7 @@ void GPS::updateTimeout() {
 
 void GPS::setDefaultSettings() {
     if(settings->contains(KEY_GROUP_GPS)) return;
+    qDebug() << "setting default gps settings";
     settings->beginGroup(KEY_GROUP_GPS);
     settings->setValue(KEY_UPDATE_INTERVAL, 420);
     settings->endGroup();

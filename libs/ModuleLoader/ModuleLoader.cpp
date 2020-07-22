@@ -65,3 +65,9 @@ R ModuleLoader::executeReturn(QLibrary *lib, const QString& functionName) {
 int ModuleLoader::getDefaultIndex(QLibrary *lib) {
     return executeReturn<int>(lib, "getDefaultIndex");
 }
+
+QList<QString> *ModuleLoader::getNames() {
+    auto *r = new QList<QString>();
+    for(auto p : widgets) r->append(p->second);
+    return r;
+}

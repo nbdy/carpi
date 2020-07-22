@@ -39,14 +39,14 @@ QCheckBox::indicator {
 
 #### QSlider
 ```
-QSlider::add-page:horizontal {
+QSlider::add-page {
     background: #22b52a;
     border: 2px solid #424242;
     height: 10px;
     border-radius: 4px;
 }
 
-QSlider::handle:horizontal {
+QSlider::handle {
     background: #22b52a;
     border: 2px solid #424242;
     width: 12px;

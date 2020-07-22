@@ -6,6 +6,7 @@
 #define CARPI_QT_MANAGER_H
 
 #include "../Utils/Utils.h"
+#include "../ISettings/ISettings.h"
 #include "../UI/VTabWidget/VTabWidget.h"
 #include "../ModuleLoader/ModuleLoader.h"
 #include "../UI/MainWindow/MainWindow.h"
@@ -13,6 +14,9 @@
 #include <QSettings>
 #include <QDebug>
 #include <QDateTime>
+
+#define KEY_GROUP_GENERAL "General"
+#define KEY_MODULE_DIRECTORY "moduleDirectory"
 
 class Manager {
 private:
@@ -23,6 +27,7 @@ private:
 
     void setupUI();
     void attachTabs();
+    void setDefaultSettings();
 public:
     explicit Manager();
     ~Manager();

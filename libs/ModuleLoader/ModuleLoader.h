@@ -5,6 +5,9 @@
 #ifndef CARPI_QT_MODULELOADER_H
 #define CARPI_QT_MODULELOADER_H
 
+#include "../Logger/Logger.h"
+
+#include <QDir>
 #include <QPair>
 #include <QWidget>
 #include <QString>

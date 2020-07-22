@@ -7,7 +7,7 @@
 Manager::Manager() {
     settings = ISettings::getSettings();
     setDefaultSettings();
-    qDebug() << "the setting file lays here:" << settings->fileName();
+    Logger::debug("Manager", "configuration file is here: " + settings->fileName());
     loader = new ModuleLoader(settings->value(KEY_MODULE_DIRECTORY).toString());
     mainWindow = new MainWindow();
     vTabWidget = new VTabWidget();
@@ -23,7 +23,10 @@ Manager::~Manager() {
 
 void Manager::setupUI() {
     if(Utils::isPi()) {
+        Logger::debug("Manager", "running on raspberry pi");
+        Logger::info("Manager", "setting fullscreen");
         mainWindow->setWindowState(Qt::WindowFullScreen);
+        Logger::info("Manager", "disabling cursor");
         mainWindow->setCursor(Qt::BlankCursor);
     }
 
@@ -37,12 +40,18 @@ void Manager::setupUI() {
 }
 
 void Manager::attachTabs() {
-
+    Logger::debug("Manager", "attaching tabs");
+    for(const auto& p : loader->getWidgets()) {
+        if(settings->value(p->second, true).toBool()){
+            Logger::debug("Manager", "attaching '" + p->second + "'");
+            vTabWidget->addTab(p->first, p->second);
+        }
+    }
 }
 
 void Manager::setDefaultSettings() {
     if(settings->contains(KEY_GROUP_GENERAL)) return;
-    qDebug() << "setting default general settings";
+    Logger::debug("Manager", "setting default settings");
     settings->beginGroup(KEY_GROUP_GENERAL);
 #ifdef DEBUG
     settings->setValue(KEY_MODULE_DIRECTORY, "./");

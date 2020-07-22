@@ -43,6 +43,10 @@ private:
 
 private slots:
     void playPauseClicked();
+    void onSongPositionSliderChanged(int pos);
+    void onVolumeValueSliderChanged(int pos);
+    void onDurationChanged(qint64 duration);
+    void onPositionChanged(qint64 position);
     void shuffleCheckedChanged();
     void muteCheckedChanged();
     void playOnStartCheckedChanged();

@@ -16,19 +16,19 @@ MusicPlayer::MusicPlayer(QWidget *parent): QMainWindow(parent), ui(new Ui::Music
 
     connect(ui->playPause, SIGNAL(clicked()), this, SLOT(playPauseClicked()));
 
-    connect(ui->cb_shuffle, SIGNAL(stateChanged()), this, SLOT(shuffleCheckedChanged()));
-    connect(ui->cb_mute, SIGNAL(stateChanged()), this, SLOT(muteCheckedChanged()));
-    connect(ui->cb_play_on_start, SIGNAL(stateChanged()), this, SLOT(playOnStartCheckedChanged()));
+    connect(ui->cb_shuffle, SIGNAL(stateChanged(int)), this, SLOT(shuffleCheckedChanged()));
+    connect(ui->cb_mute, SIGNAL(stateChanged(int)), this, SLOT(muteCheckedChanged()));
+    connect(ui->cb_play_on_start, SIGNAL(stateChanged(int)), this, SLOT(playOnStartCheckedChanged()));
 
     connect(ui->next, SIGNAL(clicked()), playlist, SLOT(next()));
     connect(ui->previous, SIGNAL(clicked()), playlist, SLOT(previous()));
 
-    connect(ui->sldr_song, SIGNAL(valueChanged(int)), player, SLOT(setPosition(int)));
-    connect(ui->sldr_volume, SIGNAL(valueChanged(int)), player, SLOT(setVolume(int)));
+    connect(ui->sldr_song, SIGNAL(valueChanged(int)), this, SLOT(onSongPositionSliderChanged(int)));
+    connect(ui->sldr_volume, SIGNAL(valueChanged(int)), this, SLOT(onVolumeValueSliderChanged(int)));
 
-    connect(player, SIGNAL(mediaChanged()), this, SLOT(onNextSong()));
-    connect(player, SIGNAL(durationChanged(int)), ui->lbl_max_position, SLOT(setNum(int))); // todo convert to mm:ss
-    connect(player, SIGNAL(positionChanged(int)), ui->lbl_current_position, SLOT(setNum(int))); // ^
+    connect(player, SIGNAL(mediaChanged(const QMediaContent&)), this, SLOT(onNextSong()));
+    connect(player, SIGNAL(durationChanged(qint64)), this, SLOT(onDurationChanged(qint64)));
+    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(onPositionChanged(qint64))); // ^
 
     settings = ISettings::getSettings(this);
     createDefaultSettings();
@@ -37,6 +37,9 @@ MusicPlayer::MusicPlayer(QWidget *parent): QMainWindow(parent), ui(new Ui::Music
 
 MusicPlayer::~MusicPlayer()
 {
+    settings->endGroup();
+    settings->sync();
+    delete settings;
     delete playlist;
     delete player;
     delete ui;
@@ -52,7 +55,6 @@ void MusicPlayer::createDefaultSettings() {
     settings->setValue(KEY_SETTINGS_PLAY_ALBUM_ON_START, false); // todo actually use this
     settings->setValue(KEY_SETTINGS_PLAY_ON_START, false);
     settings->setValue(KEY_SETTINGS_DEFAULT_ALBUM, "");
-    settings->endGroup();
 }
 
 void MusicPlayer::loadSettings() {
@@ -109,6 +111,23 @@ void MusicPlayer::onNextSong() {
 
 void MusicPlayer::playOnStartCheckedChanged() {
     settings->setValue(KEY_SETTINGS_PLAY_ON_START, ui->cb_play_on_start->isChecked());
+}
+
+void MusicPlayer::onSongPositionSliderChanged(int pos) {
+    player->setPosition(pos);
+}
+
+void MusicPlayer::onVolumeValueSliderChanged(int pos) {
+    settings->setValue(KEY_SETTINGS_VOLUME, pos);
+    player->setVolume(pos);
+}
+
+void MusicPlayer::onDurationChanged(qint64 duration) {
+    ui->lbl_max_position->setText(QString::number(duration)); // todo convert to mm:ss
+}
+
+void MusicPlayer::onPositionChanged(qint64 position) {
+    ui->lbl_current_position->setText(QString::number(position)); // todo convert to mm:ss
 }
 
 extern "C" MUSICPLAYER_EXPORT QWidget* create() {

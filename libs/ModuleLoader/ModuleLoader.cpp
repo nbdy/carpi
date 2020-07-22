@@ -3,8 +3,6 @@
 //
 
 #include "ModuleLoader.h"
-#include <QDir>
-#include <QDebug>
 
 ModuleLoader::ModuleLoader(const QString &directory)
 {
@@ -23,18 +21,18 @@ QLibrary* ModuleLoader::load(const QString &name)
 {
     auto *lib = new QLibrary(name.toStdString().c_str());
     if(lib->load()) {
-        qDebug() << "loaded" << name;
+        Logger::debug("ModuleLoader", "loaded '" + name + "'");
         return lib;
     } else {
-        qDebug() << "unable to load" << name;
-        qDebug() << lib->errorString();
+        Logger::warning("ModuleLoader", "unable to load '" + name + "'");
+        Logger::error("ModuleLoader", lib->errorString());
     }
     return nullptr;
 }
 
 void ModuleLoader::loadAll(){
     QDir dir(this->directory.toStdString().c_str());
-    qDebug() << "loading modules from" << dir.absolutePath();
+    Logger::debug("ModuleLoader", "loading modules from: " + dir.absolutePath());
     for(const auto& f : dir.entryList(QStringList() << "*.so", QDir::Files))
         this->libraries.append(this->load(dir.absoluteFilePath(f)));
 

@@ -11,14 +11,14 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Multimedia REQUIRED)
 
 add_library(musicplayer SHARED
         MusicPlayer.cpp
         MusicPlayer.h
         MusicPlayer_global.h)
 
-target_link_libraries(musicplayer PUBLIC Qt5::Widgets)
+target_link_libraries(musicplayer PUBLIC Qt5::Widgets Qt5::Multimedia)
 target_compile_definitions(musicplayer PUBLIC MUSICPLAYER_LIBRARY)
 
 install(TARGETS musicplayer

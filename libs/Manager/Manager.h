@@ -6,13 +6,13 @@
 #define CARPI_QT_MANAGER_H
 
 #include "../Utils/Utils.h"
+#include "../Logger/Logger.h"
 #include "../ISettings/ISettings.h"
 #include "../UI/VTabWidget/VTabWidget.h"
 #include "../ModuleLoader/ModuleLoader.h"
 #include "../UI/MainWindow/MainWindow.h"
 #include <QApplication>
 #include <QSettings>
-#include <QDebug>
 #include <QDateTime>
 
 #define KEY_GROUP_GENERAL "General"

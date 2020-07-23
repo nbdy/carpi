@@ -5,19 +5,18 @@
 #include "Player.h"
 #include "ui_player.h"
 
-Player::Player(QWidget *parent):  QWidget(parent), ui(new Ui::Player){
+Player::Player(QWidget *parent): QWidget(parent), ui(new Ui::Player){
     ui->setupUi(this);
 
     player = new QMediaPlayer(this);
-    playlist = new QMediaPlaylist(player);
 
     ui->lbl_artist->setText("None");
     ui->lbl_album->setText("None");
     ui->lbl_song->setText("None");
 
     connect(ui->btn_playPause, SIGNAL(clicked()), this, SLOT(playPauseClicked()));
-    connect(ui->btn_next, SIGNAL(clicked()), playlist, SLOT(next()));
-    connect(ui->btn_previous, SIGNAL(clicked()), playlist, SLOT(previous()));
+    connect(ui->btn_next, SIGNAL(clicked()), this, SLOT(nextClicked()));
+    connect(ui->btn_previous, SIGNAL(clicked()), this, SLOT(previousClicked()));
 
     connect(ui->cb_shuffle, SIGNAL(stateChanged(int)), this, SLOT(shuffleCheckedChanged()));
     connect(ui->cb_mute, SIGNAL(stateChanged(int)), this, SLOT(muteCheckedChanged()));
@@ -28,7 +27,11 @@ Player::Player(QWidget *parent):  QWidget(parent), ui(new Ui::Player){
 
     connect(player, SIGNAL(mediaChanged(const QMediaContent&)), this, SLOT(onNextSong()));
     connect(player, SIGNAL(durationChanged(qint64)), this, SLOT(onDurationChanged(qint64)));
-    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(onPositionChanged(qint64))); // ^
+    connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(onPositionChanged(qint64)));
+
+    connect(player, SIGNAL(error(QMediaPlayer::Error)), this, SLOT(handleMediaPlayerError()));
+    connect(player, SIGNAL(mediaStatusChanged(QMediaPlayer::MediaStatus)), this, SLOT(handleMediaPlayerMediaStatusChanged()));
+    connect(player, SIGNAL(stateChanged(QMediaPlayer::State)), this, SLOT(handleMediaPlayerStateChanged()));
 
     settings = ISettings::getSettings(this);
     createDefaultSettings();
@@ -43,16 +46,17 @@ Player::~Player() {
 }
 
 void Player::createDefaultSettings() {
-    if(!settings->contains(getName())) return;
+    if(settings->contains(getName())) return;
     Logger::info(getName(), "setting default settings");
     settings->beginGroup(getName());
-    settings->setValue(KEY_SETTINGS_DIRECTORY, "~/Music/");
+    settings->setValue(KEY_SETTINGS_DIRECTORY, QDir::home().absoluteFilePath("Music")); // todo do not hard code
     settings->setValue(KEY_SETTINGS_VOLUME, 30);
     settings->setValue(KEY_SETTINGS_SHUFFLE, false);
     settings->setValue(KEY_SETTINGS_PLAY_ALBUM_ON_START, false); // todo actually use this
     settings->setValue(KEY_SETTINGS_PLAY_ON_START, false);
     settings->setValue(KEY_SETTINGS_DEFAULT_ALBUM, "");
     settings->endGroup();
+    settings->sync();
 }
 
 void Player::loadSettings() {
@@ -70,26 +74,14 @@ void Player::loadSettings() {
     player->setVolume(volume);
 
     QString defaultAlbum = settings->value(KEY_SETTINGS_DEFAULT_ALBUM).toString();
-    if(defaultAlbum != "") loadAlbum(defaultAlbum);
 
     settings->endGroup();
 }
 
-void Player::loadAlbum(const QString& path) {
-    if(!playlist->clear()) Logger::warning(getName(), "could not clear playlist"); // todo inform ui
-    QDir albumDirectory(path);
-    setValue(KEY_SETTINGS_DEFAULT_ALBUM, path);
-    Logger::info(getName(), "populating playlist from '" + albumDirectory.absolutePath() + "'");
-    for(const QString& fp : albumDirectory.entryList(QStringList() << "*.mp3" << "*.wav", QDir::Files)) {
-        QString afp = albumDirectory.absoluteFilePath(fp);
-        Logger::debug(getName(), "adding '" + afp + "' to current playlist");
-        playlist->addMedia(QUrl::fromLocalFile(afp));
-    }
-}
-
 void Player::playPauseClicked() {
-    if(playing) player->pause();
+    if(player->state() == QMediaPlayer::PlayingState) player->pause();
     else player->play();
+
 }
 
 void Player::shuffleCheckedChanged() {
@@ -140,4 +132,58 @@ void Player::setValue(const QString &key, T value) {
     settings->beginGroup(getName());
     settings->setValue(key, value);
     settings->endGroup();
+}
+
+QMediaPlayer *Player::getMediaPlayer() {
+    return player;
+}
+
+QString Player::getMusicDirectory() {
+    settings->beginGroup(getName());
+    QString r = settings->value(KEY_SETTINGS_DIRECTORY).toString();
+    settings->endGroup();
+    return r;
+}
+
+void Player::handleMediaPlayerError() {
+    Logger::error(getName(), player->errorString());
+}
+
+void Player::handleMediaPlayerMediaStatusChanged() {
+    auto s = player->mediaStatus();
+    QString r = "";
+    switch (s) {
+        case QMediaPlayer::UnknownMediaStatus:
+            r = "UnknownMediaStatus"; break;
+        case QMediaPlayer::NoMedia:
+            r = "NoMedia"; break;
+        case QMediaPlayer::LoadingMedia:
+            r = "LoadingMedia"; break;
+        case QMediaPlayer::LoadedMedia:
+            r ="LoadedMedia"; break;
+        case QMediaPlayer::StalledMedia:
+            r ="StalledMedia"; break;
+        case QMediaPlayer::BufferingMedia:
+            r ="BufferingMedia"; break;
+        case QMediaPlayer::BufferedMedia:
+            r = "BufferedMedia"; break;
+        case QMediaPlayer::EndOfMedia:
+            r ="EndOfMedia"; break;
+        case QMediaPlayer::InvalidMedia:
+            r = "InvalidMedia"; break;
+    }
+    Logger::debug(getName(), r);
+}
+
+void Player::handleMediaPlayerStateChanged() {
+    if(player->state() == QMediaPlayer::PausedState) ui->btn_playPause->setText(">");
+    else ui->btn_playPause->setText("||");
+}
+
+void Player::nextClicked() {
+    player->playlist()->next();
+}
+
+void Player::previousClicked() {
+    player->playlist()->previous();
 }

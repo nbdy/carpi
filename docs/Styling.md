@@ -4,6 +4,14 @@ These are the Styles used throughout the project.
 ```
 background-color: rgb(0, 0, 0);
 ```
+
+#### QLabel
+```
+QLabel {
+    font-size: 16pt;
+}
+```
+
 #### QTabWidget
 ```
 background-color: rgb(0, 0, 0);

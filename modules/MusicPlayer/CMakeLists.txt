@@ -24,7 +24,16 @@ add_library(musicplayer SHARED
 
         Library/Library.cpp
         Library/Library.h
-        )
+
+        Library/SongItem/SongItem.cpp
+        Library/SongItem/SongItem.h
+
+        Library/AlbumItem/AlbumItem.cpp
+        Library/AlbumItem/AlbumItem.h
+
+        Library/ListItemWithPath/ListItemWithPath.cpp
+        Library/ListItemWithPath/ListItemWithPath.h
+)
 
 
 target_link_libraries(musicplayer PUBLIC Qt5::Widgets Qt5::Multimedia)

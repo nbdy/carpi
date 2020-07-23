@@ -37,17 +37,17 @@ private:
     bool playing = false;
 
     QMediaPlayer *player;
-    QMediaPlaylist *playlist;
 
     void createDefaultSettings();
     void loadSettings();
 
     QString getName();
-    void loadAlbum(const QString& path);
 
     template<typename T> void setValue(const QString& key, T value);
 
 private slots:
+    void nextClicked();
+    void previousClicked();
     void playPauseClicked();
     void onSongPositionSliderChanged(int pos);
     void onVolumeValueSliderChanged(int pos);
@@ -57,10 +57,16 @@ private slots:
     void muteCheckedChanged();
     void playOnStartCheckedChanged();
     void onNextSong();
+    void handleMediaPlayerError();
+    void handleMediaPlayerMediaStatusChanged();
+    void handleMediaPlayerStateChanged();
 
 public:
     explicit Player(QWidget *parent = nullptr);
     ~Player() override;
+
+    QMediaPlayer* getMediaPlayer();
+    QString getMusicDirectory();
 };
 
 

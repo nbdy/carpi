@@ -14,14 +14,20 @@ MusicPlayer::MusicPlayer(QWidget *parent): QWidget(parent), ui(new Ui::MusicPlay
     ui->setupUi(this);
 
     playerLayout = new QGridLayout(this);
+    libraryLayout = new QGridLayout(this);
     player = new Player(this);
+    library = new Library(player);
     ui->tabWidget->setStyleSheet("QTabBar::tab { height: 50px; width: 150px;}");
     playerLayout->addWidget(player);
+    libraryLayout->addWidget(library);
     ui->tab_player->setLayout(playerLayout);
+    ui->tab_library->setLayout(libraryLayout);
 }
 
 MusicPlayer::~MusicPlayer()
 {
+    delete library;
+    delete libraryLayout;
     delete player;
     delete playerLayout;
     delete ui;

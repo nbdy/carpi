@@ -10,7 +10,7 @@
 #include "../../libs/Logger/Logger.h"
 
 #include "Player/Player.h"
-
+#include "Library/Library.h"
 
 #include <QString>
 #include <QWidget>
@@ -26,8 +26,10 @@ Q_OBJECT
 private:
     Ui::MusicPlayer *ui;
     QGridLayout *playerLayout;
+    QGridLayout *libraryLayout;
 
     Player *player;
+    Library *library;
 
 public:
     explicit MusicPlayer(QWidget *parent = nullptr);

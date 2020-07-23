@@ -13,7 +13,7 @@ GPS::GPS(QObject *parent) : QObject(parent) {
         connect(source, &QGeoPositionInfoSource::positionUpdated, this, &GPS::positionUpdated);
         connect(source, &QGeoPositionInfoSource::updateTimeout, this, &GPS::updateTimeout);
         source->startUpdates();
-    } else qDebug() << "could not create gps source";
+    } else Logger::error("GPS", "could not create source");
 }
 
 void GPS::positionUpdated(const QGeoPositionInfo &info) {
@@ -24,13 +24,13 @@ void GPS::positionUpdated(const QGeoPositionInfo &info) {
 }
 
 void GPS::updateTimeout() {
-    qDebug() << "gps update timeout";
+    Logger::warning("GPS", "timeout");
     emit positionOld(lastInfo.timestamp());
 }
 
 void GPS::setDefaultSettings() {
     if(settings->contains(KEY_GROUP_GPS)) return;
-    qDebug() << "setting default gps settings";
+    Logger::debug("GPS", "setting default settings");
     settings->beginGroup(KEY_GROUP_GPS);
     settings->setValue(KEY_UPDATE_INTERVAL, 420);
     settings->endGroup();

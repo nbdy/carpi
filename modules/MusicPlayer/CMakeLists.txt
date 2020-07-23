@@ -16,7 +16,16 @@ find_package(Qt5 COMPONENTS Widgets Multimedia REQUIRED)
 add_library(musicplayer SHARED
         MusicPlayer.cpp
         MusicPlayer.h
-        MusicPlayer_global.h)
+        MusicPlayer_global.h
+
+        Player/Player.cpp
+        Player/Player.h
+        Player/player.ui
+
+        Library/Library.cpp
+        Library/Library.h
+        )
+
 
 target_link_libraries(musicplayer PUBLIC Qt5::Widgets Qt5::Multimedia)
 target_compile_definitions(musicplayer PUBLIC MUSICPLAYER_LIBRARY)

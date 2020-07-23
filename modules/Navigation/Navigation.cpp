@@ -9,7 +9,24 @@
 Navigation::Navigation(QWidget *parent): QWidget(parent), ui(new Ui::Navigation)
 {
     ui->setupUi(this);
-    // todo signals and slots for labels
+    gridLayout = new QGridLayout(this);
+    // todo set default settings
+    gps = new GPS(this);
+    // todo load settings
+
+    osmscout::OSMScoutQt::RegisterQmlTypes();
+    bool ok = osmscout::OSMScoutQt::NewInstance()
+            .WithBasemapLookupDirectory("TODO") // todo
+            .WithStyleSheetDirectory("TODO") // todo
+            .WithIconDirectory("TODO") // todo
+            .Init();
+
+    if(!ok) Logger::error(getName(), "OSMScoutQt init failed"); // todo abort
+    scout = &osmscout::OSMScoutQt::GetInstance();
+
+    db = scout->GetDBThread();
+    db->Initialize();
+
 }
 
 Navigation::~Navigation()
@@ -26,5 +43,5 @@ extern "C" NAVIGATION_EXPORT char* getName() {
 }
 
 extern "C" NAVIGATION_EXPORT int getDefaultIndex(){
-    return 3;
+    return 2;
 }

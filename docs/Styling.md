@@ -23,6 +23,13 @@ QTabBar::tab:selected {
 }
 ```
 
+### QPushButton
+```
+QPushButton {
+    border:2px solid #424242;
+}
+```
+
 #### QCheckBox
 ```
 QCheckBox {

@@ -7,7 +7,13 @@
 
 #include "Navigation_global.h"
 
+#include "../../libs/GPS/GPS.h"
+
 #include <QWidget>
+#include <QGridLayout>
+#include <QtQuick/QQuickPaintedItem>
+
+#include <osmscout/MapWidget.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Navigation; }
@@ -18,6 +24,11 @@ class Navigation : public QWidget
 Q_OBJECT
 private:
     Ui::Navigation *ui;
+    QGridLayout *gridLayout;
+    GPS *gps;
+    osmscout::OSMScoutQt *scout;
+
+    std::shared_ptr<osmscout::DBThread> db;
 
 public:
     explicit Navigation(QWidget *parent = nullptr);

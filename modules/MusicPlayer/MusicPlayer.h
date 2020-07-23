@@ -5,58 +5,33 @@
 #ifndef CARPI_QT_MUSICPLAYER_H
 #define CARPI_QT_MUSICPLAYER_H
 
-#define KEY_SETTINGS_DIRECTORY "directory"
-#define KEY_SETTINGS_VOLUME "volume"
-#define KEY_SETTINGS_SHUFFLE "shuffle"
-#define KEY_SETTINGS_MUTE "mute"
-#define KEY_SETTINGS_DEFAULT_ALBUM "defaultAlbum"
-#define KEY_SETTINGS_PLAY_ON_START "playOnStart"
-#define KEY_SETTINGS_PLAY_ALBUM_ON_START "albumOnStart"
-
 #include "MusicPlayer_global.h"
 #include "../../libs/ISettings/ISettings.h"
 #include "../../libs/Logger/Logger.h"
 
-#include <QDir>
+#include "Player/Player.h"
+
+
 #include <QString>
-#include <QMainWindow>
-#include <QtMultimedia/QMediaPlaylist>
-#include <QtMultimedia/QMediaPlayer>
-#include <QtMultimedia/QMediaMetaData>
+#include <QWidget>
+#include <QGridLayout>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MusicPlayer; }
 QT_END_NAMESPACE
 
-class MusicPlayer : public QMainWindow
+class MusicPlayer : public QWidget
 {
 Q_OBJECT
 private:
-    bool playing = false;
     Ui::MusicPlayer *ui;
-    QMediaPlayer *player;
-    QMediaPlaylist *playlist;
-    QSettings *settings;
+    QGridLayout *playerLayout;
 
-    void createDefaultSettings();
-    void loadSettings();
-
-private slots:
-    void playPauseClicked();
-    void onSongPositionSliderChanged(int pos);
-    void onVolumeValueSliderChanged(int pos);
-    void onDurationChanged(qint64 duration);
-    void onPositionChanged(qint64 position);
-    void shuffleCheckedChanged();
-    void muteCheckedChanged();
-    void playOnStartCheckedChanged();
-    void onNextSong();
+    Player *player;
 
 public:
     explicit MusicPlayer(QWidget *parent = nullptr);
     ~MusicPlayer() override;
-
-    void loadAlbum(const QString& path);
 };
 
 extern "C" {

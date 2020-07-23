@@ -20,12 +20,15 @@ QT_END_NAMESPACE
 class SettingsTab : public QWidget {
 Q_OBJECT
 private:
+    const QString& groupKey;
     Ui::SettingsTab *ui;
     QGridLayout *layout;
     QSettings *settings;
 
     void populateKeyValues();
     QWidget *createAccordingWidget(const QString& key, const QVariant& value);
+
+    template<typename T> void setKeyValue(const QString& key, T value);
 
 public:
     explicit SettingsTab(const QString& key, QWidget *parent = nullptr);

@@ -6,8 +6,8 @@
 #define CARPI_QT_GPS_H
 
 #include "../ISettings/ISettings.h"
+#include "../Logger/Logger.h"
 
-#include <QDebug>
 #include <QSettings>
 #include <QTimer>
 #include <QObject>

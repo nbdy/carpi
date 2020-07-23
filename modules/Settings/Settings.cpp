@@ -10,6 +10,8 @@ Settings::Settings(QWidget *parent): QWidget(parent), ui(new Ui::Settings)
     layout->addWidget(vTabWidget);
     populateTabs();
     vTabWidget->show();
+
+    connect(ui->btn_reload, SIGNAL(clicked()), this, SLOT(populateTabs()));
 }
 
 Settings::~Settings()
@@ -20,6 +22,7 @@ Settings::~Settings()
 }
 
 void Settings::populateTabs() {
+    vTabWidget->clear();
     for(const QString& k : ISettings::getSettings()->childGroups()){
         qDebug() << "adding setttings tab" << k;
         vTabWidget->addTab(new SettingsTab(k, this), k);

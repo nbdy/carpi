@@ -21,7 +21,6 @@ set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Widgets Network Positioning REQUIRED)
 
-add_subdirectory(modules/Settings)
 add_subdirectory(modules/SystemInfo)
 add_subdirectory(modules/MusicPlayer)
 add_subdirectory(modules/Navigation)
@@ -58,7 +57,9 @@ add_executable(
 
         libs/ISettings/ISettings.cpp
         libs/ISettings/ISettings.h
-        libs/Logger/Logger.cpp libs/Logger/Logger.h)
+
+        libs/Logger/Logger.cpp
+        libs/Logger/Logger.h)
 
 target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning)
 

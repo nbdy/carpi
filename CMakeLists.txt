@@ -61,7 +61,14 @@ add_executable(
         libs/Logger/Logger.cpp
         libs/Logger/Logger.h)
 
-target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning)
+target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning
+        osmscout osmscout_client_qt osmscout_map  osmscout_map_qt osmscout_gpx)
+
+if(DEBUG)
+    add_custom_command(TARGET carpi PRE_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy_directory
+            ${CMAKE_SOURCE_DIR}/maps/ $<TARGET_FILE_DIR:carpi>)
+endif()
 
 install(TARGETS carpi_qt
         RUNTIME DESTINATION bin)

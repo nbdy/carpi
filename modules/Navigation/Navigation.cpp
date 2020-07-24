@@ -9,29 +9,42 @@
 Navigation::Navigation(QWidget *parent): QWidget(parent), ui(new Ui::Navigation)
 {
     ui->setupUi(this);
-    gridLayout = new QGridLayout(this);
-    // todo set default settings
+    settings = ISettings::getSettings(this);
     gps = new GPS(this);
-    // todo load settings
-
-    osmscout::OSMScoutQt::RegisterQmlTypes();
-    bool ok = osmscout::OSMScoutQt::NewInstance()
-            .WithBasemapLookupDirectory("TODO") // todo
-            .WithStyleSheetDirectory("TODO") // todo
-            .WithIconDirectory("TODO") // todo
-            .Init();
-
-    if(!ok) Logger::error(getName(), "OSMScoutQt init failed"); // todo abort
-    scout = &osmscout::OSMScoutQt::GetInstance();
-
-    db = scout->GetDBThread();
-    db->Initialize();
-
+    setDefaultSettings();
+    loadSettings();
+    buildOSMScout();
+    auto *e = new QQmlEngine(this);
+    e->setBaseUrl(QUrl("qrc:/qml/main.qml"));
+    map_widget = new QQuickWidget(e, this);
 }
 
 Navigation::~Navigation()
 {
+    osmscout::OSMScoutQt::FreeInstance();
     delete ui;
+}
+
+void Navigation::buildOSMScout() {
+    auto builder = osmscout::OSMScoutQt::NewInstance();
+    settings->beginGroup(getName());
+    builder.WithStyleSheetDirectory(settings->value(KEY_SETTINGS_STYLE_SHEET_DIRECTORY).toString())
+           .WithBasemapLookupDirectory(settings->value(KEY_SETTINGS_MAP_LOOKUP_DIRECTORIES).toString())
+           .WithIconDirectory(settings->value(KEY_SETTINGS_ICON_DIRECTORY).toString())
+           .WithVoiceProviders(settings->value(KEY_SETTINGS_VOICE_PROVIDERS).toString());
+    settings->endGroup();
+    if(!builder.Init()) Logger::error(getName(), "could not initialize osmscout"); // todo inform user about errors
+}
+
+void Navigation::setDefaultSettings() {
+    if(settings->contains(getName())) return;
+    settings->beginGroup(getName());
+    settings->setValue(KEY_SETTINGS_STYLE_SHEET_DIRECTORY, "");
+    settings->endGroup();
+}
+
+void Navigation::loadSettings() {
+    // todo
 }
 
 extern "C" NAVIGATION_EXPORT QWidget* create() {

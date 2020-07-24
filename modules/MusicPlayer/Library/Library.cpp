@@ -23,7 +23,7 @@ void Library::populateSongs() {
     ui->lst_songs->clear();
     QDir musicDir(player->getMusicDirectory());
     Logger::info(getName(), "populating song list");
-    for(auto *item : selectedAlbums->toStdList()){
+    for(auto *item : selectedAlbums->toVector()){
         QDir albumDir(musicDir.absoluteFilePath(item->getPath()));
         Logger::debug(getName(), "from album: " + albumDir.absolutePath());
         for(const QString& s : albumDir.entryList(QStringList() << "*.mp3")) { // todo maybe more file types
@@ -49,7 +49,7 @@ QString Library::getName() {
 }
 
 void Library::onSongSelected(QListWidgetItem *item) {
-    SongItem *si = static_cast<SongItem*>(item);
+    auto *si = dynamic_cast<SongItem*>(item);
     Logger::debug(getName(), "going to play: " + si->getPath());
     auto *mp = player->getMediaPlayer();
     auto *p = new QMediaPlaylist();
@@ -57,7 +57,7 @@ void Library::onSongSelected(QListWidgetItem *item) {
     p->clear();
     p->addMedia(QUrl::fromLocalFile(si->getPath()));
     for(QListWidgetItem *i : ui->lst_songs->findItems("*", Qt::MatchWildcard)){
-        si = static_cast<SongItem*>(i);
+        si = dynamic_cast<SongItem*>(i);
         p->addMedia(QUrl::fromLocalFile(si->getPath()));
     }
     mp->setPlaylist(p);
@@ -65,7 +65,7 @@ void Library::onSongSelected(QListWidgetItem *item) {
 }
 
 void Library::onAlbumSelected(QListWidgetItem *item) {
-    AlbumItem *ai = static_cast<AlbumItem*>(item);
+    auto *ai = dynamic_cast<AlbumItem*>(item);
     if(!ui->cb_select_multiple->isChecked()) selectedAlbums->clear();
     selectedAlbums->append(ai);
     populateSongs();

@@ -10,10 +10,18 @@
 #include "../../libs/GPS/GPS.h"
 
 #include <QWidget>
+#include <QQuickWidget>
 #include <QGridLayout>
-#include <QtQuick/QQuickPaintedItem>
+#include <QQuickPaintedItem>
+#include <QQmlEngine>
+
 
 #include <osmscout/MapWidget.h>
+
+#define KEY_SETTINGS_STYLE_SHEET_DIRECTORY "stylesDirectory"
+#define KEY_SETTINGS_ICON_DIRECTORY "iconsDirectory"
+#define KEY_SETTINGS_MAP_LOOKUP_DIRECTORIES "mapLookupDirectories"
+#define KEY_SETTINGS_VOICE_PROVIDERS "voiceProviders"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Navigation; }
@@ -24,11 +32,18 @@ class Navigation : public QWidget
 Q_OBJECT
 private:
     Ui::Navigation *ui;
-    QGridLayout *gridLayout;
+    QSettings *settings;
     GPS *gps;
+
+    QQuickWidget *map_widget;
     osmscout::OSMScoutQt *scout;
+    osmscout::MapWidget *map;
 
     std::shared_ptr<osmscout::DBThread> db;
+
+    void buildOSMScout();
+    void setDefaultSettings();
+    void loadSettings();
 
 public:
     explicit Navigation(QWidget *parent = nullptr);

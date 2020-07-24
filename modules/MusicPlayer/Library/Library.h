@@ -28,7 +28,7 @@ private:
     void populateSongs();
     void populateAlbums();
 
-    QString getName();
+    static QString getName();
 
 private slots:
     void onSongSelected(QListWidgetItem *item);

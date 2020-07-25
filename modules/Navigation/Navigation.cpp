@@ -3,20 +3,28 @@
 //
 
 #include "Navigation.h"
-#include "ui_navigation.h" // todo
+#include "ui_navigation.h"
 
 
 Navigation::Navigation(QWidget *parent): QWidget(parent), ui(new Ui::Navigation)
 {
     ui->setupUi(this);
     settings = ISettings::getSettings(this);
+
     gps = new GPS(this);
+    // connect(gps, SIGNAL(onPositionChanged(const QGeoPositionInfo&)), this, SLOT(onPositionChanged(const QGeoPositionInfo&)));
+
     setDefaultSettings();
     loadSettings();
+
+    qRegisterMetaType<QList<QDir>>("QList<QDir>");
     buildOSMScout();
-    auto *e = new QQmlEngine(this);
-    e->setBaseUrl(QUrl("qrc:/qml/main.qml"));
-    map_widget = new QQuickWidget(e, this);
+    scout = &osmscout::OSMScoutQt::GetInstance();
+    Logger::debug(getName(), "Cache location: " + scout->GetCacheLocation());
+    Logger::debug(getName(), "Icons location: " + scout->GetIconDirectory());
+
+    ui->quickWidget->setSource(QUrl("qrc:/qml/main.qml"));
+    ui->quickWidget->repaint();
 }
 
 Navigation::~Navigation()
@@ -28,23 +36,32 @@ Navigation::~Navigation()
 void Navigation::buildOSMScout() {
     auto builder = osmscout::OSMScoutQt::NewInstance();
     settings->beginGroup(getName());
-    builder.WithStyleSheetDirectory(settings->value(KEY_SETTINGS_STYLE_SHEET_DIRECTORY).toString())
-           .WithBasemapLookupDirectory(settings->value(KEY_SETTINGS_MAP_LOOKUP_DIRECTORIES).toString())
-           .WithIconDirectory(settings->value(KEY_SETTINGS_ICON_DIRECTORY).toString())
-           .WithVoiceProviders(settings->value(KEY_SETTINGS_VOICE_PROVIDERS).toString());
+    builder.WithStyleSheetDirectory("/home/insane/CLionProjects/libosmscout/stylesheets/")
+           .WithMapLookupDirectories(findMapsInDirectory("/home/insane/CLionProjects/libosmscout/maps/"));
     settings->endGroup();
     if(!builder.Init()) Logger::error(getName(), "could not initialize osmscout"); // todo inform user about errors
 }
 
 void Navigation::setDefaultSettings() {
     if(settings->contains(getName())) return;
+    Logger::debug(getName(), "setting default settings");
     settings->beginGroup(getName());
-    settings->setValue(KEY_SETTINGS_STYLE_SHEET_DIRECTORY, "");
+    settings->setValue(KEY_SETTINGS_STYLE_SHEET_DIRECTORY, "/var/lib/carpi/stylesheets/");
+    settings->setValue(KEY_SETTINGS_ICON_DIRECTORY, "/var/lib/carpi/icons/");
+    settings->setValue(KEY_SETTINGS_MAP_LOOKUP_DIRECTORIES, "/var/lib/carpi/maps/");
+    settings->setValue(KEY_SETTINGS_VOICE_PROVIDERS, "/var/lib/carpi/providers/voice.json");
     settings->endGroup();
 }
 
 void Navigation::loadSettings() {
     // todo
+}
+
+QStringList Navigation::findMapsInDirectory(const QString &directory) {
+    QStringList r;
+    QDir md(directory);
+    for(const QString& d : md.entryList(QDir::Dirs)) r.append(md.absoluteFilePath(d));
+    return r;
 }
 
 extern "C" NAVIGATION_EXPORT QWidget* create() {

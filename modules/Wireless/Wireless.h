@@ -23,7 +23,7 @@ public:
 extern "C" {
     WIRELESS_EXPORT int getDefaultIndex();
     WIRELESS_EXPORT char* getName();
-    WIRELESS_EXPORT QWidget* create();
+    WIRELESS_EXPORT [[maybe_unused]]  QWidget* create();
 };
 
 

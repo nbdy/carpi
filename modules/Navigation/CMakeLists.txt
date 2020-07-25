@@ -11,24 +11,23 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets Quick QuickWidgets Multimedia REQUIRED)
+find_package(Qt5 COMPONENTS Widgets Quick QuickWidgets Multimedia Positioning REQUIRED)
+
+qt5_add_resources(RESOURCE_FILES navigation.qrc)
 
 add_library(navigation SHARED
         Navigation.cpp
         Navigation.h
-        Navigation_global.h)
+        Navigation_global.h
+        ${RESOURCE_FILES}
+)
 
-if(DEBUG)
-    add_custom_command(TARGET navigation PRE_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_SOURCE_DIR}/qml/ $<TARGET_FILE_DIR:navigation>)
-    add_custom_command(TARGET navigation PRE_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-            ${CMAKE_SOURCE_DIR}/stylesheets/ $<TARGET_FILE_DIR:navigation>)
-endif()
-
-target_link_libraries(navigation PUBLIC Qt5::Widgets Qt5::Quick Qt5::Multimedia Qt5::QuickWidgets osmscout)
+target_link_libraries(navigation PUBLIC Qt5::Widgets Qt5::Quick Qt5::Multimedia Qt5::QuickWidgets Qt5::Positioning
+        osmscout osmscout_client_qt osmscout_map)
 target_compile_definitions(navigation PUBLIC NAVIGATION_LIBRARY)
 
 install(TARGETS navigation
         LIBRARY DESTINATION lib/carpi)
+
+install(FILES stylesheets/standard.oss
+        DESTINATION /var/lib/carpi/stylesheets/standard.oss)

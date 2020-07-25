@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 11)
 option(DEBUG "Compile for debugging environment" OFF)
 
 if(DEBUG)
-    add_compile_definitions(DEBUG)
+    add_compile_definitions(CARPI_DEBUG)
 endif()
 
 unset(DEBUG CACHE)
@@ -72,6 +72,8 @@ endif()
 
 install(TARGETS carpi_qt
         RUNTIME DESTINATION bin)
+
+install(DIRECTORY DESTINATION /var/lib/carpi/)
 
 install(FILES carpi.desktop
         DESTINATION /root/.config/autostart/)

@@ -39,7 +39,7 @@ public:
 extern "C" {
     MUSICPLAYER_EXPORT int getDefaultIndex();
     MUSICPLAYER_EXPORT char* getName();
-    MUSICPLAYER_EXPORT QWidget* create();
+    MUSICPLAYER_EXPORT [[maybe_unused]]  QWidget* create();
 };
 
 

@@ -33,7 +33,7 @@ MusicPlayer::~MusicPlayer()
     delete ui;
 }
 
-extern "C" MUSICPLAYER_EXPORT QWidget* create() {
+extern "C" MUSICPLAYER_EXPORT [[maybe_unused]]  QWidget* create() {
     return new MusicPlayer();
 }
 

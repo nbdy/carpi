@@ -35,15 +35,12 @@ private:
     QSettings *settings;
     GPS *gps;
 
-    QQuickWidget *map_widget;
     osmscout::OSMScoutQt *scout;
-    osmscout::MapWidget *map;
-
-    std::shared_ptr<osmscout::DBThread> db;
 
     void buildOSMScout();
     void setDefaultSettings();
     void loadSettings();
+    static QStringList findMapsInDirectory(const QString& directory);
 
 public:
     explicit Navigation(QWidget *parent = nullptr);

@@ -53,7 +53,7 @@ void Manager::setDefaultSettings() {
     if(settings->contains(KEY_GROUP_GENERAL)) return;
     Logger::debug("Manager", "setting default settings");
     settings->beginGroup(KEY_GROUP_GENERAL);
-#ifdef DEBUG
+#ifdef CARPI_DEBUG
     settings->setValue(KEY_MODULE_DIRECTORY, "./");
 #else
     settings->setValue(KEY_MODULE_DIRECTORY, "/usr/local/lib/carpi/");

@@ -13,7 +13,7 @@ Wireless::~Wireless()
     delete ui;
 }
 
-extern "C" WIRELESS_EXPORT QWidget* create() {
+extern "C" WIRELESS_EXPORT [[maybe_unused]]  QWidget* create() {
     return new Wireless();
 }
 

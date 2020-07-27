@@ -6,7 +6,6 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_PREFIX_PATH "/home/insane/Qt/5.15.0/gcc_64/")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)

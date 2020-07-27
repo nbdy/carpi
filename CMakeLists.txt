@@ -6,7 +6,7 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
 endif()
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_PREFIX_PATH "/media/storage/qt/5.12.8/gcc_64")
+set(CMAKE_PREFIX_PATH "/home/insane/Qt/5.15.0/gcc_64/")
 
 option(DEBUG "Compile for debugging environment" OFF)
 
@@ -20,7 +20,7 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt5 COMPONENTS Widgets Network Positioning REQUIRED)
+find_package(Qt5 COMPONENTS Gui Widgets Network Positioning REQUIRED)
 
 add_subdirectory(modules/SystemInfo)
 add_subdirectory(modules/MusicPlayer)
@@ -62,8 +62,7 @@ add_executable(
         libs/Logger/Logger.cpp
         libs/Logger/Logger.h)
 
-target_link_libraries(carpi_qt Qt5::Widgets Qt5::Network Qt5::Positioning
-        osmscout osmscout_client_qt osmscout_map  osmscout_map_qt osmscout_gpx)
+target_link_libraries(carpi_qt Qt5::Gui Qt5::Widgets Qt5::Network Qt5::Positioning)
 
 if(DEBUG)
     add_custom_command(TARGET carpi PRE_BUILD

@@ -1,19 +1,26 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
-import GeneralMagic 1.0
+import QtQuick.Controls 2.12
+import QtQuick.Layouts 1.1
+import QtQuick.Controls.Styles 1.1
 
-Window {
-  visible: true
-  width: 640; height: 480
-  title: qsTr("Minimal Map")
+import QtPositioning 5.12
+import net.sf.libosmscout.map 1.0
 
-  MapView {
-    id: mapView
-    anchors.fill: parent
-  }
+Rectangle {
+    width: 1024
+    height: 600
 
-  Component.onCompleted: {
-    ServicesManager.commonSettings.allowInternetConnection = true;
-    ServicesManager.contentManager.autoUpdate = true;
-  }
+    GridLayout {
+        id: content
+        anchors.fill: parent
+
+        Map {
+            id: map
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            focus: true
+            renderingType: "tiled"
+        }
+    }
 }

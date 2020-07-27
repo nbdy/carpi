@@ -6,24 +6,23 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_PREFIX_PATH "/media/storage/qt/5.12.8/gcc_64")
+set(CMAKE_PREFIX_PATH "/home/insane/Qt/5.15.0/gcc_64/")
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
 find_package(Qt5 COMPONENTS Core Gui Widgets Quick QuickWidgets Multimedia Positioning REQUIRED)
-qt5_add_resources(RESOURCE_FILES navigation.qrc)
 
 add_library(navigation SHARED
         Navigation.cpp
         Navigation.h
         Navigation_global.h
-        ${RESOURCE_FILES}
+        navigation.qrc
 )
 
-qt5_use_modules(navigation Core Gui Widgets Quick Multimedia QuickWidgets Positioning)
-target_link_libraries(navigation osmscout osmscout_client_qt osmscout_map osmscout_map_qt)
+target_link_libraries (navigation Qt5::Core Qt5::Quick Qt5::Multimedia Qt5::QuickWidgets Qt5::Positioning
+        osmscout osmscout_client_qt osmscout_map osmscout_map_qt)
 target_compile_definitions(navigation PUBLIC NAVIGATION_LIBRARY)
 
 install(TARGETS navigation

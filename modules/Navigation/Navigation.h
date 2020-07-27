@@ -17,6 +17,14 @@
 #include <QQmlEngine>
 #include <QQmlApplicationEngine>
 
+#include <osmscout/OSMScoutQt.h>
+#include <osmscout/MapWidget.h>
+#include <osmscout/SearchLocationModel.h>
+#include <osmscout/RoutingModel.h>
+#include <osmscout/AvailableMapsModel.h>
+#include <osmscout/MapDownloadsModel.h>
+#include <osmscout/Settings.h>
+
 #define KEY_SETTINGS_STYLE_SHEET_DIRECTORY "stylesDirectory"
 #define KEY_SETTINGS_ICON_DIRECTORY "iconsDirectory"
 #define KEY_SETTINGS_MAP_LOOKUP_DIRECTORIES "mapLookupDirectories"
@@ -34,6 +42,9 @@ private:
     QSettings *settings;
     GPS *gps;
 
+    osmscout::OSMScoutQt *scout;
+
+    void setupOSMScout();
     void setDefaultSettings();
     void loadSettings();
     static QStringList findMapsInDirectory(const QString& directory);

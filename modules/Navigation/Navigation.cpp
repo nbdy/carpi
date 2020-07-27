@@ -17,13 +17,28 @@ Navigation::Navigation(QWidget *parent): QWidget(parent), ui(new Ui::Navigation)
     setDefaultSettings();
     loadSettings();
 
+    setupOSMScout();
+
     ui->quickWidget->setSource(QUrl("qrc:/main.qml"));
+    ui->quickWidget->show();
+}
+
+void Navigation::setupOSMScout() {
+    osmscout::OSMScoutQt::RegisterQmlTypes();
+    osmscout::OSMScoutQtBuilder builder = osmscout::OSMScoutQt::NewInstance();
+    builder.WithStyleSheetDirectory("/usr/local/share/stylesheets/")
+           .WithStyleSheetFile("/usr/local/share/stylesheets/standard.oss")
+           .WithMapLookupDirectories(QStringList() << "/home/insane/maps/");
+
+    if(builder.Init()) scout = &osmscout::OSMScoutQt::GetInstance();
 }
 
 Navigation::~Navigation()
 {
+    osmscout::OSMScoutQt::FreeInstance();
     delete ui;
 }
+
 
 void Navigation::setDefaultSettings() {
     if(settings->contains(getName())) return;

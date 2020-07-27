@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install -y libcairo2-dev libagg-dev libpango1.0-dev freeglut3-dev libglm-dev
+sudo apt install -y libcairo2-dev libagg-dev libpango1.0-dev freeglut3-dev libglm-dev qtlocation5-dev
 
 cd /tmp/
 git clone https://github.com/Framstag/libosmscout

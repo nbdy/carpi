@@ -17,29 +17,12 @@ Navigation::Navigation(QWidget *parent): QWidget(parent), ui(new Ui::Navigation)
     setDefaultSettings();
     loadSettings();
 
-    qRegisterMetaType<QList<QDir>>("QList<QDir>");
-    buildOSMScout();
-    scout = &osmscout::OSMScoutQt::GetInstance();
-    Logger::debug(getName(), "Cache location: " + scout->GetCacheLocation());
-    Logger::debug(getName(), "Icons location: " + scout->GetIconDirectory());
-
-    ui->quickWidget->setSource(QUrl("qrc:/qml/main.qml"));
-    ui->quickWidget->repaint();
+    ui->quickWidget->setSource(QUrl("qrc:/main.qml"));
 }
 
 Navigation::~Navigation()
 {
-    osmscout::OSMScoutQt::FreeInstance();
     delete ui;
-}
-
-void Navigation::buildOSMScout() {
-    auto builder = osmscout::OSMScoutQt::NewInstance();
-    settings->beginGroup(getName());
-    builder.WithStyleSheetDirectory("/home/insane/CLionProjects/libosmscout/stylesheets/")
-           .WithMapLookupDirectories(findMapsInDirectory("/home/insane/CLionProjects/libosmscout/maps/"));
-    settings->endGroup();
-    if(!builder.Init()) Logger::error(getName(), "could not initialize osmscout"); // todo inform user about errors
 }
 
 void Navigation::setDefaultSettings() {

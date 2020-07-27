@@ -9,14 +9,13 @@
 
 #include "../../libs/GPS/GPS.h"
 
+#include <QDir>
 #include <QWidget>
 #include <QQuickWidget>
 #include <QGridLayout>
 #include <QQuickPaintedItem>
 #include <QQmlEngine>
-
-
-#include <osmscout/MapWidget.h>
+#include <QQmlApplicationEngine>
 
 #define KEY_SETTINGS_STYLE_SHEET_DIRECTORY "stylesDirectory"
 #define KEY_SETTINGS_ICON_DIRECTORY "iconsDirectory"
@@ -35,9 +34,6 @@ private:
     QSettings *settings;
     GPS *gps;
 
-    osmscout::OSMScoutQt *scout;
-
-    void buildOSMScout();
     void setDefaultSettings();
     void loadSettings();
     static QStringList findMapsInDirectory(const QString& directory);

@@ -6,6 +6,7 @@ if(CMAKE_VERSION VERSION_LESS "3.7.0")
 endif()
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_PREFIX_PATH "/media/storage/qt/5.12.8/gcc_64")
 
 option(DEBUG "Compile for debugging environment" OFF)
 

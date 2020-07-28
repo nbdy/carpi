@@ -36,6 +36,7 @@ public:
     static int getDefaultIndex(QLibrary* lib);
     static QString getName(QLibrary* lib);
     static QWidget* getWidget(QLibrary* lib);
+    static QStringList getOptions(QLibrary* lib);
 
     QList<QPair<QWidget*, QString>*> getWidgets();
     QList<QString>* getNames();

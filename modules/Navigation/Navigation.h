@@ -2,12 +2,13 @@
 // Created by insane on 11.07.20.
 //
 
-#ifndef CARPI_QT_NAVIGATION_H
+#ifndef CARPI_QT_ROUTING_H
 #define CARPI_QT_NAVIGATION_H
 
 #include "Navigation_global.h"
 
 #include "../../libs/GPS/GPS.h"
+#include "Map/Map.h"
 
 #include <QDir>
 #include <QWidget>
@@ -42,12 +43,16 @@ private:
     QSettings *settings;
     GPS *gps;
 
+    Map *map;
+    Navigation *navigation;
+
     osmscout::OSMScoutQt *scout;
 
     void setupOSMScout();
+    static QStringList findMapsInDirectory(const QString &directory);
+
     void setDefaultSettings();
     void loadSettings();
-    static QStringList findMapsInDirectory(const QString& directory);
 
 public:
     explicit Navigation(QWidget *parent = nullptr);
@@ -58,7 +63,8 @@ extern "C" {
     NAVIGATION_EXPORT int getDefaultIndex();
     NAVIGATION_EXPORT char* getName();
     NAVIGATION_EXPORT QWidget* create();
+    NAVIGATION_EXPORT QStringList* getSettingsKeys();
 };
 
 
-#endif //CARPI_QT_NAVIGATION_H
+#endif //CARPI_QT_ROUTING_H

@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/main.qml</file>
-        <file>qml/MapButton.qml</file>
+        <file>Map/qml/main.qml</file>
     </qresource>
 </RCC>

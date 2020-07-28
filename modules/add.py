@@ -60,6 +60,10 @@ extern "C" {2}_EXPORT char* getName() {
 extern "C" {2}_EXPORT int getDefaultIndex(){
     return -1;
 }
+
+extern "C" {2}_EXPORT QStringList* getSettingsKeys(){
+    return new QStringList(); // << KEY_SOMETHING_SOMETHING
+}
 """
 
 TPL_H = """#ifndef CARPI_QT_{2}_H
@@ -88,6 +92,7 @@ extern "C" {
     {2}_EXPORT int getDefaultIndex();
     {2}_EXPORT char* getName();
     {2}_EXPORT QWidget* create();
+    {2}_EXPORT QStringList* getSettingsKeys();
 };
 
 

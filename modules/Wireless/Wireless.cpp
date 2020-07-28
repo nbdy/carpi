@@ -13,7 +13,7 @@ Wireless::~Wireless()
     delete ui;
 }
 
-extern "C" WIRELESS_EXPORT [[maybe_unused]]  QWidget* create() {
+extern "C" WIRELESS_EXPORT QWidget* create() {
     return new Wireless();
 }
 
@@ -23,4 +23,8 @@ extern "C" WIRELESS_EXPORT char* getName() {
 
 extern "C" WIRELESS_EXPORT int getDefaultIndex(){
     return 4;
+}
+
+extern "C" WIRELESS_EXPORT QStringList getSettingsKeys(){
+    return QStringList();
 }

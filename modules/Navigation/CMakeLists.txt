@@ -18,7 +18,14 @@ add_library(navigation SHARED
         Navigation.h
         Navigation_global.h
         navigation.qrc
-)
+
+        Map/Map.cpp
+        Map/Map.h
+        Map/map.ui
+
+        Routing/Routing.cpp
+        Routing/Routing.h
+        Routing/routing.ui)
 
 target_link_libraries (navigation Qt5::Core Qt5::Quick Qt5::Multimedia Qt5::QuickWidgets Qt5::Positioning
         osmscout osmscout_client_qt osmscout_map osmscout_map_qt)

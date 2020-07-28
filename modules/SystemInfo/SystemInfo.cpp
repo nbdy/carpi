@@ -68,7 +68,7 @@ void SystemInfo::gpsPositionOld(const QDateTime &ts) {
     ui->gps_timestamp->setText(ts.toString(hourFormatStr));
 }
 
-extern "C" SYSTEMINFO_EXPORT [[maybe_unused]]  QWidget* create() {
+extern "C" SYSTEMINFO_EXPORT QWidget* create() {
     return new SystemInfo();
 }
 
@@ -78,4 +78,8 @@ extern "C" SYSTEMINFO_EXPORT char* getName() {
 
 extern "C" SYSTEMINFO_EXPORT int getDefaultIndex() {
     return 0;
+}
+
+extern "C" SYSTEMINFO_EXPORT QStringList getSettingsKeys(){
+    return QStringList();
 }

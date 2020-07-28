@@ -69,3 +69,7 @@ QList<QString> *ModuleLoader::getNames() {
     for(auto p : widgets) r->append(p->second);
     return r;
 }
+
+QStringList ModuleLoader::getOptions(QLibrary *lib) {
+    return executeReturn<QStringList>(lib, "getSettingsKeys");
+}

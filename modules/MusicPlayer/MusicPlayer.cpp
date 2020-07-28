@@ -33,7 +33,7 @@ MusicPlayer::~MusicPlayer()
     delete ui;
 }
 
-extern "C" MUSICPLAYER_EXPORT [[maybe_unused]]  QWidget* create() {
+extern "C" MUSICPLAYER_EXPORT QWidget* create() {
     return new MusicPlayer();
 }
 
@@ -43,4 +43,9 @@ extern "C" MUSICPLAYER_EXPORT char* getName() {
 
 extern "C" MUSICPLAYER_EXPORT int getDefaultIndex(){
     return 1;
+}
+
+extern "C" MUSICPLAYER_EXPORT QStringList getSettingsKeys(){
+    return QStringList() << KEY_SETTINGS_VOLUME << KEY_SETTINGS_DEFAULT_ALBUM << KEY_SETTINGS_DIRECTORY
+                         << KEY_SETTINGS_MUTE << KEY_SETTINGS_PLAY_ALBUM_ON_START << KEY_SETTINGS_SHUFFLE;
 }

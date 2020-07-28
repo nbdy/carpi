@@ -47,7 +47,8 @@ public:
 extern "C" {
     SYSTEMINFO_EXPORT int getDefaultIndex();
     SYSTEMINFO_EXPORT char* getName();
-    SYSTEMINFO_EXPORT [[maybe_unused]]  QWidget* create();
+    SYSTEMINFO_EXPORT QWidget* create();
+    SYSTEMINFO_EXPORT QStringList getSettingsKeys();
 };
 
 

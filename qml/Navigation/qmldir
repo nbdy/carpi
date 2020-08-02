@@ -1,0 +1,5 @@
+Navigation Navigation.qml
+NavigationFavourites NavigationFavourites.qml
+NavigationHistory NavigationHistory.qml
+NavigationSearch NavigationSearch.qml
+RectangleButton RectangleButton.qml

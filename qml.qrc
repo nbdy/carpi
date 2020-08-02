@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qtquickcontrols2.conf</file>
+
+        <file>qml/main.qml</file>
+        <file>qml/SpeedGauge.qml</file>
+        <file>qml/Dashboard.qml</file>
+
+        <file>img/cover.png</file>
+
+        <file>qml/Media/qmldir</file>
+        <file>qml/Media/Media.qml</file>
+        <file>qml/Media/MediaMusic.qml</file>
+        <file>qml/Media/MediaVideo.qml</file>
+
+        <file>qml/Navigation/qmldir</file>
+        <file>qml/Navigation/RectangleButton.qml</file>
+        <file>qml/Navigation/Navigation.qml</file>
+        <file>qml/Navigation/NavigationFavourites.qml</file>
+        <file>qml/Navigation/NavigationSearch.qml</file>
+        <file>qml/Navigation/NavigationHistory.qml</file>
+
+        <file>qml/Settings/qmldir</file>
+        <file>qml/Settings/Settings.qml</file>
+        <file>qml/Settings/SettingsUI.qml</file>
+        <file>qml/Settings/SettingsMedia.qml</file>
+        <file>qml/Settings/SettingsNavigation.qml</file>
+
+        <file>qml/Wireless/qmldir</file>
+        <file>qml/Wireless/Wireless.qml</file>
+        <file>qml/Wireless/WirelessWiFi.qml</file>
+        <file>qml/Wireless/WirelessBluetooth.qml</file>
+    </qresource>
+</RCC>

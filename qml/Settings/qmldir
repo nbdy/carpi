@@ -1,0 +1,4 @@
+Settings Settings.qml
+SettingsMedia SettingsMedia.qml
+SettingsNavigation SettingsNavigation.qml
+SettingsUI SettingsUI.qml

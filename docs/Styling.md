@@ -12,6 +12,14 @@ QLabel {
 }
 ```
 
+#### QTextEdit
+```
+QTextEdit {
+    border: 1px solid green;
+    font-size: 16pt;
+}
+```
+
 #### QTabWidget
 ```
 background-color: rgb(0, 0, 0);
@@ -34,7 +42,7 @@ QTabBar::tab:selected {
 ### QPushButton
 ```
 QPushButton {
-    border:2px solid #424242;
+    border: 2px solid #424242;
 }
 ```
 

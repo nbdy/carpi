@@ -9,14 +9,11 @@
 
 #include "../../libs/GPS/GPS.h"
 #include "Map/Map.h"
+#include "Routing/Routing.h"
 
 #include <QDir>
 #include <QWidget>
-#include <QQuickWidget>
 #include <QGridLayout>
-#include <QQuickPaintedItem>
-#include <QQmlEngine>
-#include <QQmlApplicationEngine>
 
 #include <osmscout/OSMScoutQt.h>
 #include <osmscout/MapWidget.h>
@@ -44,7 +41,10 @@ private:
     GPS *gps;
 
     Map *map;
-    Navigation *navigation;
+    Routing *routing;
+
+    QGridLayout *mapLayout;
+    QGridLayout *routingLayout;
 
     osmscout::OSMScoutQt *scout;
 

@@ -23,6 +23,24 @@ Rectangle {
             Layout.fillHeight: true
             focus: true
             renderingType: "tiled"
+
+            Location {
+                id: nurnberg
+                coordinate: QtPositioning.coordinate(49.4352658, 11.0532483);
+            }
+
+            function setupInitialPosition(){
+                if(map.databaseLoaded){
+                    if(map.isInDatabaseBoundingBox(nurnberg)) showCoordinates(nurnberg);
+
+                    console.log("yay?")
+                }
+                console.log("woo")
+            }
+
+            onDatabaseLoaded: {
+                setupInitialPosition();
+            }
         }
     }
 }

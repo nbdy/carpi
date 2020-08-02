@@ -28,7 +28,7 @@ add_library(navigation SHARED
         Routing/routing.ui)
 
 target_link_libraries (navigation Qt5::Core Qt5::Quick Qt5::Multimedia Qt5::QuickWidgets Qt5::Positioning
-        osmscout osmscout_client_qt osmscout_map osmscout_map_qt)
+        osm scout osmscout_client_qt osmscout_map osmscout_map_qt)
 target_compile_definitions(navigation PUBLIC NAVIGATION_LIBRARY)
 
 install(TARGETS navigation

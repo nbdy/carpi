@@ -8,14 +8,20 @@
 
 Navigation::Navigation(QWidget *parent): QWidget(parent), ui(new Ui::Navigation) {
     ui->setupUi(this);
+    ui->tabWidget->setStyleSheet("QTabBar::tab { height: 50px; width: 150px;}");
     settings = ISettings::getSettings(this);
 
     gps = new GPS(this);
     setupOSMScout();
-    // connect(gps, SIGNAL(onPositionChanged(const QGeoPositionInfo&)), this, SLOT(onPositionChanged(const QGeoPositionInfo&)));
 
     map = new Map();
-    navigation = new Navigation();
+    routing = new Routing();
+    mapLayout = new QGridLayout(this);
+    routingLayout = new QGridLayout(this);
+    mapLayout->addWidget(map);
+    routingLayout->addWidget(routing);
+    ui->tabMap->setLayout(mapLayout);
+    ui->tabRouting->setLayout(routingLayout);
 
     setDefaultSettings();
     loadSettings();
@@ -32,7 +38,7 @@ void Navigation::setupOSMScout() {
     osmscout::OSMScoutQtBuilder builder = osmscout::OSMScoutQt::NewInstance();
     builder.WithStyleSheetDirectory("/usr/local/share/stylesheets/")
             .WithStyleSheetFile("/usr/local/share/stylesheets/standard.oss")
-            .WithMapLookupDirectories(findMapsInDirectory("/media/data/map/"));
+            .WithMapLookupDirectories(findMapsInDirectory("/home/insane/maps/"));
 
     if(builder.Init()) scout = &osmscout::OSMScoutQt::GetInstance();
 }

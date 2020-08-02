@@ -8,6 +8,7 @@
 #include "../../../libs/GPS/GPS.h"
 
 #include <QWidget>
+#include <QQmlProperty>
 
 #include <osmscout/OSMScoutQt.h>
 #include <osmscout/MapWidget.h>
@@ -25,6 +26,9 @@ class Map : public QWidget {
     Q_OBJECT
 private:
     Ui::Map *ui;
+
+    void databaseLoaded(osmscout::GeoBox box);
+    void setupInitialPosition();
 
 public:
     explicit Map(QWidget *parent = nullptr);

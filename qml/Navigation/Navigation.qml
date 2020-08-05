@@ -22,6 +22,13 @@ Page {
         // todo get target destination
     }
 
+    function routeTo(lat, lon){
+        var p = gpsSource.position.coordinate
+        var f = routingModel.locationEntryFromPosition(p.latitude, p.longitude)
+        var t = routingModel.locationEntryFromPosition(lat, lon)
+        routingModel.setStartAndTarget(f, t)
+    }
+
     PositionSource {
         id: gpsSource
         updateInterval: 420 // set via settings
@@ -73,10 +80,7 @@ Page {
         onRouteButtonClicked: {
             destinationLatitude = latitude
             destinationLongitude = longitude
-            var p = gpsSource.position.coordinate
-            var f = routingModel.locationEntryFromPosition(p.latitude, p.longitude)
-            var t = routingModel.locationEntryFromPosition(latitude, longitude)
-            routingModel.setStartAndTarget(f, t)
+            routeTo(latitude, longitude)
         }
     }
 
@@ -93,48 +97,42 @@ Page {
             showCurrentPosition: true
             vehiclePosition: navigationModel.vehiclePosition
 
-            property var overlayWay: map.createOverlayWay("_route")
-
             Component.onCompleted: {
                 var c = gpsSource.position.coordinate
                 map.showCoordinates(c.latitude, c.longitude)
             }
 
             // void osmscout::MapWidget::longTap(const int screenX, const int screenY, const double lat, const double lon)
-            onLongTap: {
-                navigationInfoPopup.show(lat, lon)
-                // todo open dialog with info and option to create a route to the mark
-                // use locationinfomodel here
-            }
+            onLongTap: navigationInfoPopup.show(lat, lon)
+
 
             ColumnLayout {
                 id: dialogBtnColumn
                 spacing: 20
 
                 anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: 8
-                anchors.topMargin: 45
+                anchors.verticalCenter: parent.verticalCenter
 
-                RectangleButton {
+                CircleButton {
                     id: btnHistory
                     label: "\u2605"
                     onClicked: {} // todo open history dialog
                 }
 
-                RectangleButton {
+                CircleButton {
                     id: btnFavourites
                     label: "\u2764"
                     onClicked: {} // todo
                 }
 
-                RectangleButton {
+                CircleButton {
                     id: btnSearch
-                    label: "\u2315"
+                    label: "\u26B2"
+                    textRotation: -30
                     onClicked: navigationSearchPopup.visible = true
                 }
 
-                RectangleButton {
+                CircleButton {
                     id: btnCenter
                     label: "\u2609"
                     onClicked: {
@@ -146,8 +144,10 @@ Page {
         }
     }
 
-    NavigationSearch {
+    SearchPopup {
         id: navigationSearchPopup
         visible: false
+        onShowButtonClicked: map.showCoordinates(selectedLatitude, selectedLongitude)
+        onRouteButtonClicked: routeTo(selectedLatitude, selectedLongitude)
     }
 }

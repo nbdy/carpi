@@ -17,28 +17,8 @@ Page {
         if(musicSettings.lastSong != "") mediaPlayer.playlist.addItem(musicSettings.lastSong)
     }
 
-    Settings {
-        id: uiSettings
-        category: "ui"
-        property string theme: Material.Dark
-        property int accent: Material.Purple
-    }
-
-    Settings {
+    MusicSettings {
         id: musicSettings
-        category: "music"
-        property string directory: StandardPaths.writableLocation(StandardPaths.MusicLocation)
-        property int volume: 30
-        property string lastSong: ""
-        property string lastAlbum: ""
-
-        Component.onCompleted: {
-            console.log("Music")
-            console.log(musicSettings.directory)
-            console.log(musicSettings.volume)
-            console.log(musicSettings.lastSong)
-            console.log(musicSettings.lastAlbum)
-        }
     }
 
     FolderListModel {

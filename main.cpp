@@ -4,9 +4,13 @@
 
 #include <osmscout/OSMScoutQt.h>
 
+#include "libs/IsFile/IsFile.h"
+
 int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+
+    qmlRegisterType<IsFile>("utils", 1, 0, "IsFile");
 
     osmscout::OSMScoutQt::RegisterQmlTypes("io.eberlein.carpi.map");
 

@@ -13,7 +13,17 @@ Popup {
     width: 400
     height: 600
 
+    property double selectedLatitude
+    property double selectedLongitude
+
+    signal showButtonClicked
+    signal routeButtonClicked
+
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+
+    function listItemSelected(){
+        return suggestionView.currentIndex != -1
+    }
 
     LocationListModel {
         id: suggestionModel
@@ -28,7 +38,6 @@ Popup {
             lblCity.text = city
             lblStreet.text = street
             lblHouseNr.text = houseNr
-            lblTitle.text = street + " " + houseNr
         }
     }
 
@@ -108,15 +117,17 @@ Popup {
             Component {
                 id: searchItemDelegate
                 Item {
+                    id: searchItem
                     height: 30
                     width: 384
 
                     Label {
                         id: lblLabel
                         text: label
-                        font.pointSize: 14
+                        font.pointSize: 12
                         anchors.left: parent.left
                         anchors.leftMargin: 8
+                        anchors.horizontalCenter: searchItem.horizontalCenter
                     }
 
                     MouseArea {
@@ -128,6 +139,8 @@ Popup {
 
             onCurrentItemChanged: {
                 var l = suggestionModel.get(currentIndex)
+                selectedLatitude = l.lat
+                selectedLongitude = l.lon
                 locationInfoModel.setLocation(l.lat, l.lon)
             }
         }
@@ -167,6 +180,26 @@ Popup {
             anchors.left: lblStreet.right
             anchors.leftMargin: 4
             anchors.top: lblStreet.top
+        }
+
+        Button {
+            id: btnShow
+            visible: listItemSelected()
+            anchors.right: parent.right
+            anchors.rightMargin: 4
+            text: "Show"
+            anchors.top: lblSelectedInfo.top
+            onClicked: showButtonClicked()
+        }
+
+        Button {
+            id: btnRoute
+            visible: listItemSelected()
+            anchors.right: btnShow.right
+            text: "Route"
+            anchors.top: btnShow.bottom
+            anchors.topMargin: 4
+            onClicked: routeButtonClicked()
         }
     }
 }

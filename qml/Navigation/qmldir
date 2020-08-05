@@ -1,7 +1,8 @@
 Navigation Navigation.qml
-NavigationFavourites NavigationFavourites.qml
-NavigationHistory NavigationHistory.qml
-NavigationSearch NavigationSearch.qml
 RectangleButton RectangleButton.qml
+CircleButton CircleButton.qml
+FavouritesPopup FavouritesPopup.qml
+HistoryPopup HistoryPopup.qml
+SearchPopup SearchPopup.qml
 InfoMarker InfoMarker.qml
 InfoPopup InfoPopup.qml

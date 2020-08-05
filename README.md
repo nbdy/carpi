@@ -5,6 +5,9 @@ just another raspberry pi infotainment system<br>
 <br>
 ### how to build
 ```
+# you'll need my fork of libosmscout (only one added signal)
+cd tmp ; git clone https://github.com/smthnspcl/libosmscout ; cd libosmscout ; mkdir build ; cd build ; cmake .. ; make -j $(nproc) ; sudo make install
+# afterwards you can build and install carpi
 mkdir build ; cd build ; cmake .. -DANDROID=OFF ; make -j $(nproc) 
 ```
 ### features
@@ -13,20 +16,29 @@ mkdir build ; cd build ; cmake .. -DANDROID=OFF ; make -j $(nproc)
     - Speed-o-meter
 - Media Players
     - Music
+        - Sliders
+            - Volume
+            - Progress
+        - Album selection
     - Video
+        - Input selection
 - Navigation
     - Map
     - Search Address
     - Routing
     - Long tap to display popup with address info
+- Wireless scanning
+    - Bluetooth
+        - Devices
 #### todo
 - Dashboard
     - Small
         - Map w/ current route
         - Music Player
 - Media
-    - Music Player polishing
-    - Video Player input selector
+    - Music Player
+        - polishing
+        - shuffling
 - Navigation
     - Speed Cameras
     - Show next turns w/ distance
@@ -34,5 +46,8 @@ mkdir build ; cd build ; cmake .. -DANDROID=OFF ; make -j $(nproc)
     - Stop routing when arrived
 - Wireless scanning
     - Bluetooth
-    - WiFi 
+        - Services
+    - WiFi
+        - Scanning (promiscuous)
+        - Connecting (DBus?)
 - Settings

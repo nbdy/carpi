@@ -7,6 +7,7 @@ Rectangle {
     property color hoverColor: Qt.lighter(defaultColor, 1.1)
     property string label
     property alias font: rectangleButtonLabel.font
+    property int textRotation: 0
 
     signal clicked
 
@@ -35,6 +36,7 @@ Rectangle {
         anchors.centerIn: parent
         color: "white"
         text: label
+        rotation: textRotation
         font.pointSize: 24
     }
 

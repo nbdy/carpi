@@ -13,19 +13,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 Multimedia Positioning REQUIRED)
 
+set(SOURCES main.cpp qml.qrc
+        libs/IsFile/IsFile.cpp libs/IsFile/IsFile.h
+        libs/CPUTemperature/CPUTemperature.cpp libs/CPUTemperature/CPUTemperature.h)
+
 if(ANDROID)
-    add_library(carpi_qml SHARED
-      main.cpp
-      qml.qrc
-    )
+    add_library(carpi_qml SHARED ${SOURCES})
 else()
-    add_executable(carpi_qml
-      main.cpp
-      qml.qrc
-    )
+    add_executable(carpi_qml ${SOURCES})
 endif()
 
 target_compile_definitions(carpi_qml PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+
 target_link_libraries(carpi_qml
   PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Multimedia Qt5::Positioning
   osmscout_client_qt osmscout_map_qt)

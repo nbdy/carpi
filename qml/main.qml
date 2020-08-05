@@ -1,7 +1,10 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Controls.Material 2.12
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
 import QtQuick.VirtualKeyboard 2.15
+import Qt.labs.folderlistmodel 2.15
+
+import utils 1.0
 
 import "Wireless"
 import "Media"
@@ -14,11 +17,17 @@ ApplicationWindow {
     visible: true
     width: 1024
     height: 600
+    visibility: ApplicationWindow.FullScreen ? isPi.isFile : ApplicationWindow.Windowed
     minimumWidth: width
     maximumWidth: width
     minimumHeight: height
     maximumHeight: height
     title: "carpi"
+
+    IsFile {
+        id: isPi
+        file: "/sys/firmware/devicetree/base/model"
+    }
 
     Material.theme: Material.Dark
     Material.accent: Material.Purple

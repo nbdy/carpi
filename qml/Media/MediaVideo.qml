@@ -6,15 +6,30 @@ Page {
     id: mediaVideo
     title: qsTr("Video")
 
+    VideoSettings {
+        id: videoSettings
+        volume: volume.value
+    }
+
     VideoChooser {
         id: videoChooser
         visible: false
+        videoSettings: videoSettings
+        onBtnVideoSelectedClicked: mediaPlayer.source = selectedVideoUrl
     }
 
     MediaPlayer {
         id: mediaPlayer
         videoOutput: vOut
-        volume: volume.value / 100
+        volume: videoSettings.volume / 100
+    }
+
+    Label {
+        id: lblVideoUrl
+        anchors.top: parent.top
+        anchors.topMargin: 8
+        anchors.left: volume.right
+        anchors.leftMargin: 16
     }
 
     Slider {
@@ -29,10 +44,6 @@ Page {
         anchors.topMargin: 8
         anchors.bottom: playPause.top
         anchors.bottomMargin: 8
-
-        onMoved: {
-            // todo set settings value
-        }
     }
 
     Button {
@@ -45,9 +56,7 @@ Page {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 4
 
-        onClicked: {
-            // todo open popup
-        }
+        onClicked: videoChooser.visible = true
     }
 
     Button {
@@ -70,16 +79,20 @@ Page {
 
     Slider {
         id: progress
+        from: 0
+        to: mediaPlayer.duration
         anchors.left: playPause.right
         anchors.leftMargin: 8
         anchors.right: parent.right
         anchors.rightMargin: 4
         anchors.verticalCenter: playPause.verticalCenter
+
+        onMoved: mediaPlayer.seek(progress.value)
     }
 
     VideoOutput {
         id: vOut
-        anchors.top: parent.top
+        anchors.top: lblVideoUrl.bottom
         anchors.topMargin: 4
         anchors.left: volume.right
         anchors.leftMargin: 8

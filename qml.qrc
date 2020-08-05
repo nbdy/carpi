@@ -12,9 +12,9 @@
         <file>qml/Navigation/qmldir</file>
         <file>qml/Navigation/RectangleButton.qml</file>
         <file>qml/Navigation/Navigation.qml</file>
-        <file>qml/Navigation/NavigationFavourites.qml</file>
-        <file>qml/Navigation/NavigationSearch.qml</file>
-        <file>qml/Navigation/NavigationHistory.qml</file>
+        <file>qml/Navigation/FavouritesPopup.qml</file>
+        <file>qml/Navigation/SearchPopup.qml</file>
+        <file>qml/Navigation/HistoryPopup.qml</file>
         <file>qml/Settings/qmldir</file>
         <file>qml/Settings/Settings.qml</file>
         <file>qml/Settings/SettingsUI.qml</file>
@@ -27,5 +27,11 @@
         <file>qml/Navigation/InfoMarker.qml</file>
         <file>qml/Navigation/InfoPopup.qml</file>
         <file>qml/Media/VideoChooser.qml</file>
+        <file>qml/Navigation/CircleButton.qml</file>
+        <file>qml/Media/VideoSettings.qml</file>
+        <file>qml/Media/MusicSettings.qml</file>
+        <file>qml/UISettings.qml</file>
+        <file>qml/Settings/SettingsMusic.qml</file>
+        <file>qml/Settings/SettingsVideo.qml</file>
     </qresource>
 </RCC>

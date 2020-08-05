@@ -3,22 +3,40 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import Qt.labs.settings 1.0
 
+import "../Media"
+
 Page {
     title: "Settings :: Media"
-    id: settingsUI
+    id: settingsMedia
 
-    Settings {
-        id: videoSettings
-        category: "video"
-        property string directory: "~/Video/"
-        property int volume: 30
-        property string lastVideo: ""
+    function switchTo(v){
+        mediaStack.setCurrentIndex(v)
     }
 
-    Component.onCompleted: {
-        console.log("Video")
-        console.log(videoSettings.directory)
-        console.log(videoSettings.volume)
-        console.log(videoSettings.lastVideo)
+    TabBar {
+        id: mediaTabBar
+        width: parent.width
+
+        TabButton {
+            text: qsTr("Music")
+            onClicked: {switchTo(0)}
+        }
+
+        TabButton {
+            text: qsTr("Video")
+            onClicked: {switchTo(1)}
+        }
+    }
+
+    SwipeView {
+        id: mediaStack
+        anchors.fill: parent
+        anchors.top: parent.top
+        anchors.topMargin: 55
+        interactive: false
+        currentIndex: 0
+
+        MediaMusic {}
+        MediaVideo {}
     }
 }

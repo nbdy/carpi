@@ -276,6 +276,7 @@ Page {
         anchors.bottomMargin: 4
         anchors.right: parent.right
         anchors.rightMargin: 4
+        model: folderModel
 
         FolderListModel {
             id: folderModel
@@ -284,21 +285,20 @@ Page {
             folder: musicSettings.directory
         }
 
+        highlight: Rectangle {border.color: "black"; border.width: 2; color: "#00000000"; radius: 3}
+        delegate: searchItemDelegate
+
         Component {
-            id: fileDelegate
-
+            id: searchItemDelegate
             Item {
-                // width: parent.parent.implicitWidth
-                width: 300
                 height: 30
+                width: folderList.width
 
-                Column {
-                    Text {
-                        font.pointSize: 14
-                        text: fileName
-                        color: "#ffffff"
-                        // wrapMode: Text.WordWrap // todo newline or something
-                    }
+                Label {
+                    text: fileName
+                    font.pointSize: 14
+                    anchors.left: parent.left
+                    anchors.leftMargin: 8
                 }
 
                 MouseArea {
@@ -311,9 +311,5 @@ Page {
         onCurrentItemChanged: {
             if(folderModel.isFolder(currentIndex)) loadAlbum(folderModel.get(currentIndex, "fileUrl"))
         }
-
-        model: folderModel
-        delegate: fileDelegate
-        highlight: Rectangle {radius: 4; color: "black"}
     }
 }

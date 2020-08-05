@@ -1,16 +1,20 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-
 import QtPositioning 5.6
 
-import net.sf.libosmscout.map 1.0
+import io.eberlein.carpi.map 1.0
 
-// todo routing
+// todo show next turn when routing
+// todo stop routing when at destination6
+// todo show speed cameras
 
 Page {
     id: navigation
     title: qsTr("Navigation")
+
+    property double destinationLatitude
+    property double destinationLongitude
 
     function reroute(){
         var p = gpsSource.position.coordinate
@@ -22,7 +26,6 @@ Page {
         id: gpsSource
         updateInterval: 420 // set via settings
         active: true
-        preferredPositioningMethods: PositionSource.SatellitePositioningMethods // set via settings
 
         onPositionChanged: {
             var p = position
@@ -40,6 +43,12 @@ Page {
             if(r === null) return
             map.addOverlayObject(0, r)
         }
+
+        onComputingChanged: {
+            if(routingModel.count > 0){
+                map.addOverlayObject(0, routingModel.routeWay)
+            }
+        }
     }
 
     NavigationModel {
@@ -48,6 +57,26 @@ Page {
 
         onRerouteRequest: {
             if(routingModel.ready) reroute()
+        }
+    }
+
+    LocationInfoModel {
+        id: locationInfoModel
+    }
+
+    InfoPopup {
+        id: navigationInfoPopup
+        gpsSource: gpsSource
+
+        visible: false
+
+        onRouteButtonClicked: {
+            destinationLatitude = latitude
+            destinationLongitude = longitude
+            var p = gpsSource.position.coordinate
+            var f = routingModel.locationEntryFromPosition(p.latitude, p.longitude)
+            var t = routingModel.locationEntryFromPosition(latitude, longitude)
+            routingModel.setStartAndTarget(f, t)
         }
     }
 
@@ -64,9 +93,18 @@ Page {
             showCurrentPosition: true
             vehiclePosition: navigationModel.vehiclePosition
 
+            property var overlayWay: map.createOverlayWay("_route")
+
             Component.onCompleted: {
                 var c = gpsSource.position.coordinate
                 map.showCoordinates(c.latitude, c.longitude)
+            }
+
+            // void osmscout::MapWidget::longTap(const int screenX, const int screenY, const double lat, const double lon)
+            onLongTap: {
+                navigationInfoPopup.show(lat, lon)
+                // todo open dialog with info and option to create a route to the mark
+                // use locationinfomodel here
             }
 
             ColumnLayout {
@@ -80,7 +118,7 @@ Page {
 
                 RectangleButton {
                     id: btnHistory
-                    label: "\u2606"
+                    label: "\u2605"
                     onClicked: {} // todo open history dialog
                 }
 
@@ -92,10 +130,24 @@ Page {
 
                 RectangleButton {
                     id: btnSearch
-                    label: "\u1F50D"
-                    onClicked: {} // todo
+                    label: "\u2315"
+                    onClicked: navigationSearchPopup.visible = true
+                }
+
+                RectangleButton {
+                    id: btnCenter
+                    label: "\u2609"
+                    onClicked: {
+                        var c = gpsSource.position.coordinate
+                        map.showCoordinates(c.latitude, c.longitude)
+                    }
                 }
             }
         }
+    }
+
+    NavigationSearch {
+        id: navigationSearchPopup
+        visible: false
     }
 }

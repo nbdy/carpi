@@ -3,3 +3,5 @@ NavigationFavourites NavigationFavourites.qml
 NavigationHistory NavigationHistory.qml
 NavigationSearch NavigationSearch.qml
 RectangleButton RectangleButton.qml
+InfoMarker InfoMarker.qml
+InfoPopup InfoPopup.qml

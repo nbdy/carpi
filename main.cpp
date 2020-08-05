@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
-    osmscout::OSMScoutQt::RegisterQmlTypes();
+    osmscout::OSMScoutQt::RegisterQmlTypes("io.eberlein.carpi.map");
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 

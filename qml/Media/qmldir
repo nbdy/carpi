@@ -1,3 +1,4 @@
 Media Media.qml
 MediaMusic MediaMusic.qml
 MediaVideo MediaVideo.qml
+VideoChooser VideoChooser.qml

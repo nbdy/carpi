@@ -5,10 +5,7 @@ just another raspberry pi infotainment system<br>
 <br>
 ### how to build
 ```
-# you'll need my fork of libosmscout (only one added signal)
-cd tmp ; git clone https://github.com/smthnspcl/libosmscout ; cd libosmscout ; mkdir build ; cd build ; cmake .. ; make -j $(nproc) ; sudo make install
-# afterwards you can build and install carpi
-mkdir build ; cd build ; cmake .. -DANDROID=OFF ; make -j $(nproc) 
+./setup.sh
 ```
 ### features
 #### done

@@ -2,6 +2,7 @@
 ## currently under development
 just another raspberry pi infotainment system<br>
 the previous version of this is located in the [master branch](https://github.com/smthnspcl/carpi/tree/master)
+there is also a qml version, which looks a bit better but is less modular [here](https://github.com/smthnspcl/carpi/tree/qml)
 <br>
 ### how to...
 #### .. [build](https://github.com/smthnspcl/carpi/blob/qt/docs/Build.md)

@@ -4,13 +4,20 @@
 
 #include <osmscout/OSMScoutQt.h>
 
+#include <disqt/disqt.h>
+
 #include "libs/IsFile/IsFile.h"
+#include "libs/CPUTemperature/CPUTemperature.h"
+#include "libs/AsyncSettings/AsyncSettings.h"
 
 int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
+    RedisQT::registerQmlType();
     qmlRegisterType<IsFile>("utils", 1, 0, "IsFile");
+    qmlRegisterType<CPUTemperature>("utils", 1, 0, "CPUTemperature");
+    qmlRegisterType<AsyncSettings>("utils", 1, 0, "AsyncSettings");
 
     osmscout::OSMScoutQt::RegisterQmlTypes("io.eberlein.carpi.map");
 

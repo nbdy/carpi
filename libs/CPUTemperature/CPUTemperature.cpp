@@ -5,11 +5,12 @@
 #include "CPUTemperature.h"
 
 CPUTemperature::CPUTemperature(QObject *parent) : QObject(parent) {
-
+    readThread = std::thread([&](){readLoop();});
+    readThread.detach();
 }
 
 CPUTemperature::~CPUTemperature() {
-
+    setDoRead(false);
 }
 
 double CPUTemperature::getTemperature() const {
@@ -40,4 +41,20 @@ void CPUTemperature::setTemperatureFile(const QString &file) {
 
 QString CPUTemperature::getTemperatureFile() const {
     return this->temperatureFile;
+}
+
+void CPUTemperature::readLoop() {
+    while(doRead){
+        readTemperature();
+        std::this_thread::sleep_for(std::chrono::milliseconds(interval));
+    }
+}
+
+void CPUTemperature::setDoRead(bool value) {
+    doRead = value;
+    emit doReadChanged();
+}
+
+bool CPUTemperature::getDoRead() const {
+    return doRead;
 }

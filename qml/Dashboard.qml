@@ -2,6 +2,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtPositioning 5.15
 
+import utils 1.0
+
 Page {
     id: dashboard
     width: 1024
@@ -21,6 +23,34 @@ Page {
             lbl_gps_longitude_value.text = coord.longitude
             speedGauge.value = gpsSource.position.speed
         }
+    }
+
+    Label {
+        id: lblCpuTemperature
+        anchors.top: parent.top
+        anchors.left: parent.left
+        anchors.topMargin: 4
+        anchors.leftMargin: 4
+        text: "CPU Temperature:"
+    }
+
+    Label {
+        id: lblCpuTemperatureValue
+        anchors.top: lblCpuTemperature.top
+        anchors.left: lblCpuTemperature.right
+        anchors.leftMargin: 4
+    }
+
+    CPUTemperature {
+        onTemperatureChanged: lblCpuTemperatureValue.text = temperature
+    }
+
+    Label {
+        id: lblCpuTemperatureUnit
+        anchors.top: lblCpuTemperature.top
+        anchors.left: lblCpuTemperatureValue.right
+        anchors.leftMargin: 4
+        text: "°C"
     }
 
     Label {

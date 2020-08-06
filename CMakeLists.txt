@@ -15,7 +15,8 @@ find_package(Qt5 COMPONENTS Core Quick QuickControls2 Multimedia Positioning REQ
 
 set(SOURCES main.cpp qml.qrc
         libs/IsFile/IsFile.cpp libs/IsFile/IsFile.h
-        libs/CPUTemperature/CPUTemperature.cpp libs/CPUTemperature/CPUTemperature.h)
+        libs/CPUTemperature/CPUTemperature.cpp libs/CPUTemperature/CPUTemperature.h
+        libs/AsyncSettings/AsyncSettings.cpp libs/AsyncSettings/AsyncSettings.h)
 
 if(ANDROID)
     add_library(carpi_qml SHARED ${SOURCES})
@@ -27,7 +28,7 @@ target_compile_definitions(carpi_qml PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:Rel
 
 target_link_libraries(carpi_qml
   PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Multimedia Qt5::Positioning
-  osmscout_client_qt osmscout_map_qt)
+  osmscout_client_qt osmscout_map_qt pthread)
 
 install(TARGETS carpi_qml
         RUNTIME DESTINATION bin)

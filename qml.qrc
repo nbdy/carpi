@@ -33,5 +33,7 @@
         <file>qml/UISettings.qml</file>
         <file>qml/Settings/SettingsMusic.qml</file>
         <file>qml/Settings/SettingsVideo.qml</file>
+        <file>qml/Navigation/NavigationSettings.qml</file>
+        <file>qml/ASettings.qml</file>
     </qresource>
 </RCC>

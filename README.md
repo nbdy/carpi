@@ -7,6 +7,11 @@ just another raspberry pi infotainment system<br>
 ```
 ./setup.sh
 ```
+
+### dependencies
+- [qt](https://www.qt.io/)
+- [libosmscout](https://github.com/smthnspcl/libosmscout)
+- [disqt](https://github.com/smthnspcl/disqt)
 ### features
 #### done
 - Dashboard

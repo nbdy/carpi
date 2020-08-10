@@ -1,0 +1,5 @@
+import ".."
+
+RSettings {
+    group: "video"
+}

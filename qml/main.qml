@@ -17,12 +17,16 @@ ApplicationWindow {
     visible: true
     width: 1024
     height: 600
-    visibility: ApplicationWindow.FullScreen ? isPi.isFile : ApplicationWindow.Windowed
+    visibility: isFullscreen()
     minimumWidth: width
     maximumWidth: width
     minimumHeight: height
     maximumHeight: height
     title: "carpi"
+
+    function isFullscreen(){
+        return ApplicationWindow.FullScreen ? isPi.isFile : ApplicationWindow.Windowed
+    }
 
     IsFile {
         id: isPi

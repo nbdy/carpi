@@ -1,0 +1,6 @@
+import ".."
+
+RSettings {
+    group: "music"
+
+}

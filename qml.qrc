@@ -29,11 +29,12 @@
         <file>qml/Media/VideoChooser.qml</file>
         <file>qml/Navigation/CircleButton.qml</file>
         <file>qml/Media/VideoSettings.qml</file>
-        <file>qml/Media/MusicSettings.qml</file>
         <file>qml/UISettings.qml</file>
         <file>qml/Settings/SettingsMusic.qml</file>
         <file>qml/Settings/SettingsVideo.qml</file>
         <file>qml/Navigation/NavigationSettings.qml</file>
-        <file>qml/ASettings.qml</file>
+        <file>qml/RSettings.qml</file>
+        <file>qml/Media/SettingsMusic.qml</file>
+        <file>qml/Media/SettingsVideo.qml</file>
     </qresource>
 </RCC>

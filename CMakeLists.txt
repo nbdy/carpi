@@ -28,7 +28,8 @@ target_compile_definitions(carpi_qml PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:Rel
 
 target_link_libraries(carpi_qml
   PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Multimedia Qt5::Positioning
-  osmscout_client_qt osmscout_map_qt pthread)
+  osmscout_client_qt osmscout_map_qt
+  pthread rsettingsqt disqt tacopie)
 
 install(TARGETS carpi_qml
         RUNTIME DESTINATION bin)

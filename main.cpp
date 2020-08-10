@@ -5,6 +5,7 @@
 #include <osmscout/OSMScoutQt.h>
 
 #include <disqt/disqt.h>
+#include <rsettingsqt/rsettingsqt.h>
 
 #include "libs/IsFile/IsFile.h"
 #include "libs/CPUTemperature/CPUTemperature.h"
@@ -14,7 +15,8 @@ int main(int argc, char *argv[])
 {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
-    RedisQT::registerQmlType();
+    RedisQT::registerType();
+    RSettingsQT::registerType();
     qmlRegisterType<IsFile>("utils", 1, 0, "IsFile");
     qmlRegisterType<CPUTemperature>("utils", 1, 0, "CPUTemperature");
     qmlRegisterType<AsyncSettings>("utils", 1, 0, "AsyncSettings");

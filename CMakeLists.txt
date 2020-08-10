@@ -14,9 +14,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 Multimedia Positioning REQUIRED)
 
 set(SOURCES main.cpp qml.qrc
-        libs/IsFile/IsFile.cpp libs/IsFile/IsFile.h
-        libs/CPUTemperature/CPUTemperature.cpp libs/CPUTemperature/CPUTemperature.h
-        libs/AsyncSettings/AsyncSettings.cpp libs/AsyncSettings/AsyncSettings.h)
+        libs/Utils/IsFile/IsFile.cpp libs/Utils/IsFile/IsFile.h
+        libs/Utils/CPUTemperature/CPUTemperature.cpp libs/Utils/CPUTemperature/CPUTemperature.h
+        libs/Utils/Utils.h)
 
 if(ANDROID)
     add_library(carpi_qml SHARED ${SOURCES})

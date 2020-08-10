@@ -1,0 +1,6 @@
+{
+  "gps": true,
+  "wifi": false,
+  "bluetooth": false,
+  "maps": "/home/insane/maps/"
+}

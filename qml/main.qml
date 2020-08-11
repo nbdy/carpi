@@ -25,12 +25,17 @@ ApplicationWindow {
     title: "carpi"
 
     function isFullscreen(){
-        return ApplicationWindow.FullScreen ? isPi.isFile : ApplicationWindow.Windowed
+        if(isPi.isFile) return ApplicationWindow.Windowed
+        else return ApplicationWindow.FullScreen
     }
 
     IsFile {
         id: isPi
         file: "/sys/firmware/devicetree/base/model"
+    }
+
+    SettingsSystem {
+        id: settingsSystem
     }
 
     Material.theme: Material.Dark
@@ -63,6 +68,7 @@ ApplicationWindow {
         height: window.height
 
         Column {
+            id: drawerColumn
             anchors.fill: parent
 
             ItemDelegate {

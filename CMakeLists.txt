@@ -36,3 +36,6 @@ install(TARGETS carpi_qml
 
 install(FILES carpi.desktop
         DESTINATION /root/.config/autostart/)
+
+install(FILES config.json
+        DESTINATION /etc/carpi/)

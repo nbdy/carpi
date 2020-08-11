@@ -13,11 +13,11 @@ Page {
     title: qsTr("Music")
 
     Component.onCompleted: {
-        if(musicSettings.lastAlbum != "") loadAlbum(musicSettings.lastAlbum)
-        if(musicSettings.lastSong != "") mediaPlayer.playlist.addItem(musicSettings.lastSong)
+        if(musicSettings.lastAlbum !== "") loadAlbum(musicSettings.lastAlbum)
+        if(musicSettings.lastSong !== "") mediaPlayer.playlist.addItem(musicSettings.lastSong)
     }
 
-    MusicSettings {
+    SettingsMusic {
         id: musicSettings
     }
 
@@ -34,6 +34,7 @@ Page {
     }
 
     function loadAlbum(f){
+        if(f === undefined) return;
         console.log("loading album: ", f)
         albumModel.folder = f
         for(var i=0; i<albumModel.count; i++) loadSong(albumModel.get(i, "fileUrl"))
@@ -46,6 +47,11 @@ Page {
         else if(m.posterUrl) return m.posterUrl
         else if(m.coverArtImage) return m.coverArtImage
         return "qrc:///img/cover.png"
+    }
+
+    function strOrNothing(s){
+        if(s === undefined) return ""
+        return s
     }
 
     Playlist {
@@ -64,7 +70,7 @@ Page {
         anchors.bottomMargin: 4
         anchors.left: parent.left
         anchors.leftMargin: 4
-        text: mediaPlayer.metaData.albumArtist
+        text: strOrNothing(mediaPlayer.metaData.albumArtist)
     }
 
     Label {
@@ -73,7 +79,7 @@ Page {
         anchors.bottomMargin: 4
         anchors.left: parent.left
         anchors.leftMargin: 4
-        text: mediaPlayer.metaData.albumTitle
+        text: strOrNothing(mediaPlayer.metaData.albumTitle)
     }
 
     Label {
@@ -82,7 +88,7 @@ Page {
         anchors.bottomMargin: 16
         anchors.left: parent.left
         anchors.leftMargin: 4
-        text: mediaPlayer.metaData.title
+        text: strOrNothing(mediaPlayer.metaData.title)
     }
 
     Image {

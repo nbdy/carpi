@@ -34,10 +34,6 @@ ApplicationWindow {
         file: "/sys/firmware/devicetree/base/model"
     }
 
-    SettingsSystem {
-        id: settingsSystem
-    }
-
     Material.theme: Material.Dark
     Material.accent: Material.Purple
 

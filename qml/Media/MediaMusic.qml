@@ -1,10 +1,12 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import Qt.labs.folderlistmodel 2.15
-import Qt.labs.settings 1.0
-import Qt.labs.platform 1.1
+import Qt.labs.platform 1.0
 import QtMultimedia 5.15
 import QtQuick.Controls.Material 2.12
+
+import settings 1.0
+import io.eberlein.disqt 1.0
 
 // todo folder browser for albums / music
 
@@ -13,12 +15,26 @@ Page {
     title: qsTr("Music")
 
     Component.onCompleted: {
-        if(musicSettings.lastAlbum !== "") loadAlbum(musicSettings.get("lastAlbum"))
-        if(musicSettings.lastSong !== "") mediaPlayer.playlist.addItem(musicSettings.get("lastSong"))
+        if(musicSettings.lastAlbum !== "") loadAlbum(musicSettings.lastAlbum)
+        if(musicSettings.lastSong !== "") mediaPlayer.playlist.addItem(musicSettings.lastSong)
     }
 
-    SettingsMusic {
+    MusicSettings {
         id: musicSettings
+
+        redis: Redis {
+            onClientIsConnectedChanged: console.log("client connected to redis")
+            onSubscriberIsConnectedChanged: console.log("subscriber connected to redis")
+        }
+
+        onReady: {
+            console.log("MusicSettings:")
+            console.log(" directory:", directory)
+            console.log(" volume:", volume)
+            console.log(" lastAlbum:", lastAlbum)
+            console.log(" lastSong:", lastSong)
+            if(directory === undefined) directory = StandardPaths.writableLocation(StandardPaths.MusicLocation)
+        }
     }
 
     FolderListModel {
@@ -140,7 +156,7 @@ Page {
     }
 
     Slider {
-        id: volume
+        id: volumeSlider
         orientation: Qt.Vertical
         anchors.left: btnPlayPause.right
         anchors.rightMargin: 16
@@ -148,50 +164,50 @@ Page {
         anchors.topMargin: 32
         height: 300
         to: 100
-        value: musicSettings.get("volume")
+        value: musicSettings.volume
 
         onMoved: {
-            var cv = volume.value
+            var cv = volumeSlider.value
             if(cv >= 90) lblVolumeMax.visible = false
             else lblVolumeMax.visible = true
             if(cv <= 10) lblVolumeMin.visible = false
             else lblVolumeMin.visible = true
 
-            musicSettings.volume = volume.value
-            mediaPlayer.volume = volume.value / 100
+            musicSettings.volume = volumeSlider.value
+            mediaPlayer.volume = volumeSlider.value / 100
         }
     }
 
     Label {
         id: lblVolume
-        anchors.bottom: volume.top
-        anchors.left: volume.left
+        anchors.bottom: volumeSlider.top
+        anchors.left: volumeSlider.left
         text: "Volume"
     }
 
     function calculatePosition(v) {
-        return v / 100 * volume.height
+        return v / 100 * volumeSlider.height
     }
 
     Label {
         id: lblVolumeCurrent
-        anchors.left: volume.right
-        anchors.bottom: volume.bottom
-        text: volume.value | 0
-        anchors.bottomMargin: calculatePosition(volume.value)
+        anchors.left: volumeSlider.right
+        anchors.bottom: volumeSlider.bottom
+        text: volumeSlider.value | 0
+        anchors.bottomMargin: calculatePosition(volumeSlider.value)
     }
 
     Label {
         id: lblVolumeMax
-        anchors.left: volume.right
-        anchors.top: volume.top
+        anchors.left: volumeSlider.right
+        anchors.top: volumeSlider.top
         text: "100"
     }
 
     Label {
         id: lblVolumeMin
-        anchors.left: volume.right
-        anchors.bottom: volume.bottom
+        anchors.left: volumeSlider.right
+        anchors.bottom: volumeSlider.bottom
         text: "0"
     }
 
@@ -268,7 +284,7 @@ Page {
             id: folderModel
             showDirs: true
             showFiles: false
-            folder: musicSettings.get("directory")
+            folder: musicSettings.directory
         }
 
         highlight: Rectangle {border.color: "black"; border.width: 2; color: "#00000000"; radius: 3}

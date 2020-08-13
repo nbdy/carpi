@@ -8,6 +8,7 @@
 #include <rsettingsqt/rsettingsqt.h>
 
 #include "libs/Utils/Utils.h"
+#include "libs/Settings/Settings.h"
 
 // todo check for redis service with libsystemd-qt and start it if necessary
 // todo handle segfault when redis is not running and client tried to connect
@@ -100,6 +101,7 @@ int main(int argc, char **argv)
     RedisQT::registerType();
     RSettingsQT::registerType();
     Utils::registerTypes();
+    Settings::registerTypes();
 
     osmscout::OSMScoutQt::RegisterQmlTypes("io.eberlein.carpi.map");
 

@@ -16,7 +16,9 @@ find_package(Qt5 COMPONENTS Core Quick QuickControls2 Multimedia Positioning REQ
 set(SOURCES main.cpp qml.qrc
         libs/Utils/IsFile/IsFile.cpp libs/Utils/IsFile/IsFile.h
         libs/Utils/CPUTemperature/CPUTemperature.cpp libs/Utils/CPUTemperature/CPUTemperature.h
-        libs/Utils/Utils.h)
+        libs/Settings/Settings.h
+        libs/Utils/Utils.h libs/Settings/Music/MusicSettings.cpp libs/Settings/Music/MusicSettings.h
+        libs/Settings/Video/VideoSettings.cpp libs/Settings/Video/VideoSettings.h)
 
 if(ANDROID)
     add_library(carpi_qml SHARED ${SOURCES})

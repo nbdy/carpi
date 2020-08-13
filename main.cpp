@@ -127,7 +127,6 @@ int main(int argc, char **argv)
 
     if (!si) return -1;
 
-
     QQmlApplicationEngine engine;
     const QUrl url("qrc:/qml/main.qml");
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

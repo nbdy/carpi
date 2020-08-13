@@ -1,10 +1,12 @@
+import Qt.labs.platform 1.1
 import ".."
 
 RSettings {
-    group: "music"
-
-    property string lastSong: get("lastSong").toString()
-    property string lastAlbum: get("lastAlbum").toString()
-    property double volume: get("volume").toDouble()
-    property string directory: get("directory").toString()
+    onSubscriberConnectedChanged: group = "music"
+    onClientConnectedChanged: {
+        set("lastSong", "")
+        set("lastAlbum", "")
+        set("directory", StandardPaths.writableLocation(StandardPaths.MusicLocation))
+        set("volume", 42)
+    }
 }

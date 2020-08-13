@@ -13,8 +13,8 @@ Page {
     title: qsTr("Music")
 
     Component.onCompleted: {
-        if(musicSettings.lastAlbum !== "") loadAlbum(musicSettings.lastAlbum)
-        if(musicSettings.lastSong !== "") mediaPlayer.playlist.addItem(musicSettings.lastSong)
+        if(musicSettings.lastAlbum !== "") loadAlbum(musicSettings.get("lastAlbum"))
+        if(musicSettings.lastSong !== "") mediaPlayer.playlist.addItem(musicSettings.get("lastSong"))
     }
 
     SettingsMusic {
@@ -148,7 +148,7 @@ Page {
         anchors.topMargin: 32
         height: 300
         to: 100
-        value: musicSettings.volume
+        value: musicSettings.get("volume")
 
         onMoved: {
             var cv = volume.value
@@ -268,7 +268,7 @@ Page {
             id: folderModel
             showDirs: true
             showFiles: false
-            folder: musicSettings.directory
+            folder: musicSettings.get("directory")
         }
 
         highlight: Rectangle {border.color: "black"; border.width: 2; color: "#00000000"; radius: 3}

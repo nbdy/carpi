@@ -8,9 +8,17 @@ RSettings {
         id: redis
         host: "127.0.0.1"
         port: 6379
+
+        onSubscriberIsConnectedChanged: subscriberConnectedChanged()
+        onClientIsConnectedChanged: clientConnectedChanged()
     }
 
+    signal subscriberConnectedChanged
+    signal clientConnectedChanged
+
     onReady: {
+        console.log("connecting to redis server")
         redis.connect()
+        console.log("connected to redis server")
     }
 }

@@ -1,5 +1,5 @@
 import ".."
 
 RSettings {
-    group: "video"
+    onSubscriberConnectedChanged: group = "video"
 }

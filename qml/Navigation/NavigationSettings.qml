@@ -1,9 +1,8 @@
-import Qt.labs.settings 1.0
-import Qt.labs.platform 1.1
+import ".."
 
-Settings {
-    id: navigationSettings
-    category: "navigation"
+RSettings {
+    onSubscriberConnectedChanged: group = "navigation"
+
     property double destinationLatitude: -1
     property double destinationLongitude: -1
     property bool route: false

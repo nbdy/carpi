@@ -5,7 +5,7 @@
 #include "MusicSettings.h"
 
 MusicSettings::MusicSettings(QObject *parent) : RSettingsQT(KEY_MUSIC_SETTINGS, parent) {
-
+    QObject::connect(this, &RedisQT::message, this, &MusicSettings::messageReceived);
 }
 
 MusicSettings::~MusicSettings() {}
@@ -16,7 +16,7 @@ void MusicSettings::setDirectory(const QString &directory) {
 }
 
 QString MusicSettings::getDirectory() const {
-    return get(KEY_DIRECTORY).toString();
+    return directory;
 }
 
 void MusicSettings::setLastAlbum(const QString &lastAlbum) {
@@ -25,7 +25,7 @@ void MusicSettings::setLastAlbum(const QString &lastAlbum) {
 }
 
 QString MusicSettings::getLastAlbum() const {
-    return get(KEY_LAST_ALBUM).toString();
+    return lastAlbum;
 }
 
 void MusicSettings::setLastSong(const QString &lastSong) {
@@ -34,7 +34,7 @@ void MusicSettings::setLastSong(const QString &lastSong) {
 }
 
 QString MusicSettings::getLastSong() const {
-    return get(KEY_LAST_SONG).toString();
+    return lastSong;
 }
 
 void MusicSettings::setVolume(int value) {
@@ -43,7 +43,7 @@ void MusicSettings::setVolume(int value) {
 }
 
 int MusicSettings::getVolume() const {
-    return get(KEY_VOLUME).toInt();
+    return volume;
 }
 
 void MusicSettings::setDefaultValues() {
@@ -58,14 +58,16 @@ bool MusicSettings::valuesSet() {
 }
 
 void MusicSettings::messageReceived(const QString &channel, const QString &message) {
-    qDebug() << "received" << message << "from" << channel;
+    auto doc = str2doc(message.toStdString());
+    if(!doc[KEY_LAST_ALBUM].isUndefined()) lastAlbum = doc[KEY_LAST_ALBUM].toString();
+    else if(!doc[KEY_DIRECTORY].isUndefined()) directory = doc[KEY_DIRECTORY].toString();
+    else if(!doc[KEY_VOLUME].isUndefined()) volume = doc[KEY_VOLUME].toInt();
+    else if(!doc[KEY_LAST_SONG].isUndefined()) lastSong = doc[KEY_LAST_SONG].toString();
 }
 
-void MusicSettings::newSubscription(const QString &channel) {
-    qDebug() << "new subscription:" << channel;
-}
-
-void MusicSettings::pre_init() {
-    QObject::connect(this, &RedisQT::subscribed, this, &MusicSettings::newSubscription);
-    QObject::connect(this, &RedisQT::message, this, &MusicSettings::messageReceived);
+void MusicSettings::setValues() {
+    directory = get(KEY_DIRECTORY).toString();
+    lastSong = get(KEY_LAST_SONG).toString();
+    lastAlbum = get(KEY_LAST_ALBUM).toString();
+    volume = get(KEY_VOLUME).toInt();
 }

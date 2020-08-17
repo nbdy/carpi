@@ -4,7 +4,9 @@
 
 #include "VideoSettings.h"
 
-VideoSettings::VideoSettings(QObject *parent) : RSettingsQT(KEY_VIDEO_SETTINGS, parent) {}
+VideoSettings::VideoSettings(QObject *parent) : RSettingsQT(KEY_VIDEO_SETTINGS, parent) {
+    QObject::connect(this, &RedisQT::message, this, &VideoSettings::messageReceived);
+}
 
 VideoSettings::~VideoSettings() {}
 
@@ -38,6 +40,10 @@ void VideoSettings::setVolume(int value) {
 }
 
 void VideoSettings::messageReceived(const QString &channel, const QString &message) {
+    auto doc = str2doc(message.toStdString());
+    if(!doc[KEY_DIRECTORY].isUndefined()) directory = doc[KEY_DIRECTORY].toString();
+    else if(!doc[KEY_LAST_VIDEO].isUndefined()) lastVideo = doc[KEY_LAST_VIDEO].toString();
+    else if(!doc[KEY_VOLUME].isUndefined()) volume = doc[KEY_VOLUME].toInt();
     qDebug() << "received" << message << "from" << channel;
 }
 
@@ -51,11 +57,8 @@ bool VideoSettings::valuesSet() {
     return exists(KEY_LAST_VIDEO) && exists(KEY_VOLUME) && exists(KEY_DIRECTORY);
 }
 
-void VideoSettings::newSubscription(const QString &channel) {
-    qDebug() << "new subscription:" << channel;
-}
-
-void VideoSettings::pre_init() {
-    QObject::connect(this, &RedisQT::subscribed, this, &VideoSettings::newSubscription);
-    QObject::connect(this, &RedisQT::message, this, &VideoSettings::messageReceived);
+void VideoSettings::setValues() {
+    volume = get(KEY_VOLUME).toInt();
+    directory = get(KEY_DIRECTORY).toString();
+    lastVideo = get(KEY_LAST_VIDEO).toString();
 }

@@ -37,10 +37,10 @@ public:
 
     void setDefaultValues() override;
     bool valuesSet() override;
+    void setValues() override;
 
 public slots:
     void messageReceived(const QString& channel, const QString& message);
-    void newSubscription(const QString &channel);
 
 signals:
     void directoryChanged(const QString& directory);
@@ -48,8 +48,6 @@ signals:
     void volumeChanged(int volume);
 
 protected:
-    void pre_init() override;
-
     QString directory;
     QString lastVideo;
     int volume;

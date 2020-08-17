@@ -5,7 +5,6 @@
 #include <osmscout/OSMScoutQt.h>
 
 #include <disqt/disqt.h>
-#include <rsettingsqt/rsettingsqt.h>
 
 #include "libs/Utils/Utils.h"
 #include "libs/Settings/Settings.h"

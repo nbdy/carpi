@@ -18,7 +18,7 @@ set(SOURCES main.cpp qml.qrc
         libs/Utils/CPUTemperature/CPUTemperature.cpp libs/Utils/CPUTemperature/CPUTemperature.h
         libs/Settings/Settings.h
         libs/Utils/Utils.h libs/Settings/Music/MusicSettings.cpp libs/Settings/Music/MusicSettings.h
-        libs/Settings/Video/VideoSettings.cpp libs/Settings/Video/VideoSettings.h)
+        libs/Settings/Video/VideoSettings.cpp libs/Settings/Video/VideoSettings.h libs/Settings/Navigation/NavigationSettings.cpp libs/Settings/Navigation/NavigationSettings.h)
 
 if(ANDROID)
     add_library(carpi_qml SHARED ${SOURCES})

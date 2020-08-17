@@ -41,11 +41,12 @@ public:
     void setVolume(int value);
     [[nodiscard]] int getVolume() const;
 
-    Q_INVOKABLE void setDefaultValues() override;
-    Q_INVOKABLE bool valuesSet() override;
+    void setDefaultValues() override;
+    bool valuesSet() override;
+    void setValues() override;
+
 
 public slots:
-    void newSubscription(const QString& channel);
     void messageReceived(const QString& channel, const QString& message);
 
 signals:
@@ -55,8 +56,6 @@ signals:
     void volumeChanged(int volume);
 
 protected:
-    void pre_init() override;
-
     QString directory;
     QString lastAlbum;
     QString lastSong;

@@ -7,6 +7,7 @@
 
 #include <rsettingsqt/rsettingsqt.h>
 
+#define KEY_MUSIC_SETTINGS "music/"
 #define KEY_DIRECTORY "directory"
 #define KEY_LAST_ALBUM "lastAlbum"
 #define KEY_LAST_SONG "lastSong"
@@ -40,11 +41,26 @@ public:
     void setVolume(int value);
     [[nodiscard]] int getVolume() const;
 
+    Q_INVOKABLE void setDefaultValues() override;
+    Q_INVOKABLE bool valuesSet() override;
+
+public slots:
+    void newSubscription(const QString& channel);
+    void messageReceived(const QString& channel, const QString& message);
+
 signals:
     void directoryChanged(const QString& directory);
     void lastAlbumChanged(const QString& lastAlbum);
     void lastSongChanged(const QString& lastSong);
     void volumeChanged(int volume);
+
+protected:
+    void pre_init() override;
+
+    QString directory;
+    QString lastAlbum;
+    QString lastSong;
+    int volume;
 };
 
 

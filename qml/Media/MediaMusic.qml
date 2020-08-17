@@ -22,19 +22,6 @@ Page {
     MusicSettings {
         id: musicSettings
 
-        redis: Redis {
-            onClientIsConnectedChanged: console.log("client connected to redis")
-            onSubscriberIsConnectedChanged: console.log("subscriber connected to redis")
-        }
-
-        onReady: {
-            console.log("MusicSettings:")
-            console.log(" directory:", directory)
-            console.log(" volume:", volume)
-            console.log(" lastAlbum:", lastAlbum)
-            console.log(" lastSong:", lastSong)
-            if(directory === undefined) directory = StandardPaths.writableLocation(StandardPaths.MusicLocation)
-        }
     }
 
     FolderListModel {

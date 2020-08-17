@@ -7,6 +7,7 @@
 
 #include <rsettingsqt/rsettingsqt.h>
 
+#define KEY_VIDEO_SETTINGS "video/"
 #define KEY_DIRECTORY "directory"
 #define KEY_LAST_VIDEO "lastVideo"
 #define KEY_VOLUME "volume"
@@ -25,19 +26,33 @@ public:
         qmlRegisterType<VideoSettings>("settings", 1, 0, "VideoSettings");
     }
 
-    QString getDirectory() const;
+    [[nodiscard]] QString getDirectory() const;
     void setDirectory(const QString& directory);
 
-    QString getLastVideo() const;
+    [[nodiscard]] QString getLastVideo() const;
     void setLastVideo(const QString& lastVideo);
 
-    int getVolume() const;
+    [[nodiscard]] int getVolume() const;
     void setVolume(int value);
+
+    void setDefaultValues() override;
+    bool valuesSet() override;
+
+public slots:
+    void messageReceived(const QString& channel, const QString& message);
+    void newSubscription(const QString &channel);
 
 signals:
     void directoryChanged(const QString& directory);
     void lastVideoChanged(const QString& lastVideo);
     void volumeChanged(int volume);
+
+protected:
+    void pre_init() override;
+
+    QString directory;
+    QString lastVideo;
+    int volume;
 };
 
 

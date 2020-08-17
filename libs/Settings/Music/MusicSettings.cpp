@@ -4,13 +4,11 @@
 
 #include "MusicSettings.h"
 
-MusicSettings::MusicSettings(QObject *parent) : RSettingsQT(parent) {
+MusicSettings::MusicSettings(QObject *parent) : RSettingsQT(KEY_MUSIC_SETTINGS, parent) {
 
 }
 
-MusicSettings::~MusicSettings() {
-
-}
+MusicSettings::~MusicSettings() {}
 
 void MusicSettings::setDirectory(const QString &directory) {
     set(KEY_DIRECTORY, directory);
@@ -46,4 +44,28 @@ void MusicSettings::setVolume(int value) {
 
 int MusicSettings::getVolume() const {
     return get(KEY_VOLUME).toInt();
+}
+
+void MusicSettings::setDefaultValues() {
+    setDirectory(QStandardPaths::writableLocation(QStandardPaths::MusicLocation));
+    setVolume(42);
+    setLastAlbum("");
+    setLastSong("");
+}
+
+bool MusicSettings::valuesSet() {
+    return exists(KEY_DIRECTORY) && exists(KEY_LAST_ALBUM) && exists(KEY_LAST_SONG) && exists(KEY_VOLUME);
+}
+
+void MusicSettings::messageReceived(const QString &channel, const QString &message) {
+    qDebug() << "received" << message << "from" << channel;
+}
+
+void MusicSettings::newSubscription(const QString &channel) {
+    qDebug() << "new subscription:" << channel;
+}
+
+void MusicSettings::pre_init() {
+    QObject::connect(this, &RedisQT::subscribed, this, &MusicSettings::newSubscription);
+    QObject::connect(this, &RedisQT::message, this, &MusicSettings::messageReceived);
 }

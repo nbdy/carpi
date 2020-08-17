@@ -3,6 +3,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import Qt.labs.folderlistmodel 2.15
 
+import settings 1.0
+
 Popup {
     id: videoChooserPopup
     modal: true

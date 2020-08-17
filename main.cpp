@@ -99,7 +99,6 @@ int main(int argc, char **argv)
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
 
     RedisQT::registerType();
-    RSettingsQT::registerType();
     Utils::registerTypes();
     Settings::registerTypes();
 

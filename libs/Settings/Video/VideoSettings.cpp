@@ -5,7 +5,9 @@
 #include "VideoSettings.h"
 
 VideoSettings::VideoSettings(QObject *parent) : RSettingsQT(KEY_VIDEO_SETTINGS, parent) {
+    QObject::connect(this, &RedisQT::ready, this, &VideoSettings::readyReceived);
     QObject::connect(this, &RedisQT::message, this, &VideoSettings::messageReceived);
+    init();
 }
 
 VideoSettings::~VideoSettings() {}
@@ -29,9 +31,7 @@ void VideoSettings::setLastVideo(const QString &lastVideo) {
 }
 
 int VideoSettings::getVolume() const {
-    auto v = get(KEY_VOLUME).toInt();
-    qDebug() << "getVolume: " << v;
-    return v;
+    return get(KEY_VOLUME).toInt();
 }
 
 void VideoSettings::setVolume(int value) {
@@ -44,7 +44,6 @@ void VideoSettings::messageReceived(const QString &channel, const QString &messa
     if(!doc[KEY_DIRECTORY].isUndefined()) directory = doc[KEY_DIRECTORY].toString();
     else if(!doc[KEY_LAST_VIDEO].isUndefined()) lastVideo = doc[KEY_LAST_VIDEO].toString();
     else if(!doc[KEY_VOLUME].isUndefined()) volume = doc[KEY_VOLUME].toInt();
-    qDebug() << "received" << message << "from" << channel;
 }
 
 void VideoSettings::setDefaultValues() {

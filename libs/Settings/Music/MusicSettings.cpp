@@ -5,7 +5,9 @@
 #include "MusicSettings.h"
 
 MusicSettings::MusicSettings(QObject *parent) : RSettingsQT(KEY_MUSIC_SETTINGS, parent) {
+    QObject::connect(this, &RedisQT::ready, this, &MusicSettings::readyReceived);
     QObject::connect(this, &RedisQT::message, this, &MusicSettings::messageReceived);
+    init();
 }
 
 MusicSettings::~MusicSettings() {}

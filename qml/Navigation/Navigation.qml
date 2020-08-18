@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtPositioning 5.6
 
+import settings 1.0
 import io.eberlein.carpi.map 1.0
 
 // todo show next turn when routing
@@ -27,6 +28,11 @@ Page {
         var f = routingModel.locationEntryFromPosition(p.latitude, p.longitude)
         var t = routingModel.locationEntryFromPosition(lat, lon)
         routingModel.setStartAndTarget(f, t)
+    }
+
+    NavigationSettings {
+        id: settings
+
     }
 
     PositionSource {

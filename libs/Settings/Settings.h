@@ -7,12 +7,14 @@
 
 #include "Music/MusicSettings.h"
 #include "Video/VideoSettings.h"
+#include "Navigation/NavigationSettings.h"
 
 class Settings {
 public:
     static void registerTypes(){
         MusicSettings::registerType();
         VideoSettings::registerType();
+        NavigationSettings::registerType();
     }
 };
 

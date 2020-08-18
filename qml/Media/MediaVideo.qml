@@ -10,20 +10,21 @@ Page {
 
     VideoSettings {
         id: videoSettings
-        volume: volume.value
     }
 
     VideoChooser {
         id: videoChooser
         visible: false
         videoSettings: videoSettings
-        onBtnVideoSelectedClicked: mediaPlayer.source = selectedVideoUrl
+        onBtnVideoSelectedClicked: {
+            mediaPlayer.source = selectedVideoUrl
+            videoSettings.lastVideo = selectedVideoUrl
+        }
     }
 
     MediaPlayer {
         id: mediaPlayer
         videoOutput: vOut
-        volume: videoSettings.volume / 100
     }
 
     Label {
@@ -35,7 +36,7 @@ Page {
     }
 
     Slider {
-        id: volume
+        id: volumeSlider
         orientation: Qt.Vertical
         value: 20 // todo set via settings
         from: 0
@@ -46,6 +47,11 @@ Page {
         anchors.topMargin: 8
         anchors.bottom: playPause.top
         anchors.bottomMargin: 8
+
+        onMoved: {
+            mediaPlayer.volume = value / 100;
+            videoSettings.volume = value;
+        }
     }
 
     Button {

@@ -21,7 +21,6 @@ Page {
 
     MusicSettings {
         id: musicSettings
-
     }
 
     FolderListModel {

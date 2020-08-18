@@ -9,7 +9,7 @@
 
 #include <rsettingsqt/rsettingsqt.h>
 
-#define KEY_SETTINGS_NAVIGATION "navigation"
+#define KEY_SETTINGS_NAVIGATION "navigation/"
 #define KEY_ROUTING "routing"
 #define KEY_LATITUDE_START "latitudeStart"
 #define KEY_LONGITUDE_START "longitudeStart"
@@ -29,6 +29,8 @@ class NavigationSettings : public RSettingsQT {
 public:
     explicit NavigationSettings(QObject *parent = nullptr);
     ~NavigationSettings() override;
+
+    static void registerType();
 
     [[nodiscard]] bool isRouting() const;
     void setRouting(bool value);

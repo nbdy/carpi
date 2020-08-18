@@ -1,9 +1,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Qt.labs.settings 1.0
-
-import "../Media"
 
 Page {
     title: "Settings :: Media"
@@ -36,7 +33,7 @@ Page {
         interactive: false
         currentIndex: 0
 
-        MediaMusic {}
-        MediaVideo {}
+        SettingsMusic {}
+        SettingsVideo {}
     }
 }

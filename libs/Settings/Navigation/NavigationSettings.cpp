@@ -4,8 +4,10 @@
 
 #include "NavigationSettings.h"
 
-NavigationSettings::NavigationSettings(QObject *parent) : RSettingsQT(parent) {
+NavigationSettings::NavigationSettings(QObject *parent) : RSettingsQT(KEY_SETTINGS_NAVIGATION, parent) {
+    QObject::connect(this, &RedisQT::ready, this, &NavigationSettings::readyReceived);
     QObject::connect(this, &RedisQT::message, this, &NavigationSettings::messageReceived);
+    init();
 }
 
 NavigationSettings::~NavigationSettings() {
@@ -18,7 +20,7 @@ bool NavigationSettings::isRouting() const {
 
 void NavigationSettings::setRouting(bool value) {
     set(KEY_ROUTING, value);
-    emit
+    emit routingChanged(value);
 }
 
 QGeoCoordinate NavigationSettings::getStart() const {
@@ -98,6 +100,13 @@ bool NavigationSettings::valuesSet() {
 
 void NavigationSettings::messageReceived(const QString &channel, const QString &msg) {
     auto doc = str2doc(msg.toStdString());
+    if(!doc[KEY_ROUTING].isUndefined()) routing = doc[KEY_ROUTING].toBool();
+    else if(!doc[KEY_LATITUDE_START].isUndefined()) latitudeStart = doc[KEY_LATITUDE_START].toDouble();
+    else if(!doc[KEY_LONGITUDE_START].isUndefined()) longitudeStart = doc[KEY_LONGITUDE_START].toDouble();
+    else if(!doc[KEY_LATITUDE_DESTINATION].isUndefined()) latitudeDestination = doc[KEY_LATITUDE_DESTINATION].toDouble();
+    else if(!doc[KEY_LONGITUDE_DESTINATION].isUndefined()) longitudeDestination = doc[KEY_LONGITUDE_DESTINATION].toDouble();
+}
 
-
+void NavigationSettings::registerType() {
+    qmlRegisterType<NavigationSettings>("settings", 1, 0, "NavigationSettings");
 }

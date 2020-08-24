@@ -31,7 +31,7 @@ Page {
         id: lblVideoUrl
         anchors.top: parent.top
         anchors.topMargin: 8
-        anchors.left: volume.right
+        anchors.left: volumeSlider.right
         anchors.leftMargin: 16
     }
 
@@ -102,7 +102,7 @@ Page {
         id: vOut
         anchors.top: lblVideoUrl.bottom
         anchors.topMargin: 4
-        anchors.left: volume.right
+        anchors.left: volumeSlider.right
         anchors.leftMargin: 8
         anchors.bottom: progress.top
         anchors.bottomMargin: 8

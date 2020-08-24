@@ -28,9 +28,7 @@
         <file>qml/Navigation/InfoPopup.qml</file>
         <file>qml/Media/VideoChooser.qml</file>
         <file>qml/Navigation/CircleButton.qml</file>
-        <file>qml/UISettings.qml</file>
         <file>qml/Settings/SettingsMusic.qml</file>
         <file>qml/Settings/SettingsVideo.qml</file>
-        <file>qml/SettingsSystem.qml</file>
     </qresource>
 </RCC>

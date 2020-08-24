@@ -17,12 +17,15 @@ ApplicationWindow {
     visible: true
     width: 1024
     height: 600
-    visibility: isFullscreen()
     minimumWidth: width
     maximumWidth: width
     minimumHeight: height
     maximumHeight: height
     title: "carpi"
+
+    Component.onCompleted: {
+        visibility = isFullscreen()
+    }
 
     function isFullscreen(){
         if(isPi.isFile) return ApplicationWindow.Windowed

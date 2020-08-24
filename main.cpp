@@ -93,6 +93,17 @@ QJsonDocument parseArguments(QGuiApplication &app){
     return cfg;
 }
 
+bool checkConfiguration(const QJsonDocument& doc){
+    bool ok = true;
+    qDebug() << "checking the configuration";
+    if(!doc["maps"].toString().startsWith("/")) {
+        qDebug() << "Error:" << doc["maps"].toString();
+        qDebug() << "\tThe path to the maps folder must be absolute";
+        ok = false;
+    }
+    return ok;
+}
+
 int main(int argc, char **argv)
 {
     qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
@@ -115,6 +126,8 @@ int main(int argc, char **argv)
         qDebug() << "no configuration provided. exiting.";
         exit(-1);
     }
+
+    if(!checkConfiguration(cfg)) exit(-1);
 
     QQuickStyle::setStyle(cfg["style"].toString());
 

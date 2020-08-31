@@ -5,7 +5,6 @@
 #include "VideoSettings.h"
 
 VideoSettings::VideoSettings(QObject *parent) : RSettingsQT(KEY_VIDEO_SETTINGS, parent) {
-    QObject::connect(this, &RedisQT::ready, this, &VideoSettings::readyReceived);
     QObject::connect(this, &RedisQT::message, this, &VideoSettings::messageReceived);
     init();
 }

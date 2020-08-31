@@ -49,7 +49,7 @@ public:
     [[nodiscard]] double getLongitudeDestination() const;
     void setLongitudeDestination(double value);
 
-    void setValues() override;
+    void setValues();
     void setDefaultValues() override;
     bool valuesSet() override;
 

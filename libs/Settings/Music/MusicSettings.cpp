@@ -5,7 +5,6 @@
 #include "MusicSettings.h"
 
 MusicSettings::MusicSettings(QObject *parent) : RSettingsQT(KEY_MUSIC_SETTINGS, parent) {
-    QObject::connect(this, &RedisQT::ready, this, &MusicSettings::readyReceived);
     QObject::connect(this, &RedisQT::message, this, &MusicSettings::messageReceived);
     init();
 }
@@ -49,6 +48,7 @@ int MusicSettings::getVolume() const {
 }
 
 void MusicSettings::setDefaultValues() {
+    qDebug() << "setDefaultValues";
     setDirectory(QStandardPaths::writableLocation(QStandardPaths::MusicLocation));
     setVolume(42);
     setLastAlbum("");

@@ -37,7 +37,7 @@ public:
 
     void setDefaultValues() override;
     bool valuesSet() override;
-    void setValues() override;
+    void setValues();
 
 public slots:
     void messageReceived(const QString& channel, const QString& message);

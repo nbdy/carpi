@@ -13,10 +13,12 @@
 // todo handle segfault when redis is not running and client tried to connect
 
 QJsonDocument loadConfig(const QString& fn){
+    qDebug() << "loading configuration:" << fn;
     QFile f(fn);
     if(!f.exists()) return QJsonDocument();
     QString data;
     if(f.open(QIODevice::ReadOnly)) data = f.readAll();
+    qDebug() << "configuration file exists and has been loaded";
     return QJsonDocument::fromJson(data.toUtf8());
 }
 
@@ -33,6 +35,7 @@ QStringList listDirectory(const QString& dir){
     QStringList r;
     QDir d(dir);
     for(const auto& e : d.entryList(QDir::Filter::Dirs)) r << e;
+    qDebug() << "directories in " << dir << ":" << r;
     return r;
 }
 
@@ -69,7 +72,7 @@ QJsonDocument parseArguments(QGuiApplication &app){
     QCommandLineOption optionCacheDirectory("cache-directory", QCoreApplication::translate("main", "caching directory"), "caching-directory");
 
     clip.addOptions({
-        optionConfig, optionMaps, optionStyle, optionStylesheetDirectory, optionCacheDirectory
+        optionWriteConfig, optionConfig, optionMaps, optionStyle, optionStylesheetDirectory, optionCacheDirectory
     });
 
     clip.process(app);
@@ -112,7 +115,7 @@ int main(int argc, char **argv)
     Utils::registerTypes();
     Settings::registerTypes();
 
-    osmscout::OSMScoutQt::RegisterQmlTypes("io.eberlein.carpi.map");
+    osmscout::OSMScoutQt::RegisterQmlTypes("io.eberlein.carpi.map", 1, 0);
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 

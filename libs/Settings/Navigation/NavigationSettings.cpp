@@ -5,7 +5,6 @@
 #include "NavigationSettings.h"
 
 NavigationSettings::NavigationSettings(QObject *parent) : RSettingsQT(KEY_SETTINGS_NAVIGATION, parent) {
-    QObject::connect(this, &RedisQT::ready, this, &NavigationSettings::readyReceived);
     QObject::connect(this, &RedisQT::message, this, &NavigationSettings::messageReceived);
     init();
 }

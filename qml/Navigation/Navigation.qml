@@ -32,7 +32,6 @@ Page {
 
     NavigationSettings {
         id: settings
-
     }
 
     PositionSource {
@@ -99,7 +98,7 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             focus: true
-            renderingType: "tiled" // plane
+            renderingType: "tiled"
             showCurrentPosition: true
             vehiclePosition: navigationModel.vehiclePosition
 

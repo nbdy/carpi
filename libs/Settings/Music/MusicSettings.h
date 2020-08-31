@@ -43,7 +43,7 @@ public:
 
     void setDefaultValues() override;
     bool valuesSet() override;
-    void setValues() override;
+    void setValues();
 
 
 public slots:

@@ -6,3 +6,5 @@ sudo apt install -y libcairo2-dev libagg-dev libpango1.0-dev freeglut3-dev libgl
                     qml-module-qtpositioning qml-module-qtlocation qtquickcontrols2-5-dev
 
 ./scripts/libosmscout.sh
+./scripts/disqt.sh
+./scripts/rsettingsqt.sh

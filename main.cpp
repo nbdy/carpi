@@ -31,14 +31,6 @@ bool writeConfig(const QString& fn, const QJsonDocument &doc){
     return r;
 }
 
-QStringList listDirectory(const QString& dir){
-    QStringList r;
-    QDir d(dir);
-    for(const auto& e : d.entryList(QDir::Filter::Dirs)) r << e;
-    qDebug() << "directories in " << dir << ":" << r;
-    return r;
-}
-
 template<typename R> void setValue(QCommandLineParser &p, QCommandLineOption &opt, const QString& key, QJsonObject &o, R defaultValue){
     if(p.isSet(opt)) o.insert(key, p.value(opt));
     else o.insert(key, defaultValue);
@@ -72,7 +64,7 @@ QJsonDocument parseArguments(QGuiApplication &app){
     QCommandLineOption optionCacheDirectory("cache-directory", QCoreApplication::translate("main", "caching directory"), "caching-directory");
 
     clip.addOptions({
-        optionWriteConfig, optionConfig, optionMaps, optionStyle, optionStylesheetDirectory, optionCacheDirectory
+        optionWriteConfig, optionConfig, optionMaps, optionStyle, optionStylesheet, optionStylesheetDirectory, optionCacheDirectory
     });
 
     clip.process(app);
@@ -82,9 +74,10 @@ QJsonDocument parseArguments(QGuiApplication &app){
     QJsonDocument cfg;
     if(clip.isSet(optionConfig)) cfg = loadConfig(clip.value(optionConfig));
     else {
+        qDebug() << "no config specified, using the default one";
         QJsonObject o;
 
-        setValue(clip, optionMaps, "maps", o, "");
+        setValue(clip, optionMaps, "maps", o, "/media/data/map/osmscout");
         setValue(clip, optionStyle, "style", o, "Material");
         setValue(clip, optionStylesheet, "stylesheet", o, "/usr/local/share/stylesheets/standard.oss");
         setValue(clip, optionStylesheetDirectory, "stylesheet-directory", o, "/usr/share/local/stylesheets/");
@@ -97,6 +90,7 @@ QJsonDocument parseArguments(QGuiApplication &app){
 }
 
 bool checkConfiguration(const QJsonDocument& doc){
+    qDebug() << doc.toJson();
     bool ok = true;
     qDebug() << "checking the configuration";
     if(!doc["maps"].toString().startsWith("/")) {
@@ -138,7 +132,7 @@ int main(int argc, char **argv)
             .WithCacheLocation(cfg["cache-directory"].toString())
             .WithStyleSheetFile(cfg["stylesheet"].toString())
             .WithStyleSheetDirectory(cfg["stylesheet-directory"].toString())
-            .WithMapLookupDirectories(listDirectory(cfg["maps"].toString()))
+            .WithMapLookupDirectories(QStringList() << cfg["maps"].toString())
             .Init();
 
     if (!si) return -1;

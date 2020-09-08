@@ -9,29 +9,29 @@ MusicSettings::MusicSettings(QObject *parent) : RSettingsQT(KEY_MUSIC_SETTINGS, 
     init();
 }
 
-MusicSettings::~MusicSettings() {}
+MusicSettings::~MusicSettings() = default;
 
-void MusicSettings::setDirectory(const QString &directory) {
-    set(KEY_DIRECTORY, directory);
-    emit directoryChanged(directory);
+void MusicSettings::setDirectory(const QString &value) {
+    set(KEY_DIRECTORY, value);
+    emit directoryChanged(value);
 }
 
 QString MusicSettings::getDirectory() const {
     return directory;
 }
 
-void MusicSettings::setLastAlbum(const QString &lastAlbum) {
-    set(KEY_LAST_ALBUM, lastAlbum);
-    emit lastAlbumChanged(lastAlbum);
+void MusicSettings::setLastAlbum(const QString &value) {
+    set(KEY_LAST_ALBUM, value);
+    emit lastAlbumChanged(value);
 }
 
 QString MusicSettings::getLastAlbum() const {
     return lastAlbum;
 }
 
-void MusicSettings::setLastSong(const QString &lastSong) {
-    set(KEY_LAST_SONG, lastSong);
-    emit lastSongChanged(lastSong);
+void MusicSettings::setLastSong(const QString &value) {
+    set(KEY_LAST_SONG, value);
+    emit lastSongChanged(value);
 }
 
 QString MusicSettings::getLastSong() const {

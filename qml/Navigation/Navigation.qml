@@ -115,7 +115,7 @@ Page {
                 id: dialogBtnColumn
                 spacing: 20
 
-                anchors.left: parent.left
+                // anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
 
                 CircleButton {

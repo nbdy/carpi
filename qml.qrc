@@ -30,5 +30,6 @@
         <file>qml/Navigation/CircleButton.qml</file>
         <file>qml/Settings/SettingsMusic.qml</file>
         <file>qml/Settings/SettingsVideo.qml</file>
+        <file>qml/Singletons/Navigation.qml</file>
     </qresource>
 </RCC>

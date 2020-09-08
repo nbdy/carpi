@@ -2,5 +2,8 @@
   "gps": true,
   "wifi": false,
   "bluetooth": false,
-  "maps": "/media/data/map/"
+  "maps": "/media/data/map/osmscout/",
+  "cache-directory": "/var/lib/carpi/cache/",
+  "stylesheet-directory": "/usr/local/share/stylesheets/",
+  "stylesheet": "/usr/local/share/stylesheets/standard.oss"
 }

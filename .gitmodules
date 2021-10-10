@@ -1,0 +1,9 @@
+[submodule "ext/Nuklear"]
+	path = ext/Nuklear
+	url = https://github.com/Immediate-Mode-UI/Nuklear
+[submodule "ext/modulepp"]
+	path = ext/modulepp
+	url = https://github.com/nbdy/modulepp
+[submodule "ext/ohlog"]
+	path = ext/ohlog
+	url = https://github.com/nbdy/ohlog

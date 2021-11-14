@@ -34,8 +34,12 @@ include_directories(src/ext/raygui/src)
 
 add_executable(carpi main.cpp src/carpi_config.h src/Module/Module.cpp)
 
+link_directories(
+        ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/
+)
+
 if(CARPI_DESKTOP)
-    target_link_libraries(carpi dl pthread m ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
+    target_link_libraries(carpi dl pthread m raylib)
     add_compile_definitions(carpi CARPI_DESKTOP)
 else()
     include_directories(
@@ -48,7 +52,7 @@ else()
             /usr/local/lib
             /opt/vc/lib
     )
-    target_link_libraries(carpi dl pthread m rt stdc++fs bcm_host ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
+    target_link_libraries(carpi dl pthread m rt stdc++fs bcm_host raylib)
 endif()
 
 if(CARPI_MODULES)

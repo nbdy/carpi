@@ -5,7 +5,7 @@ if [ "${PWD##*/}" != "carpi" ]; then
   exit
 fi
 
-if [ "$1" == "crosscompile" ] && [ $# == 1 ]; then
+if [ "$#" == "1" ]; then
   echo "No platform specified"
   exit
 fi
@@ -25,8 +25,8 @@ if [ -d "build" ]; then
 fi
 mkdir build
 cd build
-if [ "$1" == "crosscompile" ]; then
-  cmake .. -DPLATFORM="$2" -DCMAKE_C_COMPILER=/usr/bin/arm-linux-gnueabihf-gcc -DCMAKE_CXX_COMPILER=/usr/bin/arm-linux-gnueabihf-g++ -DBUILD_EXAMPLES=OFF
+if [ "$#" == "1" ]; then
+  cmake .. -DPLATFORM="$1" -DBUILD_EXAMPLES=OFF
 else
   cmake .. -DBUILD_EXAMPLES=OFF
 fi

@@ -37,6 +37,16 @@ if(CARPI_DESKTOP)
     target_link_libraries(carpi dl pthread m ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
     add_compile_definitions(carpi CARPI_DESKTOP)
 else()
+    include_directories(
+            /opt/vc/lib
+            /opt/vc/include
+            /opt/vc/include/interface/vmcs_host/linux
+            /opt/vc/include/interface/vcos/pthreads
+    )
+    link_directories(
+            /usr/local/lib
+            /opt/vc/lib
+    )
     target_link_libraries(carpi dl pthread m rt stdc++fs bcm_host ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
 endif()
 

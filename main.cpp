@@ -2,6 +2,7 @@
 // Created by nbdy on 10.10.21.
 //
 
+#include "raylib.h"
 #define RAYGUI_IMPLEMENTATION
 #include "ext/raygui.h"
 

@@ -30,7 +30,6 @@ if(NOT CARPI_DESKTOP)
     add_definitions(-DPLATFORM=PLATFORM_DRM)
 endif()
 
-include_directories(ext/raylib/src)
 include_directories(src)
 include_directories(src/ext)
 include_directories(src/ext/raygui/src)

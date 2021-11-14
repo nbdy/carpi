@@ -21,6 +21,7 @@ if [ ! -f "/usr/local/include/raylib.h" ]; then
   fi
   make -j$(nproc)
   sudo make install
+  sudo ln -s /usr/local/lib/libraylib.so.4.0.0 /usr/lib/libraylib.so.400
   cd /tmp
   rm -rf raylib
 fi

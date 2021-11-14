@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.0.0)
 project(carpi)
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_CXX_FLAGS "-Wno-enum-compare")
+
+
 option(CARPI_DESKTOP "Compile desktop variant" OFF)
 option(CARPI_DEBUG "Build debug variant" ON)
 option(CARPI_MODULES "Build the modules" OFF)

@@ -5,11 +5,6 @@ if [ "${PWD##*/}" != "carpi" ]; then
   exit
 fi
 
-if [ "$#" == "1" ]; then
-  echo "No platform specified"
-  exit
-fi
-
 ./scripts/dependencies.sh
 
 cd /tmp

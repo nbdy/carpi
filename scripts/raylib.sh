@@ -30,4 +30,4 @@ if [ "$#" == "1" ]; then
 else
   cmake .. -DBUILD_EXAMPLES=OFF
 fi
-make -j8
+make -j$(nproc)

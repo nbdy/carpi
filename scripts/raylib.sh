@@ -15,9 +15,9 @@ if [ ! -f "/usr/local/include/raylib.h" ]; then
   mkdir build
   cd build
   if [ "$#" == "1" ]; then
-    cmake .. -DPLATFORM="$1" -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
+    cmake .. -DPLATFORM="$1" -DBUILD_EXAMPLES=OFF
   else
-    cmake .. -DBUILD_EXAMPLES=OFF -DBUILD_SHARED_LIBS=ON
+    cmake .. -DBUILD_EXAMPLES=OFF
   fi
   make -j$(nproc)
   sudo make install

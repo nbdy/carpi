@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 option(CARPI_DESKTOP "Compile desktop variant" OFF)
 option(CARPI_DEBUG "Build debug variant" ON)
+option(CARPI_MODULES "Build the modules" OFF)
 
 if(CARPI_DEBUG)
     set(CMAKE_BUILD_TYPE "Debug")
@@ -50,4 +51,6 @@ else()
     target_link_libraries(carpi dl pthread m rt stdc++fs bcm_host ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
 endif()
 
-add_subdirectory(modules)
+if(CARPI_MODULES)
+    add_subdirectory(modules)
+endif()

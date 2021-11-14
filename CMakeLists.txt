@@ -54,7 +54,7 @@ else()
             /usr/local/lib
             /opt/vc/lib
     )
-    target_link_libraries(carpi dl pthread m rt stdc++fs bcm_host raylib)
+    target_link_libraries(carpi dl pthread m rt stdc++fs raylib -L/opt/vc/lib/libbcm_host.so)
 endif()
 
 if(CARPI_MODULES)

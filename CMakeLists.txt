@@ -37,7 +37,7 @@ if(CARPI_DESKTOP)
     target_link_libraries(carpi dl pthread m ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
     add_compile_definitions(carpi CARPI_DESKTOP)
 else()
-    target_link_libraries(carpi dl pthread m rt ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
+    target_link_libraries(carpi dl pthread m rt stdc++fs ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/libraylib.a)
 endif()
 
 add_subdirectory(modules)

@@ -36,7 +36,12 @@ Copyright (c) 2021 Pascal Eberlein
 #include <chrono>
 #include <fcntl.h>
 #include <dlfcn.h>
+
+#if __cplusplus >= 201703L
 #include <filesystem>
+#else
+#include <experimental/filesystem>
+#endif
 
 #define F_CREATE(T) extern "C" T* create() {return new T;}
 

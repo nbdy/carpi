@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [ "${PWD##*/}" != "carpi" ]; then
-  echo "This script should be executed from the carpi directory"
-  exit
-fi
-
 ./scripts/dependencies.sh
 
 cd /tmp

@@ -23,7 +23,7 @@ set(WITH_PIC ON)
 set(BUILD_SHARED_LIBS ON)
 
 if(NOT CARPI_DESKTOP)
-    message(VERBOSE Building for raspberry pi)
+    message("Building for raspberry pi")
     set(CMAKE_SYSTEM_PROCESSOR arm)
     set(CMAKE_C_COMPILER /usr/bin/arm-linux-gnueabihf-gcc)
     set(CMAKE_CXX_COMPILER /usr/bin/arm-linux-gnueabihf-g++)

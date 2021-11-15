@@ -4,7 +4,6 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_CXX_FLAGS "-Wno-enum-compare")
 
-
 option(CARPI_DESKTOP "Compile desktop variant" OFF)
 option(CARPI_DEBUG "Build debug variant" ON)
 option(CARPI_MODULES "Build the modules" OFF)
@@ -24,6 +23,7 @@ set(WITH_PIC ON)
 set(BUILD_SHARED_LIBS ON)
 
 if(NOT CARPI_DESKTOP)
+    message(VERBOSE Building for raspberry pi)
     set(CMAKE_SYSTEM_PROCESSOR arm)
     set(CMAKE_C_COMPILER /usr/bin/arm-linux-gnueabihf-gcc)
     set(CMAKE_CXX_COMPILER /usr/bin/arm-linux-gnueabihf-g++)

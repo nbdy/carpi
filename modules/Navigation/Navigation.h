@@ -5,13 +5,14 @@
 #ifndef CARPI_MODULES_NAVIGATION_NAVIGATION_H_
 #define CARPI_MODULES_NAVIGATION_NAVIGATION_H_
 
+#include <string>
+
 #include <mapnik/map.hpp>
 #include <mapnik/load_map.hpp>
 
-#include "config.h"
-#include "Module/Module.h"
+#include "carpi_config.h"
 
-class Navigation : public Module {
+class Navigation : public IModule {
 private:
   mapnik::Map map;
 

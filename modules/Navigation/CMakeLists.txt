@@ -1,1 +1,2 @@
-add_library(Navigation Navigation.h Navigation.cpp ${PROJECT_SOURCE_DIR}/src/Module/Module.cpp)
+add_library(Navigation Navigation.h Navigation.cpp)
+target_link_libraries(Navigation mapnik)

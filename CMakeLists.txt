@@ -27,14 +27,13 @@ if(NOT CARPI_DESKTOP)
     set(CMAKE_SYSTEM_PROCESSOR arm)
     set(CMAKE_C_COMPILER /usr/bin/arm-linux-gnueabihf-gcc)
     set(CMAKE_CXX_COMPILER /usr/bin/arm-linux-gnueabihf-g++)
-    add_definitions(-DPLATFORM=PLATFORM_DRM)
 endif()
 
 include_directories(src)
 include_directories(src/ext)
 include_directories(src/ext/raygui/src)
 
-add_executable(carpi main.cpp src/carpi_config.h src/Module/Module.cpp)
+add_executable(carpi main.cpp src/carpi_config.h)
 
 link_directories(
         ${PROJECT_SOURCE_DIR}/ext/raylib/build/raylib/
@@ -44,6 +43,8 @@ if(CARPI_DESKTOP)
     target_link_libraries(carpi dl pthread m raylib)
     add_compile_definitions(carpi CARPI_DESKTOP)
 else()
+    target_compile_definitions(carpi PUBLIC PLATFORM=PLATFORM_DRM)
+
     include_directories(
             /opt/vc/lib
             /opt/vc/include

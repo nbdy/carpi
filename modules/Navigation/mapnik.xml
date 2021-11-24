@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map[]>
+<Map background-color="#000000" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+    <Parameters>
+        <Parameter name="bounds">-180,-85.05112877980659,180,85.05112877980659</Parameter>
+        <Parameter name="center">0,0,2</Parameter>
+        <Parameter name="format"><![CDATA[png8]]></Parameter>
+        <Parameter name="minzoom">0</Parameter>
+        <Parameter name="maxzoom">22</Parameter>
+        <Parameter name="scale">1</Parameter>
+        <Parameter name="metatile">2</Parameter>
+        <Parameter name="id"><![CDATA[50_shades_of_green]]></Parameter>
+        <Parameter name="_updated">1554156305000</Parameter>
+        <Parameter name="name"><![CDATA[50 shades of green]]></Parameter>
+        <Parameter name="tilejson"><![CDATA[2.0.0]]></Parameter>
+        <Parameter name="scheme"><![CDATA[xyz]]></Parameter>
+    </Parameters>
+    <Style filter-mode="first" name="border">
+        <Rule>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <MinScaleDenominator>5000</MinScaleDenominator>
+            <Filter><![CDATA[([admin_level] >= 6)]]></Filter>
+            <TextSymbolizer face-name="Open Sans Regular" fill="#19ff00" size="18"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>3000000</MaxScaleDenominator>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <Filter><![CDATA[([admin_level] = 5)]]></Filter>
+            <TextSymbolizer face-name="Open Sans Regular" fill="#19ff00" size="18"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <Filter><![CDATA[([admin_level] = 4)]]></Filter>
+            <TextSymbolizer face-name="Open Sans Regular" fill="#19ff00" placement-type="simple" size="24"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="border-outline">
+        <Rule>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <MinScaleDenominator>5000</MinScaleDenominator>
+            <Filter><![CDATA[([admin_level] >= 6)]]></Filter>
+            <LineSymbolizer stroke="#1b8719" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>3000000</MaxScaleDenominator>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <Filter><![CDATA[([admin_level] = 5)]]></Filter>
+            <LineSymbolizer stroke="#1b8719" />
+        </Rule>
+        <Rule>
+            <MinScaleDenominator>750000</MinScaleDenominator>
+            <Filter><![CDATA[([admin_level] = 4)]]></Filter>
+            <LineSymbolizer stroke="#1b8719" />
+        </Rule>
+    </Style>
+    <Layer name="border" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[border-outline]]></StyleName>
+        <StyleName><![CDATA[border]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_admin) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[879395.679852302,5965686.75914001,1544367.78993445,6563415.27844281]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[border]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="water">
+        <Rule>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="#3f4686" fill-opacity="0.4" />
+        </Rule>
+    </Style>
+    <Layer name="water" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[water]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_waterareas) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[879395.679852302,5965686.75914001,1544367.78993445,6563415.27844281]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[water]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="mainroad-fill">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#5cb011" stroke-width="2.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#5cb011" stroke-width="1.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <MinScaleDenominator>50000</MinScaleDenominator>
+            <LineSymbolizer stroke="#5cb011" stroke-width="0.5" />
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="mainroad-case">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#08db00" stroke-width="4" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#08db00" stroke-width="2" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <MinScaleDenominator>50000</MinScaleDenominator>
+            <LineSymbolizer stroke="#08db00" stroke-width="0.5" />
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="mainroad">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#15590e" stroke-width="1" />
+            <TextSymbolizer dy="10" face-name="Open Sans Regular" fill="#19ff00" placement="line"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#15590e" stroke-width="0.8" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <MinScaleDenominator>50000</MinScaleDenominator>
+            <LineSymbolizer stroke="#15590e" stroke-width="0.6" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <MinScaleDenominator>100000</MinScaleDenominator>
+            <LineSymbolizer stroke="#15590e" stroke-width="0.1" />
+        </Rule>
+    </Style>
+    <Layer name="mainroad" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[mainroad]]></StyleName>
+        <StyleName><![CDATA[mainroad-case]]></StyleName>
+        <StyleName><![CDATA[mainroad-fill]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_mainroads) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[999012.435505767,5999949.98747494,1541658.26994654,6547509.83494853]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[road]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="building">
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <PolygonSymbolizer fill="#0dd82e" fill-opacity="0.3" />
+        </Rule>
+    </Style>
+    <Layer name="building" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[building]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_buildings) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[999054.097045241,5986309.62645365,1541157.85560756,6543044.88289062]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[building]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="motorway">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke-width="1" />
+            <TextSymbolizer dy="10" face-name="Open Sans Regular" fill="#19ff00" placement="line"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="motorway-fill">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#5cb011" stroke-width="2.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#5cb011" stroke-width="1.5" />
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="motorway-case">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#08db00" stroke-width="4" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#08db00" stroke-width="2" />
+        </Rule>
+    </Style>
+    <Layer name="motorway" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[motorway-case]]></StyleName>
+        <StyleName><![CDATA[motorway-fill]]></StyleName>
+        <StyleName><![CDATA[motorway]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_motorways) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[999725.095094113,6026127.38099099,1494835.43956889,6523876.83603202]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="waterway-fill">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#3f4686" stroke-width="2.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#3f4686" stroke-width="1.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <MinScaleDenominator>50000</MinScaleDenominator>
+            <LineSymbolizer stroke="#3f4686" stroke-width="0.5" />
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="waterway-case">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#3f4686" stroke-width="4" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#3f4686" stroke-width="2" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>100000</MaxScaleDenominator>
+            <MinScaleDenominator>50000</MinScaleDenominator>
+            <LineSymbolizer stroke="#3f4686" stroke-width="0.5" />
+        </Rule>
+    </Style>
+    <Layer name="waterway" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[waterway-case]]></StyleName>
+        <StyleName><![CDATA[waterway-fill]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_waterways) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[887729.275705114,5976545.78082952,1546572.09223845,6553176.4068322]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="railway">
+        <Rule>
+            <MaxScaleDenominator>3000000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#488b0d" stroke-width="0.5" />
+        </Rule>
+    </Style>
+    <Layer name="railway" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[railway]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_railways) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[995814.126240317,6003496.23392525,1535876.3480694,6538056.56374459]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[railways]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="minorroads">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke-width="1" />
+            <TextSymbolizer dy="10" face-name="Open Sans Regular" fill="#19ff00" placement="line"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="minorroads-fill">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#5cb011" stroke-width="2.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#5cb011" stroke-width="1.5" />
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="minorroads-case">
+        <Rule>
+            <MaxScaleDenominator>25000</MaxScaleDenominator>
+            <LineSymbolizer stroke="#08db00" stroke-width="2" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <MinScaleDenominator>25000</MinScaleDenominator>
+            <LineSymbolizer stroke="#08db00" stroke-width="1" />
+        </Rule>
+    </Style>
+    <Layer name="minorroads" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[minorroads-case]]></StyleName>
+        <StyleName><![CDATA[minorroads-fill]]></StyleName>
+        <StyleName><![CDATA[minorroads]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_minorroads) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[956904.105178986,5982838.13382814,1543600.86402253,6546017.13076924]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[minorroads]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="landusage">
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'forest')]]></Filter>
+            <PolygonSymbolizer fill="#1f5825" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'park')]]></Filter>
+            <PolygonSymbolizer fill="#7ccf4d" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'golf_course')]]></Filter>
+            <PolygonSymbolizer fill="#7ccf4d" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'parking')]]></Filter>
+            <PolygonSymbolizer fill="#4c454b" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'school')]]></Filter>
+            <PolygonSymbolizer fill="#d8a315" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'university')]]></Filter>
+            <PolygonSymbolizer fill="#d8a315" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'wood')]]></Filter>
+            <PolygonSymbolizer fill="#1f5825" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'commercial')]]></Filter>
+            <PolygonSymbolizer fill="#4c454b" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'industrial')]]></Filter>
+            <PolygonSymbolizer fill="#4c454b" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'hospital')]]></Filter>
+            <PolygonSymbolizer fill="#da0716" fill-opacity="0.42" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'college')]]></Filter>
+            <PolygonSymbolizer fill="#d8a315" fill-opacity="0.42" />
+        </Rule>
+    </Style>
+    <Layer name="landusage" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[landusage]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_landusages) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[931273.36625286,5980043.80820419,1559770.44928253,6550753.50650058]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[landusage]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="transport_points" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_transport_points) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[995908.536585661,5986432.6604898,1541480.3738503,6541128.63106461]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[transport_points]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="aeroways" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_aeroways) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[1008051.72992829,6032526.25408374,1524648.12930389,6524386.38719729]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="amenities" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_amenities) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[999228.172856704,6007529.58233443,1536316.95285325,6537519.01975191]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[amenities]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Layer name="new_transport_areas" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_transport_areas) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[1007981.39517251,6009290.57959039,1536632.69395737,6524446.9200053]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[new_transport_areas]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+    <Style filter-mode="first" name="places">
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'hamlet')]]></Filter>
+            <TextSymbolizer face-name="Open Sans Regular" fill="#19ff00" size="14"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'suburb')]]></Filter>
+            <TextSymbolizer face-name="Open Sans Regular" fill="#19ff00" size="14"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'village')]]></Filter>
+            <TextSymbolizer face-name="Open Sans Regular" fill="#19ff00" size="14"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'town')]]></Filter>
+            <TextSymbolizer face-name="Open Sans Regular" fill="#19ff00" size="16"><![CDATA[[name]]]></TextSymbolizer>
+        </Rule>
+    </Style>
+    <Style filter-mode="first" name="places-outline">
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'hamlet')]]></Filter>
+            <LineSymbolizer stroke="#1b8719" stroke-width="0.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>50000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'suburb')]]></Filter>
+            <LineSymbolizer stroke="#1b8719" stroke-width="0.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>200000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'village')]]></Filter>
+            <LineSymbolizer stroke="#1b8719" stroke-width="0.5" />
+        </Rule>
+        <Rule>
+            <MaxScaleDenominator>750000</MaxScaleDenominator>
+            <Filter><![CDATA[([type] = 'town')]]></Filter>
+            <LineSymbolizer stroke="#1b8719" stroke-width="0.5" />
+        </Rule>
+    </Style>
+    <Layer name="places" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over">
+        <StyleName><![CDATA[places-outline]]></StyleName>
+        <StyleName><![CDATA[places]]></StyleName>
+        <Datasource>
+            <Parameter name="type"><![CDATA[postgis]]></Parameter>
+            <Parameter name="table"><![CDATA[(select * from osm_new_places) as _subquery]]></Parameter>
+            <Parameter name="key_field"><![CDATA[]]></Parameter>
+            <Parameter name="geometry_field"><![CDATA[]]></Parameter>
+            <Parameter name="extent_cache"><![CDATA[auto]]></Parameter>
+            <Parameter name="extent"><![CDATA[1001902.2340048,5988211.23271891,1540614.86480938,6541908.43985645]]></Parameter>
+            <Parameter name="host"><![CDATA[localhost]]></Parameter>
+            <Parameter name="port"><![CDATA[5432]]></Parameter>
+            <Parameter name="dbname"><![CDATA[gis]]></Parameter>
+            <Parameter name="user"><![CDATA[postgres]]></Parameter>
+            <Parameter name="password"><![CDATA[postgres]]></Parameter>
+            <Parameter name="id"><![CDATA[places]]></Parameter>
+            <Parameter name="project"><![CDATA[50_shades_of_green]]></Parameter>
+            <Parameter name="srs"><![CDATA[+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over]]></Parameter>
+        </Datasource>
+    </Layer>
+</Map>

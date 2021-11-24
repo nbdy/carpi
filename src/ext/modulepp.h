@@ -2,32 +2,49 @@
 
 MIT License
 
-Copyright (c) 2021 Pascal Eberlein
+    Copyright (c) 2021 Pascal Eberlein
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+                                                              copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
 
-*/
+            */
 
 #ifndef LIBMODULEPP_MODULEPP_H
 #define LIBMODULEPP_MODULEPP_H
 
-#include <iostream>
+#define USE_OHLOG
+
+#ifdef USE_OHLOG
+#include "ohlog.h"
+#endif
+
+// #define ENABLE_DRAW_FUNCTION
+// #define ENABLE_SHARED_DATA
+
+#ifdef ENABLE_DRAW_FUNCTION
+#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
+#endif
+
+#ifdef ENABLE_SHARED_DATA
+#include "json.hpp"
+#endif
+
 #include <any>
 #include <atomic>
 #include <map>
@@ -40,12 +57,14 @@ SOFTWARE.
 #include <fcntl.h>
 #include <dlfcn.h>
 #include <filesystem>
+#include <sstream>
 #include <condition_variable>
 
 #define F_CREATE(T) extern "C" T* create() {return new T;}
 
-using Path = std::filesystem::path;
+        using Path = std::filesystem::path;
 using UniqueLock = std::unique_lock<std::mutex>;
+using LockGuard = std::lock_guard<std::mutex>;
 using Clock = std::chrono::high_resolution_clock;
 using Milliseconds = std::chrono::milliseconds;
 using Nanoseconds = std::chrono::nanoseconds;
@@ -98,10 +117,24 @@ public:
   }
 };
 
+class ModuleDependency : public ModuleInformation {
+  bool m_bOptional = false;
+
+public:
+  explicit ModuleDependency(const std::string& i_sName): ModuleInformation(i_sName) {};
+  explicit ModuleDependency(const ModuleInformation& i_Information) : ModuleInformation(i_Information) {};
+  ModuleDependency(const std::string& i_sName, bool i_bOptional): ModuleInformation(i_sName), m_bOptional(i_bOptional) {};
+  ModuleDependency(const ModuleInformation& i_Information, bool i_bOptional) : ModuleInformation(i_Information), m_bOptional(i_bOptional) {};
+
+  bool isOptional() {
+    return m_bOptional;
+  }
+};
+
 class IModule {
 private:
   uint32_t m_u32CycleTime_ms = 500U;
-  std::atomic_bool m_bRun = {false};
+  std::atomic_bool m_bRun = {true};
   std::atomic_bool m_bEnable = {false};
   std::atomic_bool m_bWorkTooExpensive = {false};
   std::string m_sError;
@@ -113,10 +146,24 @@ private:
   uint64_t m_u64FunctionEndTimestamp = 0;
   uint64_t m_u64FunctionTime = 0;
   uint32_t m_u32ModifiedInterval = 0;
+  std::vector<ModuleDependency> m_Dependencies;
+#ifdef ENABLE_SHARED_DATA
+  nlohmann::json m_SharedData;
+  std::mutex m_SharedDataMutex;
+#endif
+
+protected:
+  std::map<std::string, IModule*> m_DependencyMap;
 
 public:
   IModule(): m_Thread([this] {run();}), m_Information() {};
   explicit IModule(ModuleInformation i_Information): m_Thread([this] {run();}), m_Information(std::move(i_Information)) {};
+  IModule(ModuleInformation i_Information, std::vector<ModuleDependency> i_Dependencies): m_Thread([this] {run();}), m_Information(std::move(i_Information)), m_Dependencies(std::move(i_Dependencies)) {};
+
+  ~IModule() {
+    kill();
+    join();
+  }
 
   bool start() {
     if(m_bEnable) {
@@ -168,9 +215,7 @@ public:
   };
 
   void run() {
-    while(!m_bRun) {
-      std::this_thread::sleep_for(std::chrono::milliseconds(m_u32CycleTime_ms));
-    }
+    _waitUntilEnabled();
     onStart();
     while(m_bRun) {
       _waitUntilEnabled();
@@ -186,6 +231,43 @@ public:
   virtual void work() {};
   virtual void onStart() {};
   virtual void onStop() {};
+
+#ifdef ENABLE_DRAW_FUNCTION
+  virtual void draw(float i_fX, float i_fY) {};
+  virtual void drawInformation(float i_fX, float i_fY) {
+    GuiLabel(Rectangle{i_fX, i_fY, 64, 16}, "Information");
+    GuiLabel(Rectangle{i_fX + 8, i_fY + 16, 64, 16}, ("Version: " + m_Information.getVersion().toString()).c_str());
+    GuiLabel(Rectangle{i_fX + 8, i_fY + 32, 64, 16}, ("Dependencies: " + std::to_string(m_Dependencies.size())).c_str());
+    GuiLabel(Rectangle{i_fX + 8, i_fY + 48, 64, 16}, ("Error: " + m_sError).c_str());
+    GuiLabel(Rectangle{i_fX + 8, i_fY + 64, 64, 16}, ("Work function time (ms): " + std::to_string(m_u64FunctionTime)).c_str());
+    GuiLabel(Rectangle{i_fX + 8, i_fY + 80, 64, 16}, ("Modified cycle time (ms): " + std::to_string(m_u32ModifiedInterval)).c_str());
+  };
+  virtual void drawSettings(float i_fX, float i_fY) {
+    GuiLabel(Rectangle{i_fX, i_fY, 64, 16}, "Settings");
+    m_bEnable = GuiCheckBox(Rectangle{i_fX + 8, i_fY + 16, 16, 16}, "Enable", m_bEnable);
+    GuiValueBox(Rectangle{i_fX + 64, i_fY + 36, 256, 16}, "Cycle time", (int*)&m_u32CycleTime_ms, 10, 10000, true);
+  };
+  virtual void drawDependencies(float i_fX, float i_fY) {
+      GuiLabel(Rectangle{i_fX, i_fY, 64, 16}, "Dependencies");
+      auto x = getModuleDependenciesDelimited();
+      if(!x.empty()) {
+        GuiListView(Rectangle{i_fX, i_fY + 16, 256, 256}, x.c_str(), nullptr, -1);
+      }
+  };
+#endif
+
+#ifdef ENABLE_SHARED_DATA
+  template <class T>
+  void setSharedData(T *obj, void (T::*function)(nlohmann::json&)) {
+    LockGuard lg(m_SharedDataMutex);
+    std::bind(function, obj, std::placeholders::_1)(m_SharedData);
+  };
+
+  nlohmann::json getSharedData() {
+    LockGuard lg(m_SharedDataMutex);
+    return m_SharedData;
+  }
+#endif
 
   [[nodiscard]] bool hasError() const {
     return !m_sError.empty();
@@ -214,6 +296,40 @@ public:
   [[nodiscard]] ModuleInformation getInformation() const {
     return m_Information;
   }
+
+  std::vector<ModuleDependency> getModuleDependencies() {
+    return m_Dependencies;
+  }
+
+  static std::string getModuleInformationVector2DelimitedString(const std::vector<ModuleDependency>& i_Modules, const std::string& i_sDelimiter = ";") {
+    std::stringstream r;
+    std::for_each(i_Modules.begin(), i_Modules.end(), [&r](const ModuleDependency& i_Dependency) {
+      r << i_Dependency.getName() << ";";
+    });
+    auto x = r.str();
+    return x.substr(0, x.size() - 1);
+  }
+
+  static std::string getModuleVector2DelimitedString(const std::vector<IModule*>& i_Modules, const std::string& i_sDelimiter = ";") {
+    std::stringstream r;
+    std::for_each(i_Modules.begin(), i_Modules.end(), [&r](IModule* i_Module) {
+      r << i_Module->getInformation().getName() << ";";
+    });
+    auto x = r.str();
+    return x.substr(0, x.size() - 1);
+  }
+
+  std::string getModuleDependenciesDelimited(const std::string& i_sDelimiter = ";") {
+    return getModuleInformationVector2DelimitedString(m_Dependencies, i_sDelimiter);
+  }
+
+  bool hasDependencies() {
+    return !m_Dependencies.empty();
+  }
+
+  void setDependency(const std::string& i_sName, IModule* i_pModule) {
+    m_DependencyMap[i_sName] = i_pModule;
+  }
 };
 
 class ModuleLoader {
@@ -226,7 +342,7 @@ public:
    * @return
    */
   template<typename T>
-  static T* load(const Path& path, bool verbose = false) {
+  static T* load(const Path& path, bool verbose) {
     T* r = nullptr;
     (void) dlerror(); // clearing any previous errors
     if (std::filesystem::exists(path) && path.has_extension() && path.extension() == ".so") {
@@ -236,15 +352,24 @@ public:
         auto* c = (create_t*) dlsym(h, "create"); // NOLINT(clion-misra-cpp2008-5-2-4)
         auto e = dlerror();
         if(e == nullptr) {
+          if(verbose) {
+#ifdef USE_OHLOG
+            DLOGA("Loaded module '%s'", path.c_str());
+#else
+            std::cout << "Loaded module '" << path.c_str() << "'" << std::endl;
+#endif
+          }
           r = c();
         } else {
           if(verbose) {
-            std::cout << e << std::endl;
+#ifdef USE_OHLOG
+            WLOGA("Could not load module: %s", path.c_str());
+            WLOGA("\tError: %s", e);
+#else
+            std::cout << "Could not load module: " << path.c_str() << std::endl;
+            std::cout << "\tError: " << e << std::endl;
+#endif
           }
-        }
-      } else {
-        if(verbose) {
-          std::cout << "!!" << std::endl;
         }
       }
     }
@@ -259,7 +384,7 @@ public:
    * @return std::vector<T*>
    */
   template<typename T>
-  static std::vector<T*> loadDirectory(const Path& path, bool verbose = false) {
+  static std::vector<T*> loadDirectory(const Path& path, bool verbose) {
     std::vector<T*> r;
     for (const auto& e: std::filesystem::directory_iterator(path)) {
       const auto& p = e.path();
@@ -279,7 +404,7 @@ public:
    * @return
    */
   template<typename T>
-  static std::vector<T*> loadDirectoryRecursive(const Path& path, bool verbose = false) {
+  static std::vector<T*> loadDirectoryRecursive(const Path& path, bool verbose) {
     std::vector<T*> r;
     for (const auto& e: std::filesystem::recursive_directory_iterator(path)) {
       const auto& p = e.path();
@@ -291,6 +416,17 @@ public:
     return r;
   }
 
+  template <typename T>
+  static std::vector<T*> loadDirectory(const Path& path, bool verbose, bool recursive) {
+    std::vector<T*> r;
+    if(recursive) {
+      r = loadDirectoryRecursive<T>(path, verbose);
+    } else {
+      r = loadDirectory<T>(path, verbose);
+    }
+    return r;
+  }
+
   /*!
    * load a module from a path, returns a Module pointer
    * @param path std::string, path to shared object
@@ -298,9 +434,168 @@ public:
    * @return Module*
    */
   template<typename ModuleType>
-  static ModuleType* loadModule(const Path& path, bool verbose = false) {
+  static ModuleType* loadModule(const Path& path, bool verbose) {
     return load<ModuleType>(path, verbose);
   }
+};
+
+class ModuleManager {
+  bool m_bVerbose = false;
+  std::filesystem::path m_ModuleDirectoryPath;
+  std::vector<IModule*> m_Modules;
+#ifdef ENABLE_DRAW_FUNCTION
+  std::atomic_uint32_t m_u32VisibleModule = 0;
+#endif
+
+  void resolveModuleDependencies() {
+    for(IModule* module : m_Modules) {
+      auto moduleDependencies = module->getModuleDependencies();
+#ifdef USE_OHLOG
+      if(!moduleDependencies.empty()) {
+        DLOGA("Loading %i dependencies for module '%s'", moduleDependencies.size(), module->getInformation().toString().c_str());
+      }
+#endif
+      for(const auto& dependency : moduleDependencies){
+        IModule *dep = getModuleByInformation(dependency);
+        if(dep != nullptr) {
+          module->setDependency(dependency.getName(), dep);
+        }
+#ifdef USE_OHLOG
+        else {
+          WLOGA("Failed to find dependency '%s' for module '%s", dependency.toString().c_str(), module->getInformation().toString().c_str());
+        }
+#endif
+      }
+    }
+  }
+
+  void init(bool i_bRecursive) {
+    if(i_bRecursive) {
+      m_Modules = ModuleLoader::loadDirectoryRecursive<IModule>(m_ModuleDirectoryPath, m_bVerbose);
+    } else {
+      m_Modules = ModuleLoader::loadDirectory<IModule>(m_ModuleDirectoryPath, m_bVerbose);
+    }
+#ifdef USE_OHLOG
+    DLOGA("Loaded %i modules", m_Modules.size());
+#endif
+    resolveModuleDependencies();
+  }
+
+public:
+  explicit ModuleManager(std::filesystem::path i_Path): m_ModuleDirectoryPath(std::move(i_Path)) {
+    init(false);
+  }
+
+  ModuleManager(std::filesystem::path i_Path, bool i_bRecursive): m_ModuleDirectoryPath(std::move(i_Path)) {
+    init(i_bRecursive);
+  }
+
+  ModuleManager(std::filesystem::path i_Path, bool i_bRecursive, bool i_bVerbose): m_bVerbose(i_bVerbose), m_ModuleDirectoryPath(std::move(i_Path)) {
+    init(i_bRecursive);
+  }
+
+  void destroyModules(const std::vector<ModuleInformation>& i_vExceptions) {
+    for(auto* m : m_Modules) {
+      if(std::any_of(i_vExceptions.begin(), i_vExceptions.end(), [m](const ModuleInformation& i_Info) {
+            return i_Info.toString() != m->getInformation().toString();
+          })) {
+        delete m;
+      }
+    }
+  }
+
+  void start(){
+    for(IModule* module : m_Modules) {
+      module->start();
+    }
+  }
+
+  void stop() {
+    for(IModule* module : m_Modules) {
+      module->stop();
+    }
+  }
+
+  std::vector<std::string> getModuleNames() {
+    std::vector<std::string> r;
+    for(IModule* m : m_Modules) {
+      r.push_back(m->getInformation().getName());
+    }
+    return r;
+  }
+
+  std::string getModuleNamesDelimited(const std::string& i_sDelimiter) {
+    std::stringstream r;
+    for(IModule* m : m_Modules) {
+      r << m->getInformation().getName() << i_sDelimiter;
+    }
+    return r.str().substr(0, r.str().size() - 1);
+  }
+
+  uint32_t getModuleCount() {
+    return m_Modules.size();
+  }
+
+  IModule* getModuleByInformation(const ModuleInformation& i_Information) {
+    for(IModule* module : m_Modules) {
+      if(module->getInformation().toString() == i_Information.toString()) {
+        return module;
+      }
+    }
+    return nullptr;
+  }
+
+  IModule* getModuleByName(const std::string& i_sName) {
+    for(IModule* module : m_Modules) {
+      if(module->getInformation().getName() == i_sName) {
+        return module;
+      }
+    }
+    return nullptr;
+  }
+
+  bool getModuleByIndex(uint32_t i_u32Index, IModule*& o_Module) {
+    bool r = false;
+    if(i_u32Index <= m_Modules.size()) {
+      o_Module = m_Modules[i_u32Index];
+      DLOGA("Found module %s at index %i", o_Module->getInformation().getName().c_str(), i_u32Index);
+      r = true;
+    }
+    return r;
+  }
+
+  void addModule(IModule* i_pModule) {
+    m_Modules.push_back(i_pModule);
+  }
+
+  std::vector<IModule*> getLoadableModules(bool i_bRecursive = false) {
+    auto modules = ModuleLoader::loadDirectory<IModule>(m_ModuleDirectoryPath, m_bVerbose, i_bRecursive);
+    std::vector<IModule*> unloadedModules {};
+    bool isModuleAlreadyLoaded = false;
+    for(auto *module : modules) {
+      isModuleAlreadyLoaded = false;
+      for(auto *loadedModule : m_Modules) {
+        if(module->getInformation().toString() == loadedModule->getInformation().toString()) {
+          isModuleAlreadyLoaded = true;
+          break;
+        }
+      }
+      if(!isModuleAlreadyLoaded) {
+        unloadedModules.push_back(module);
+      }
+    }
+    return unloadedModules;
+  }
+
+#ifdef ENABLE_DRAW_FUNCTION
+  IModule* getVisibleModule() {
+    return m_Modules[m_u32VisibleModule];
+  }
+
+  void setModuleVisible(uint32_t i_u32ModuleIndex) {
+    m_u32VisibleModule = i_u32ModuleIndex;
+  }
+#endif
 };
 
 #endif //LIBMODULEPP_MODULEPP_H

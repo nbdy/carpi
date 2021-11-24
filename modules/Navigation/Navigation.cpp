@@ -4,7 +4,7 @@
 
 #include "Navigation.h"
 
-Navigation::Navigation(): IModule(ModuleInformation {"Navigation"}), map(SCREEN_WIDTH - MODULE_SCROLLER_WIDTH, SCREEN_HEIGHT) {
+Navigation::Navigation(): IModule(ModuleInformation {"Navigation"}, {ModuleDependency {"GPS"}}), map(SCREEN_WIDTH - MODULE_SCROLLER_WIDTH, SCREEN_HEIGHT) {
   // mapnik::load_map(map, )
 }
 

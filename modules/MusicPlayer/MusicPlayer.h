@@ -12,7 +12,18 @@
 #include "modulepp.h"
 
 class MusicPlayer : public IModule {
+  enum SelectedUi {
+    LIBRARY = 0, PLAYLIST, CURRENT_SONG, ALBUMS, SETTINGS
+  };
+
+  SelectedUi m_SelectedUi = CURRENT_SONG;
   bool m_bPlay = false;
+
+  void drawLibraryUi();
+  void drawPlaylistUi();
+  void drawCurrentSongUi();
+  void drawAlbumsUi();
+  void drawSettingsUi();
 
 public:
   MusicPlayer();

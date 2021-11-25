@@ -442,6 +442,7 @@ public:
 class ModuleManager {
   bool m_bVerbose = false;
   std::filesystem::path m_ModuleDirectoryPath;
+  std::mutex m_ModulesMutex;
   std::vector<IModule*> m_Modules;
 #ifdef ENABLE_DRAW_FUNCTION
   std::atomic_uint32_t m_u32VisibleModule = 0;
@@ -494,14 +495,20 @@ public:
     init(i_bRecursive);
   }
 
-  void destroyModules(const std::vector<ModuleInformation>& i_vExceptions) {
-    for(auto* m : m_Modules) {
-      if(std::any_of(i_vExceptions.begin(), i_vExceptions.end(), [m](const ModuleInformation& i_Info) {
-            return i_Info.toString() != m->getInformation().toString();
-          })) {
-        delete m;
-      }
+  bool destroyModuleByIndex(uint32_t i_u32Index) {
+#ifdef USE_OHLOG
+    DLOGA("Unloading module at index %i (%i modules are loaded)", i_u32Index, m_Modules.size());
+#endif
+    LockGuard lg(m_ModulesMutex);
+    bool r = false;
+    if(m_Modules.size() > i_u32Index) {
+      delete m_Modules[i_u32Index];
+      m_Modules[i_u32Index] = nullptr;
+      auto it = std::remove(m_Modules.begin(), m_Modules.end(), nullptr);
+      m_Modules.erase(it);
+      r = true;
     }
+    return r;
   }
 
   void start(){

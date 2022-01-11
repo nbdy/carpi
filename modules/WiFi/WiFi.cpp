@@ -29,4 +29,11 @@ void WiFi::sniff() {
 
 }
 
+#ifdef ENABLE_DRAW_FUNCTION
+void WiFi::draw(float i_fX, float i_fY) {
+  static float xOffset = i_fX + 8;
+  GuiLabel(Rectangle{xOffset, i_fY, 64, 16}, "WiFi");
+}
+#endif
+
 F_CREATE(WiFi)

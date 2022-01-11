@@ -12,6 +12,8 @@
 
 constexpr uint32_t MODULE_SETTING_OFFSET = MODULE_CONTENT_OFFSET + MODULE_SCROLLER_WIDTH + 8;
 
+using namespace modulepp;
+
 class CMM : public ModuleManager, public IModule {
   int m_iListSelection = -1;
   int m_iPreviousListSelection = -1;
@@ -27,23 +29,30 @@ class CMM : public ModuleManager, public IModule {
   int m_iLoadedListScrollIndex = 0;
   std::string m_sLoadedListString;
 
-  IModule *m_pCurrentModule = nullptr;
-  std::vector<IModule *> m_LoadableModules;
+  ModuleWrapper<IModule> *m_pCurrentModule = nullptr;
+  std::vector<ModuleWrapper<IModule>*> m_LoadableModules;
 
 public:
-  explicit CMM(const std::filesystem::path& i_ModulePath) : ModuleManager(i_ModulePath, true, true), IModule(ModuleInformation {"ModuleManager"}) {
-    addModule(this);
+  explicit CMM(const std::filesystem::path& i_ModulePath) : ModuleManager(i_ModulePath, true, false), IModule(ModuleInformation {"ModuleManager"}) {
+    if(!addModule(new ModuleWrapper<IModule>(this))){
+#ifdef USE_OHLOG
+      DLOGA("Could not add module: %s", getInformation().toString().c_str());
+#endif
+    }
+    init(true);
+#ifdef USE_OHLOG
     DLOGA("Loaded %i modules", getModuleCount());
-
+#endif
     m_LoadableModules = getLoadableModules(true);
-    m_sLoadableListString = getModuleVector2DelimitedString(m_LoadableModules);
+    m_sLoadableListString = getModuleMap2DelimitedString(m_LoadableModules);
     m_sLoadedListString = getModuleNamesDelimited(";");
   }
 
   ~CMM() {
     DLOG("Unloading all modules");
-    for(uint32_t idx = 0; idx < getModuleCount(); idx++) {
-      destroyModuleByIndex(idx);
+    auto cnt = getModuleCount();
+    for(uint32_t idx = 0; idx < cnt; idx++) {
+      destroyModule(idx);
     }
   }
 
@@ -51,9 +60,17 @@ public:
 
   }
 
+  static std::string getModuleMap2DelimitedString(const std::vector<ModuleWrapper<IModule>*>& i_vModules) {
+    std::stringstream r;
+    for(const auto& m : i_vModules) {
+      r << m->getModule()->getInformation().getName() << ";";
+    }
+    return r.str().substr(0, r.str().size() - 1);
+  }
+
   void updateModuleListViews() {
     m_LoadableModules = getLoadableModules(true);
-    m_sLoadableListString = getModuleVector2DelimitedString(m_LoadableModules);
+    m_sLoadableListString = getModuleMap2DelimitedString(m_LoadableModules);
     m_sLoadedListString = getModuleNamesDelimited(";");
   }
 
@@ -89,7 +106,7 @@ public:
 
     if(m_iLoadedListSelection != -1) {
       if(GuiButton(Rectangle {i_fX + 128, i_fY + 48, 160, 32}, "Unload")) {
-        if(destroyModuleByIndex(m_iLoadedListSelection)) {
+        if(destroyModule(m_iLoadedListSelection)) {
           updateModuleListViews();
         } else {
           WLOGA("Could not find module at index %i", m_iLoadedListSelection);
@@ -100,19 +117,20 @@ public:
 
   void draw(float i_fX, float i_fY) override {
     static auto xOffset = i_fX + MODULE_SCROLLER_WIDTH + 16;
+
     if(m_pCurrentModule != nullptr) {
       drawInformation(xOffset, i_fY);
       drawSettings(xOffset, i_fY + 112);
       if(hasDependencies()) {
         drawDependencies(xOffset, i_fY + 176);
       }
-      if(m_pCurrentModule->getInformation().getName() == "ModuleManager") {
+      if(m_pCurrentModule->getModule()->getInformation().getName() == "ModuleManager") {
         drawModuleLoader(xOffset, i_fY + 256);
       }
     }
 
     m_iPreviousListSelection = m_iListSelection;
-    m_iListSelection = GuiListView(Rectangle {MODULE_CONTENT_OFFSET, 0, MODULE_SCROLLER_WIDTH, SCREEN_HEIGHT},
+    m_iListSelection = GuiListView(Rectangle {MODULE_CONTENT_OFFSET, i_fY, MODULE_SCROLLER_WIDTH, SCREEN_HEIGHT - i_fY - 2},
                                    getModuleNamesDelimited(";").c_str(), &m_iListScrollIndex, m_iListSelection);
     if(m_iListSelection != m_iPreviousListSelection) {
       if(!getModuleByIndex(m_iListSelection, m_pCurrentModule)) {

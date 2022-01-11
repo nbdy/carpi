@@ -42,12 +42,21 @@
 #include <thread>
 #include <utility>
 #include <vector>
+#include <chrono>
 
 template <typename T> using SubscribeCallback = std::function<void(const T &)>;
 template <typename T>
 using CallbackMap = std::map<std::string, SubscribeCallback<T>>;
 template <typename T>
 using SubscriptionMap = std::map<std::string, CallbackMap<T>>;
+using Clock = std::chrono::high_resolution_clock;
+using Milliseconds = std::chrono::milliseconds;
+
+constexpr const char* RESET = "\033[0m";
+constexpr const char* BLUE = "\033[34m";
+constexpr const char* WHITE = "\033[37m";
+constexpr const char* YELLOW = "\033[33m";
+constexpr const char* RED = "\033[31m";
 
 /*!
  * publish subscribe library for inter class communication
@@ -177,7 +186,8 @@ public:
 };
 
 #define DEFAULT_FORMAT "%Y.%m.%d %H:%M:%S"
-#define GET_FILENAME std::filesystem::path(__FILE__).filename()
+#define GET_FILENAME std::filesystem::path(__FILE__).filename().string()
+#define GET_TAG ("[" + std::string(GET_FILENAME) + " L" + std::to_string(__LINE__) + "] " + std::string(__PRETTY_FUNCTION__))
 
 namespace ohlog {
 enum LogLevel { DEBUG = 0, INFO, WARNING, ERROR };
@@ -209,12 +219,14 @@ public:
    * @param format std::string, the format to use
    * @return the current timestamp formatted as a string
    */
-  static std::string
-  getCurrentTimestamp(const std::string &format = DEFAULT_FORMAT) {
+  static std::string getCurrentTimestamp(const std::string &format = DEFAULT_FORMAT) {
     std::stringstream o;
-    const auto t = std::time(nullptr);
-    const auto tm = *std::localtime(&t);
+    const auto t = Clock::now();
+    auto ms = std::chrono::duration_cast<Milliseconds>(t.time_since_epoch()) % 1000;
+    auto time = Clock::to_time_t(t);
+    std::tm tm = *std::localtime(&time);
     o << std::put_time(&tm, format.c_str());
+    o << '.' << std::setfill('0') << std::setw(3) << ms.count();
     return o.str();
   }
 
@@ -232,19 +244,20 @@ public:
     std::stringstream o;
     switch (level) {
     case DEBUG:
-      o << "D ";
+      o << BLUE << "D ";
       break;
     case INFO:
-      o << "I ";
+      o << WHITE << "I ";
       break;
     case WARNING:
-      o << "W ";
+      o << YELLOW << "W ";
       break;
     case ERROR:
-      o << "E ";
+      o << RED << "E ";
       break;
     }
-    o << getCurrentTimestamp() << " " << tag << ": " << msg;
+    o << getCurrentTimestamp() << " " << tag << " ";
+    o << ": " << msg << RESET;
     std::string formatStr = o.str();
     int lineLength = snprintf(nullptr, 0, formatStr.c_str(), arguments...) + 1;
     char line[lineLength + 1];
@@ -326,13 +339,18 @@ private:
 } // namespace ohlog
 
 #define OHLOG ohlog::Logger::get()
-#define DLOG(msg) OHLOG->d(GET_FILENAME, msg)
-#define DLOGA(msg, args...) OHLOG->d(GET_FILENAME, msg, args)
-#define ILOG(msg) OHLOG->i(GET_FILENAME, msg)
-#define ILOGA(msg, args...) OHLOG->i(GET_FILENAME, msg, args)
-#define WLOG(msg) OHLOG->w(GET_FILENAME, msg)
-#define WLOGA(msg, args...) OHLOG->w(GET_FILENAME, msg, args)
-#define ELOG(msg) OHLOG->e(GET_FILENAME, msg)
-#define ELOGA(msg, args...) OHLOG->e(GET_FILENAME, msg, args)
+#define DLOG(msg) OHLOG->d(GET_TAG, msg)
+#define DLOGA(msg, args...) OHLOG->d(GET_TAG, msg, args)
+#define ILOG(msg) OHLOG->i(GET_TAG, msg)
+#define ILOGA(msg, args...) OHLOG->i(GET_TAG, msg, args)
+#define WLOG(msg) OHLOG->w(GET_TAG, msg)
+#define WLOGA(msg, args...) OHLOG->w(GET_TAG, msg, args)
+#define ELOG(msg) OHLOG->e(GET_TAG, msg)
+#define ELOGA(msg, args...) OHLOG->e(GET_TAG, msg, args)
+
+#define CATCH(F) try {F();} catch(std::exception &e) {ELOGA("Caught: %s", e.what());}
+#define CATCHA(F, A...) try {F(A...);} catch(std::exception &e) {ELOGA("Caught: %s", e.what());}
+#define CATCHN(F, N) try {F();} catch(std::exception &e) {ELOGA("[%s] Caught: %s", N, e.what());}
+#define CATCHMN(F, M, N) try {F();} catch(std::exception &e) {ELOGA("[%s]-[%s] Caught: %s", M, N, e.what());}
 
 #endif // LOGGER_OHLOG_H

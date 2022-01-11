@@ -10,6 +10,8 @@
 
 #include "gps.h"
 
+using namespace modulepp;
+
 class GPS : public IModule {
   std::mutex m_GpsDataMutex;
   struct gps_data_t m_GpsData {};

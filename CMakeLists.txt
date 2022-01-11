@@ -7,6 +7,8 @@ set(CMAKE_CXX_FLAGS "-Wno-enum-compare")
 option(CARPI_DESKTOP "Compile desktop variant" OFF)
 option(CARPI_DEBUG "Build debug variant" ON)
 option(CARPI_MODULES "Build the modules" OFF)
+option(CARPI_MODULE_GPS "Build the GPS module" ON)
+option(CARPI_MODULE_MODULE_SHOP "Build the ModuleShop module" ON)
 
 if(CARPI_DEBUG)
     set(CMAKE_BUILD_TYPE "Debug")
@@ -60,4 +62,12 @@ endif()
 
 if(CARPI_MODULES)
     add_subdirectory(modules)
+endif()
+
+if(CARPI_MODULE_GPS)
+    add_subdirectory(modules/GPS)
+endif()
+
+if(CARPI_MODULE_MODULE_SHOP)
+    add_subdirectory(modules/ModuleShop)
 endif()

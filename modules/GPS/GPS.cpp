@@ -5,7 +5,7 @@
 #include "GPS.h"
 
 GPS::GPS(): IModule(ModuleInformation {"GPS"}) {
-  setCycleTime(100);
+  setCycleTime(200);
 }
 
 void GPS::work() {

@@ -2,7 +2,7 @@
 [![Build Status](https://build.eberlein.io/buildStatus/icon?job=cpp_carpi)](https://build.eberlein.io/job/cpp_carpi/)
 
 cpp version of [carpy](https://github.com/smthnspcl/carpy) <br>
-or just [another](https://autopi.io) raspberry pi [carputer](http://carberry.it) <br>
+or just [another](https://autopi.io) raspberry pi [carputer / infotainment system](http://carberry.it) <br>
 
 hdmi touch support was tested with [this](https://www.amazon.de/gp/product/B01F3K57XG/) product <br>
 its working quiet well and has mounting holes
@@ -21,7 +21,7 @@ its working quiet well and has mounting holes
 |[android 9.0.0](https://konstakang.com/devices/rpi3/LineageOS16.0)|display support; no touch|not testable|-|boot times: first 1:48m; second 29s; third 41s
 |[emteria.os](https://emteria.com)|no|-|needs registration and installer|-|
 |[automotive grade linux](https://automotivelinux.org)|yes|as fast as konstakangs android 8|not suitable in my eyes|-|
-|[crankshaft](https://github.com/opencardev/crankshaft)|no|could not bes tested|does not recognize screen|-|
+|[crankshaft](https://github.com/opencardev/crankshaft)|no|could not be tested|does not recognize screen|-|
 ##### rpi4
 |name|hdmi touch support|speed|extra|timings|
 |----|------------------|-----|-----|-------|
